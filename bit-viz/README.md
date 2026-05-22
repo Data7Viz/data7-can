@@ -12,7 +12,8 @@
 
 <details>
 <summary><b>Смотреть<b></summary>
-
+    
+<img width="1200" height="1920" alt="313" src="https://github.com/user-attachments/assets/0cc36b8a-d9f7-4bc8-bf92-b45143650508" />
 
 </details>
 
