@@ -75,8 +75,8 @@ printf( "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
     
 <details>
 <summary><b>Смотреть как работает<b></summary>                                                    
-<img width="1200" height="1920" alt="313" src="https://github.com/user-attachments/as
-sets/0cc36b8a-d9f7-4bc8-bf92-b45143650508" />
+<img width="1200" height="1920" alt="335" src="https://github.com/user-attachments/assets/49874f71-afc8-4c6f-a7b8-7cc5e3c4191a" />
+
 
 </details> 
 
