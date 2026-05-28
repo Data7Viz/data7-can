@@ -151,6 +151,7 @@ printf( "= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 <details>
 <summary><b>Смотреть как работает<b></summary>
+<img width="1200" height="1920" alt="334" src="https://github.com/user-attachments/assets/fa2241a1-7427-4d3c-8902-5497c9589717" />
 
 
 </details>
