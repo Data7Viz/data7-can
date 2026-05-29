@@ -15,6 +15,7 @@
 <details>
 <summary><b>Смотреть</b></summary>
 
+<img width="1889" height="487" alt="Снимок экрана от 2026-05-29 17-29-42" src="https://github.com/user-attachments/assets/cafef850-59d3-4384-b2c6-c4390cc1de92" />
 
 
 
