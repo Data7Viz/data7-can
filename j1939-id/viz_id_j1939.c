@@ -10,16 +10,16 @@
 // широковешательный заголовок (шапка)
 int broad () 
 {
-	printf (SIN" 31 30 29    28 27 26    25 24    23 22 21 20 19 18 17 16   15 14 13 12 11 10  9  8     7  6  5  4  3  2  1  0   \n"RES);
-	printf (GRI"          |    Prior  |  R  P  |            PF           PGN           PS            |        Src  Addr         | BROADCAST\n"RES);
-	printf (SIN" 31 30 29 |  28 27 26 |  0  0  |  15 14 13 12 11 10 9  8     7  6  5  4  3  2  1  0  |  7  6  5  4  3  2  1  0  |\n"RES);
+	printf (SIN" 31 30 29 |  28 27 26 |  25 24 |  23 22 21 20 19 18 17 16   15 14 13 12 11 10  9  8  |  7  6  5  4  3  2  1  0  | Си \n"RES);
+	printf (GRI"  byte1   | Приоритет |  Р  Ст |byte2      Формат        PGN   byte3   Расширение    |byte4 -> Адрес Источника  | BROADCAST\n"RES);
+	printf (SIN"  -  -  - |  3  2  1  |  1  1  |  16 15 14 13 12 11 10 9     8  7  6  5  4  3  2  1  |  8  7  6  5  4  3  2  1  | J1939\n"RES);
 } 
 // адресный заголовок (шапка)
 int p2p ()
 {
-	printf (SIN" 31 30 29    28 27 26   25  24    23 22 21 20 19 18 17 16   15 14 13 12 11 10  9  8     7  6  5  4  3  2  1  0   \n"RES);    
-	printf (GRI"          |   Prior   |  R  P  |           PF             |    PS        Dist Addr   |        Src   Addr        | POINT-TO-POINT\n"RES);
-	printf (SIN" 31 30 29 |  2  1  0  |  0  0  |  7  6  5  4  3  2  1  0  |  7  6  5  4  3  2  1  0  |  7  6  5  4  3  2  1  0  |\n"RES);
+	printf (SIN" 31 30 29 |  28 27 26 | 25  24 |  23 22 21 20 19 18 17 16 | 15 14 13 12 11 10  9  8  |  7  6  5  4  3  2  1  0  | Си \n"RES);    
+	printf (GRI"  byte1   | Приоритет |  Р  Ст |byte2       Формат        |byte3 -> Адрес назначения |byte4 -> Адрес Источника  | POINT-TO-POINT\n"RES);
+	printf (SIN"  -  -  - |  3  2  1  |  1  1  |  8  7  6  5  4  3  2  1  |  8  7  6  5  4  3  2  1  |  8  7  6  5  4  3  2  1  | J1939\n"RES);
 } 
 
 // разлаживаем ID на биты
@@ -42,12 +42,15 @@ int id_bit (uint32_t var_id)
 
 int main ()
 {
-	uint32_t can_id = 0x0cf00400;
+	uint32_t can_id_b = 0x0CF00400;
+	uint32_t can_id_p = 0x18EA0300;
 	printf ("\n\n");	
 	broad ();
-	id_bit (can_id);
+	id_bit (can_id_b);
 	printf("\n\n");
 	p2p ();
+	id_bit (can_id_p);
+	printf ("\n\n");
 	
 } 
 
