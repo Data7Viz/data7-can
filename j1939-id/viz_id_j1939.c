@@ -1,10 +1,10 @@
 
 #include <stdio.h>
 #include <stdint.h>
-#define SIN "\033[0;34m"
+#define SIN "\033[1;34m"
 #define GRI "\033[1;32m"
-#define YOT "\033[0;33m"
-#define GOB "\033[0;36m"
+#define YOT "\033[1;33m"
+#define GOB "\033[1;36m"
 #define RES "\033[0m"
 
 // широковешательный заголовок (шапка)
@@ -35,22 +35,45 @@ int id_bit (uint32_t var_id)
 		printf (YOT" | "RES);
 		}
 	} 
-	printf (YOT"0x%x  %d\n\n"RES, var_id, var_id);
+	printf (YOT"0x%x  %d\n"RES, var_id, var_id);
 	return 0;
 } 
 
+// широковещательный декодер ID
+int decode_broad (uint32_t decode)
+{
+	uint8_t byte3 = decode & 0xFF;
+	uint16_t byte1_2 = decode >> 8 & 0xFFFF;
+	uint8_t byteP = decode >> 24 & 1;
+	uint8_t byteR = decode >> 25 & 1;
+	uint8_t byte0 = decode >> 26 & 7;
+	printf (YOT"%17u %8u %2u %31u %40u\n\n"RES, byte0, byteR,byteP, byte1_2, byte3);
+	return 0;
+} 
+
+// адресный декодер ID 
+int decode_p2p (uint32_t decode)
+{
+	uint8_t byte3 = decode & 0xFF;
+	uint8_t byte2 = decode >> 8 & 0xFF;
+	uint8_t byte1 = decode >> 16 & 0xFF;
+	uint8_t byteP = decode >> 24 & 1;
+	uint8_t byteR = decode >> 25 & 1;
+	uint8_t byte0 = decode >> 26 & 7;
+	printf (YOT"%17u %8u %2u %15u %25u %28u\n\n"RES, byte0, byteR, byteP, byte1, byte2, byte3);
+	return 0;
+} 
 
 int main ()
 {
-	uint32_t can_id_b = 0x0CF00400;
-	uint32_t can_id_p = 0x18EA0300;
-	printf ("\n\n");	
-	broad ();
-	id_bit (can_id_b);
-	printf("\n\n");
-	p2p ();
-	id_bit (can_id_p);
-	printf ("\n\n");
-	
+	uint32_t can_id = 0, broad_or_p2p = 0;
+	while (scanf ("%i", &can_id) == 1)
+	{	
+	printf ("\n");	
+	broad_or_p2p = can_id >> 16 & 0xFF;
+	if (broad_or_p2p >= 240) { broad (); id_bit (can_id); decode_broad (can_id); } 
+	else { p2p (); id_bit (can_id); decode_p2p (can_id); }
+	}
+	return 0;
 } 
 
