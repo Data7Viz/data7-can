@@ -169,8 +169,6 @@ printf( "= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 <img width="1200" height="1920" alt="336" src="https://github.com/user-attachments/assets/f682e32d-0b38-493b-9883-866929e20175" />
 
-<img width="1200" height="1920" alt="355" src="https://github.com/user-attachments/assets/325d3bef-1c77-44d4-b894-37cce775baa2" />
-
 
 </details>
 
