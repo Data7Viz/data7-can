@@ -256,5 +256,7 @@ printf( "= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 <details>
 <summary><b>Смотреть как работает</b></summary>
 
+<img width="1200" height="1920" alt="355" src="https://github.com/user-attachments/assets/d6f7bcb5-7d3b-4b2c-9a3a-c9063784496f" />
+
 
 </details> 
