@@ -27,6 +27,8 @@
 <details>
 <summary><b>Смотреть</b></summary>
 
+<img width="1512" height="286" alt="Снимок экрана от 2026-06-03 12-25-21" src="https://github.com/user-attachments/assets/cccce9a7-c836-432e-a527-233970d367fd" />
+
 
 </details>
 <details>
@@ -72,6 +74,7 @@ int id_bit (uint32_t var_id)
 		}
 	} 
 	printf (YOT"0x%x  %d\n\n"RES, var_id, var_id);
+<img width="1512" height="286" alt="Снимок экрана от 2026-06-03 12-25-21" src="https://github.com/user-attachments/assets/56796625-280c-4c94-bca3-462db6a88275" />
 	return 0;
 } 
 
