@@ -41,7 +41,7 @@ int main ()
 	if (scanf("%i %c %i", &var1, &op, &var2) != 3) return 1;
 	// отступ от ввода 
 	printf("\n");
-	printf(GRIN"      byte 4     |      byte 3     |      byte 2     |      byte 1     |\n"RES);
+	printf(GRIN"      byte 3     |      byte 2     |      byte 1     |      byte 0     |\n"RES);
 	// вызов функции разлаживаем переменную var1 на биты
 	bits_var (var1); 
 	// выводим оператор 
