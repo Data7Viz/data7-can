@@ -166,10 +166,10 @@ printf( "= = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 
 <details>
 <summary><b>Смотреть как работает<b></summary>
-<img width="1200" height="1920" alt="337" src="https://github.com/user-attachments/assets/9e97dfef-a0a3-4fef-80b4-8b4e6fab53a5" />
 
 <img width="1200" height="1920" alt="336" src="https://github.com/user-attachments/assets/f682e32d-0b38-493b-9883-866929e20175" />
 
+<img width="1200" height="1920" alt="355" src="https://github.com/user-attachments/assets/325d3bef-1c77-44d4-b894-37cce775baa2" />
 
 
 </details>
