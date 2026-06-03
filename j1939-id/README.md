@@ -201,6 +201,8 @@ int main ()
 <details>
 <summary><b>Смотреть как работает v1.0</b></summary>
 
+<img width="1663" height="374" alt="Снимок экрана от 2026-06-03 22-03-30" src="https://github.com/user-attachments/assets/d908df6b-ce26-43e4-8d15-48d4f6ac5f42" />
+
 
 </summary>
  
