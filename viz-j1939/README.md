@@ -26,7 +26,7 @@
 ## Заголовок 
 
 <details>
-<summary><b>Эволюция заголовка-> Смотреть</b></summary> 
+<summary><b>Эволюция заголовка</b></summary> 
 
 <img width="1889" height="487" alt="Снимок экрана от 2026-05-29 17-29-42" src="https://github.com/user-attachments/assets/cafef850-59d3-4384-b2c6-c4390cc1de92" />
 
@@ -34,6 +34,7 @@
 
 <img width="1512" height="286" alt="Снимок экрана от 2026-06-03 12-25-21" src="https://github.com/user-attachments/assets/cccce9a7-c836-432e-a527-233970d367fd" />
 
+<img width="1896" height="322" alt="Снимок экрана от 2026-06-04 19-30-07" src="https://github.com/user-attachments/assets/d022f676-e423-4ddf-a494-a7fea8508fa9" />
 
 
 </details>
@@ -148,6 +149,7 @@ int main ()
 <details>
 <summary><b>Смотреть как работает</b></summary>
 
+<img width="1896" height="322" alt="Снимок экрана от 2026-06-04 19-30-07" src="https://github.com/user-attachments/assets/32af800e-119c-4c9c-8d2a-8845a9ef22ba" />
 
 
 </summary>
