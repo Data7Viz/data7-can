@@ -34,6 +34,8 @@
 
 <img width="1512" height="286" alt="Снимок экрана от 2026-06-03 12-25-21" src="https://github.com/user-attachments/assets/cccce9a7-c836-432e-a527-233970d367fd" />
 
+
+
 </details>
 
 <details>
@@ -54,7 +56,7 @@
 ---
 
 <details>
-<summary><b>Текущая версия viz_id_j1939.c</b></summary>
+<summary><b>Текущая версия viz_j1939.c</b></summary>
 
 ```c
 
@@ -70,32 +72,30 @@
 // широковешательный заголовок (шапка)
 int broad () 
 {
-	printf (SIN" 31 30 29 |  2  1  0  |  1  0  |  15 14 13 12 11 10 9  8     7  6  5  4  3  2  1  0  |  7  6  5  4  3  2  1  0  | Си \n"RES);
-	printf (GRI"  byte0   | Приоритет |  Р  Ст |byte1      Формат        PGN   byte2   Расширение    |byte3 -> Адрес Источника  | BROADCAST\n"RES);
-	printf (SIN" 32 31 30 |  3  2  1  |  1  1  |  16 15 14 13 12 11 10 9     8  7  6  5  4  3  2  1  |  8  7  6  5  4  3  2  1  | J1939\n"RES);
+	printf (GRI"    Pr | R Pg|      PF        PGN     PS         |    Src Addr     | \n"RES);
+	return 0;
 } 
 // адресный заголовок (шапка)
 int p2p ()
 {
-	printf (SIN" 31 30 29 |  28 27 26 | 25  24 |  7  6  5  4  3  2  1  0  |  7  6  5  4  3  2  1  0  |  7  6  5  4  3  2  1  0  | Си \n"RES);    
-	printf (GRI"  byte0   | Приоритет |  Р  Ст |byte1       Формат        |byte2 -> Адрес назначения |byte3 -> Адрес Источника  | POINT-TO-POINT\n"RES);
-	printf (SIN" 32 30 29 |  3  2  1  |  1  1  |  8  7  6  5  4  3  2  1  |  8  7  6  5  4  3  2  1  |  8  7  6  5  4  3  2  1  | J1939\n"RES);
+	printf (GRI"    Pr | R Pg|      PF        p2p    Dst Adr     |   Src Addr      | \n"RES);
+	return 0;
 } 
 
 // разлаживаем ID на биты
 int id_bit (uint32_t var_id)
 {
-	for (int i = 31; i >= 0; i --) 
+	for (int i = 28; i >= 0; i --) 
 	{
 		int bin_id = (var_id >> i) & 1;
-		if (bin_id == 1) { printf (YOT" 1 "RES); }
-		else { printf (" 0 "); } 
-		if (i % 8 == 0 || i % 26 == 0 || i % 29 == 0)
+		if (bin_id == 1) { printf (YOT" 1"RES); }
+		else { printf (" 0"); } 
+		if (i % 8 == 0 || i % 26 == 0)
 		{
-		printf (YOT" | "RES);
+		printf (YOT" |"RES);
 		}
 	} 
-	printf (YOT"0x%x  %d\n"RES, var_id, var_id);
+	printf("\n");
 	return 0;
 } 
 
@@ -104,10 +104,14 @@ int decode_broad (uint32_t decode)
 {
 	uint8_t byte3 = decode & 0xFF;
 	uint16_t byte1_2 = decode >> 8 & 0xFFFF;
-	uint8_t byteP = decode >> 24 & 1;
-	uint8_t byteR = decode >> 25 & 1;
+	uint8_t bitP = decode >> 24 & 1;
+	uint8_t bitR = decode >> 25 & 1;
 	uint8_t byte0 = decode >> 26 & 7;
-	printf (YOT"%17u %8u %2u %31u %40u\n\n"RES, byte0, byteR,byteP, byte1_2, byte3);
+	char *type = NULL;
+	if (byte1_2 >= 0xF000 && byte1_2 <= 0xFE3F) type = "P";
+	else if (byte1_2 >= 0xFE40 && byte1_2 <= 0xFEFF) type = "D";
+	else if (byte1_2 >= 0xFF00 && byte1_2 <= 0xFFFF) type = "R";
+	printf (SIN"%4u %5u %1u %7s %13u %24u\n\n"RES, byte0, bitR, bitP, type, byte1_2, byte3);
 	return 0;
 } 
 
@@ -117,10 +121,10 @@ int decode_p2p (uint32_t decode)
 	uint8_t byte3 = decode & 0xFF;
 	uint8_t byte2 = decode >> 8 & 0xFF;
 	uint8_t byte1 = decode >> 16 & 0xFF;
-	uint8_t byteP = decode >> 24 & 1;
-	uint8_t byteR = decode >> 25 & 1;
+	uint8_t bitP = decode >> 24 & 1;
+	uint8_t bitR = decode >> 25 & 1;
 	uint8_t byte0 = decode >> 26 & 7;
-	printf (YOT"%17u %8u %2u %15u %25u %28u\n\n"RES, byte0, byteR, byteP, byte1, byte2, byte3);
+	printf (SIN"%4u %5u %1u %11u %16u %17u\n\n"RES, byte0, bitR, bitP, byte1, byte2, byte3);
 	return 0;
 } 
 
@@ -128,14 +132,14 @@ int main ()
 {
 	uint32_t can_id = 0, broad_or_p2p = 0;
 	while (scanf ("%i", &can_id) == 1)
-	{	
-	printf ("\n");	
+	{		
 	broad_or_p2p = can_id >> 16 & 0xFF;
 	if (broad_or_p2p >= 240) { broad (); id_bit (can_id); decode_broad (can_id); } 
 	else { p2p (); id_bit (can_id); decode_p2p (can_id); }
 	}
 	return 0;
 } 
+
 
 ```
 
@@ -144,7 +148,6 @@ int main ()
 <details>
 <summary><b>Смотреть как работает</b></summary>
 
-<img width="1663" height="374" alt="Снимок экрана от 2026-06-03 22-03-30" src="https://github.com/user-attachments/assets/d908df6b-ce26-43e4-8d15-48d4f6ac5f42" />
 
 
 </summary>
