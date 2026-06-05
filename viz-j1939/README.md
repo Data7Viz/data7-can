@@ -205,6 +205,7 @@ int main ()
 <details>
 <summary><b>Смотреть как работает</b></summary>
 
+<img width="1903" height="343" alt="Снимок экрана от 2026-06-05 12-47-29" src="https://github.com/user-attachments/assets/4e980881-3b18-457e-9507-3b8a922e8014" />
 
 
 </summary>
