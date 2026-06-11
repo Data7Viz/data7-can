@@ -33,9 +33,13 @@
 
 <img width="1200" height="1920" alt="365" src="https://github.com/user-attachments/assets/fe071138-ed48-41f6-9f80-395368050861" />
 
+</details> 
+
+<details> 
 
 <summary><b>Смотреть как работает ноутбук</b></summary> 
 
+<img width="1893" height="581" alt="Снимок экрана от 2026-06-11 16-07-36" src="https://github.com/user-attachments/assets/4446e91a-b027-4da2-82a4-c1d3b8362409" />
 
 
 </details>
