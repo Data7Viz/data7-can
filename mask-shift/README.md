@@ -27,6 +27,9 @@
 
 <summary><b>Смотреть как работает смартфон termux</b></summary>
 
+<img width="2448" height="3264" alt="379" src="https://github.com/user-attachments/assets/a3d813b9-0f97-4f0d-b489-66b3c31a7fca" />
+
+
 </details>
 
 <details> 
