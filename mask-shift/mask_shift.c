@@ -1,25 +1,25 @@
 #include <stdio.h>
-#include <stdint.h>
+
 #define S "\033[1;34m"
 #define Y "\033[1;33m"
 #define G "\033[1;32m"
 #define R "\033[0m"
-int bit_f (uint64_t var_f, uint16_t razr_f)
+int bit_f (unsigned long long var_f, unsigned short razr_f)
 {
 	for (int i = razr_f; i >= 0; i --)
 	{
 		int bit = (var_f >> i) & 1;
 		if (bit == 1)
 		{
-			printf (S"1"R);
+			printf (S" 1"R);
 		}
 		else 
 		{
-			printf ("0");
+			printf (" 0");
 		} 
 		if (i % 8 == 0)
 		{
-			printf (G"|"R);
+			printf (G" | "R);
 		}
 	}
 	printf ("\n");
@@ -28,12 +28,12 @@ int bit_f (uint64_t var_f, uint16_t razr_f)
 
 int main ()
 {
-	uint64_t var = 0, res = 0, res1 = 0, mask = 0;
-	uint16_t shift = 0, razr = 0;
+	unsigned long long var = 0, res = 0, res1 = 0, mask = 0;
+	unsigned short shift = 0, razr = 0;
 	char op1, op2;
 	printf (" Выбери разрядность начало от нуля (7, 15, 31, 63) : ");
 	if (scanf("%hu", &razr) == 1)
-		while (scanf(" %li %c %hi %c %li", &var, &op1, &shift, &op2, &mask) == 5)
+		while (scanf(" %llx %c %hi %c %llx", &var, &op1, &shift, &op2, &mask) == 5)
 		{
 			printf ("\n");
 			printf ("   ");
@@ -70,7 +70,7 @@ int main ()
 
 			printf (Y" = "R);
 			bit_f (res1, razr);
-			printf (S"%20lu   0x%lx\n"R, res1, res1);
+			printf (S"%20llu   0x%llx\n"R, res1, res1);
 			printf ("\n");
 		}
 	return 0;
