@@ -29,6 +29,11 @@
 <summary><b>mask_shift.c</b></summary>
 ```c
 
+```
+<details>
+<summary>Актуальная версия кода</summary>
+
+```c
 #include <stdio.h>
 #include <stdint.h>
 
@@ -90,6 +95,8 @@ int main() {
     return 0;
 }
 ```
+
+</details>
 
 </details>
  
