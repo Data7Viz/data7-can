@@ -25,8 +25,10 @@
 ---
 
 ## Актуальная версия кода
+
 <details>
 <summary><b>mask_shift.c</b></summary>
+
 ```c
     
 
@@ -111,11 +113,7 @@ int main ()
 } 
 
 
-						
-
-
-						
-```
+i```
 
 </details>
 
