@@ -27,7 +27,9 @@
 
 <summary><b>Смотреть как работает смартфон termux</b></summary>
 
+</details>
 
+<details> 
 
 <summary><b>Смотреть как работает планшет termux</b></summary>
 
