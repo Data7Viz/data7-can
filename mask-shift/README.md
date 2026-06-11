@@ -1,28 +1,48 @@
 # Сдвиги и маски
 
-Интерактивная консольная утилита для визуализации побитовых операций, сдвигов и наложения масок. Разработана в рамках проекта **data7-can** для наглядного анализа содержимого CAN-кадров ID DATA. Писал в termux на смартфоне. Перекинул код на планшет. 
+Интерактивная консольная утилита для визуализации побитовых операций, сдвигов и наложения масок. Разработана в рамках проекта **data7-can** для наглядного анализа содержимого CAN-кадров ID DATA. Начинал писать в **termux на смартфоне**. Потом проект перекочевал **на планшет в termux**. Теперь допиливаю на ноутбуке **Linux**.   
 
 ## Возможности 
 
 - Поддержка разрядности
-- Автоматическое распознание форматов ввода: **DEC** **HEX**
-- Визуальное разделение байтов символ `|`
+- Визуальное разделение байтов символ |
 - Цветовая подсветка единичных битов и операторов в терминале
-- Выход из программы `CTRL + C` 
-- Возможны доработки 
+- Выход из программы CTRL + C 
 
 ---
 
-## Компиляция запуск Смотреь как работает в termux планшет
+## Техничка 
+ 
+Для того чтобы код работал с переменными которые могут принимать значение со знаком **Нужен**
+
+- Тип данных **long long** вместо **unsigned long long**
+- Ввод **scanf** спецификатор **%lli** считывает значение со знаком и **hex** **dec**
+- Вывод **printf** **%lld** 
+- Для планшета смартфона ноутбука нужно коректировать под размер экрана
+
+---
+
+## Компиляция и запуск 
 <details>
-<summary><b>Смотреть</b></summary>
+
+<summary><b>Смотреть как работает смартфон termux</b></summary>
+
+
+
+<summary><b>Смотреть как работает планшет termux</b></summary>
 
 <img width="1200" height="1920" alt="365" src="https://github.com/user-attachments/assets/fe071138-ed48-41f6-9f80-395368050861" />
+
+
+<summary><b>Смотреть как работает ноутбук</b></summary> 
+
 
 
 </details>
 
 ---
+
+## Компиляция и 
 
 ## Актуальная версия кода
 
@@ -33,29 +53,27 @@
     
 
 #include <stdio.h>
-#include <stdint.h>
 
 #define S "\033[1;34m"
 #define Y "\033[1;33m"
 #define G "\033[1;32m"
 #define R "\033[0m"
-
-int bit_f (uint64_t var_f, uint16_t razr_f)
+int bit_f (unsigned long long var_f, unsigned short razr_f)
 {
 	for (int i = razr_f; i >= 0; i --)
 	{
 		int bit = (var_f >> i) & 1;
 		if (bit == 1)
 		{
-			printf (S"1"R);
+			printf (S" 1"R);
 		}
 		else 
 		{
-			printf ("0");
+			printf (" 0");
 		} 
 		if (i % 8 == 0)
 		{
-			printf (G"|"R);
+			printf (G" | "R);
 		}
 	}
 	printf ("\n");
@@ -64,12 +82,12 @@ int bit_f (uint64_t var_f, uint16_t razr_f)
 
 int main ()
 {
-	uint64_t var = 0, res = 0, res1 = 0, mask = 0;
-	uint16_t shift = 0, razr = 0;
+	unsigned long long var = 0, res = 0, res1 = 0, mask = 0;
+	unsigned short shift = 0, razr = 0;
 	char op1, op2;
 	printf (" Выбери разрядность начало от нуля (7, 15, 31, 63) : ");
 	if (scanf("%hu", &razr) == 1)
-		while (scanf(" %li %c %hi %c %li", &var, &op1, &shift, &op2, &mask) == 5)
+		while (scanf(" %llx %c %hi %c %llx", &var, &op1, &shift, &op2, &mask) == 5)
 		{
 			printf ("\n");
 			printf ("   ");
@@ -106,11 +124,15 @@ int main ()
 
 			printf (Y" = "R);
 			bit_f (res1, razr);
-			printf (S"%20lu   0x%lx\n"R, res1, res1);
+			printf (S"%20llu   0x%llx\n"R, res1, res1);
 			printf ("\n");
 		}
 	return 0;
 } 
+
+
+						
+
 
 
 ```
