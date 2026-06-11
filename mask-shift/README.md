@@ -29,12 +29,15 @@
 <summary><b>mask_shift.c</b></summary>
 ```c
     
+
 #include <stdio.h>
 #include <stdint.h>
+
 #define S "\033[1;34m"
 #define Y "\033[1;33m"
 #define G "\033[1;32m"
 #define R "\033[0m"
+
 int bit_f (uint64_t var_f, uint16_t razr_f)
 {
 	for (int i = razr_f; i >= 0; i --)
@@ -106,6 +109,9 @@ int main ()
 		}
 	return 0;
 } 
+
+
+						
 
 
 						
