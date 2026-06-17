@@ -43,12 +43,13 @@ int main ()
 			switch (op1)
 			{
 
-				case '>':
-					res = var >> shift;
-					break;
-				case '<':
-					res = var << shift;
-					break;
+				case '>': res = var >> shift; break;
+				case '<': res = var << shift; break;
+				case '-': res = var - shift; break;
+				case '+': res = var + shift; break;
+				case '/': res = var / shift; break;
+				case '%': res = var % shift; break;
+
 			}
 
 			bit_f (res, razr);
@@ -57,20 +58,15 @@ int main ()
 			
 			switch (op2)
 			{
-				case '&':
-					res1 = res & mask;
-					break;
-				case '|':
-					res1 = res | mask;
-					break;
-				case '^':
-					res1 = res ^ mask;
-					break;
+				case '&': res1 = res & mask; break;
+				case '|': res1 = res | mask; break;
+				case '^': res1 = res ^ mask; break;
+				case '~': res1 = ~ mask;
 			}
 
 			printf (Y" = "R);
 			bit_f (res1, razr);
-			printf (S"%20llu   0x%llx\n"R, res1, res1);
+			printf (G"%20llu   0x%llx\n"R, res1, res1);
 			printf ("\n");
 		}
 	return 0;
