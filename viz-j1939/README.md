@@ -223,7 +223,8 @@ int main ()
 <details>
 <summary><b>Смотреть как работает</b></summary>
 
-<img width="1903" height="343" alt="Снимок экрана от 2026-06-05 12-47-29" src="https://github.com/user-attachments/assets/4e980881-3b18-457e-9507-3b8a922e8014" />
+<img width="1900" height="287" alt="Снимок экрана от 2026-06-18 15-47-45" src="https://github.com/user-attachments/assets/3c7a624a-f65d-4107-8acc-789b02535757" />
+
 
 
 </summary>
