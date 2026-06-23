@@ -69,8 +69,9 @@ int main ()
 
 ``` 
 
---- 
+</details> 
 
+--- 
 
 <details>
 <summary><b>Читаем строку лога CAN</b></summary>
