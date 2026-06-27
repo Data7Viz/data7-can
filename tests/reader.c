@@ -20,16 +20,16 @@ int main (int argc, char *argv [])
 	uint32_t id = 0;
 	uint8_t data [8] = {0}; 
 
-	fgets (buf_file, sizeof (buf_file), file);
-
-	sscanf (buf_file, " %lf%x%2hhx%2hhx%2hhx%2hhx%2hhx%2hhx%2hhx%2hhx", &time,&id,&data [0],&data [1],&data [2],&data [3],&data [4],&data [5],&data [6],&data [7]);
-      
-	printf (" %lf %x", time, id);
-	for (int i = 0; i < 8; i ++)
+	while (fgets (buf_file, sizeof (buf_file), file))
 	{
-		printf (" %x", data [i]);
-	} 
+		sscanf (buf_file, " (%lf)%*s%x[%d]%2hhx%2hhx%2hhx%2hhx%2hhx%2hhx%2hhx%2hhx", &time,&id,&data[0],&data[1],&data[2],&data[3],&data[4],&data[5],&data[6],&data[7]);
+                printf (" %lf %x", time, id);
+	        for (int i = 0; i < 8; i ++)
+	        {
+			printf (" %x", data [i]);
+		} 
 	printf ("\n");
+	} 
 	fclose (file);
 	return 0;
 } 	
