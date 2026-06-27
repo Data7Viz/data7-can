@@ -268,12 +268,11 @@ int main (int argc, char *argv [])
 
 </details>
 
-<img width="1803" height="1095" alt="Снимок экрана от 2026-06-27 11-26-10" src="https://github.com/user-attachments/assets/92e3458f-408c-4498-a38b-01f6e25c2378" />
-
 
 <details>
 <summary><b>Что выводит утилита</b></summary> 
 
+<img width="1803" height="1095" alt="Снимок экрана от 2026-06-27 11-26-10" src="https://github.com/user-attachments/assets/ada0dc05-a404-40f9-9f01-d47b249b7bac" />
 
 
 </details> 
