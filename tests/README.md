@@ -200,7 +200,7 @@ int main (int argc, char *argv [])
 --- 
 
 <details>
-<summary></b>Какие блоки в сети колличество сообщений с каждого блока всего сообщений прочитаные и потеряные сообщения</b></summary> 
+<summary><b>Какие блоки в сети колличество сообщений с каждого блока всего сообщений прочитаные и потеряные сообщения</b></summary> 
 
 ```c
 
@@ -267,6 +267,8 @@ int main (int argc, char *argv [])
 ```
 
 </details>
+
+<img width="1803" height="1095" alt="Снимок экрана от 2026-06-27 11-26-10" src="https://github.com/user-attachments/assets/92e3458f-408c-4498-a38b-01f6e25c2378" />
 
 
 <details>
