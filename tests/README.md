@@ -120,6 +120,7 @@ int main (int argc, char *argv [])
 
 </details> 
 
+---
 
 <details>
 <summary><b>Первая утилита для разбор лога</b></summary>
@@ -190,3 +191,4 @@ int main (int argc, char *argv [])
 
 </details>  
 
+--- 
