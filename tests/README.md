@@ -185,6 +185,7 @@ int main (int argc, char *argv [])
 <details>
 <summary><b>Смотреть как работает что выводит</b></summary>
 
+<img width="1883" height="1096" alt="Снимок экрана от 2026-06-27 08-51-44" src="https://github.com/user-attachments/assets/55331a61-1123-473b-9cd9-a78f34640782" />
 
 
 </details>  
