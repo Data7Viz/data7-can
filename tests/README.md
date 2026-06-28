@@ -184,8 +184,6 @@ int main (int argc, char *argv [])
 
 
 
-```
-
 </details>
 
 
@@ -419,15 +417,13 @@ int main (int argc, char *argv [])
 
 
 
-
-```
-
 </details>
 
 
 <details>
 <summary><b>Смотреть как работает</b></summary>
 
+<img width="1893" height="939" alt="Снимок экрана от 2026-06-28 11-33-44" src="https://github.com/user-attachments/assets/1ad6ce73-df02-4a72-a7e6-496a451526b0" />
 
 
 </details> 
