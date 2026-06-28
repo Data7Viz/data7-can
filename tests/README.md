@@ -266,7 +266,6 @@ int main (int argc, char *argv [])
 
 </details>
 
----
 
 <details>
 <summary><b>Что выводит утилита</b></summary> 
@@ -276,6 +275,7 @@ int main (int argc, char *argv [])
 
 </details> 
 
+---
 
 <details>
 <summary><b>Карта ID CAN J1939 (утилоита)</b></summary>
