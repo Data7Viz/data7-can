@@ -16,13 +16,21 @@
 - меняя сдвиги и маски инструмен способен вытянуть любые данные
 - возможно расширение функционала
 - для детального анализа разрабатываю утилиту **viz_j1939.c** перейти в [директорию viz-j1939](../viz-j1939/) 
+- автоматическое определение всех блоков в сети
+- отслеживание диалогов между блоками
+- транспортный протокол 
+- парметрические и диагностические PGN
+- раздел диагностики и сервиса
+- прочитаные и пропущенные сообщения
 
 ---
 
 <details>
-<summary><b>Смотреть карту</b></summary>
+<summary><b>Эволюция карты Смотреть</b></summary>
 
 <img width="1902" height="957" alt="Снимок экрана от 2026-06-29 15-58-04" src="https://github.com/user-attachments/assets/520d9a6d-d271-4130-b0cb-5498fd4d62f2" />
+
+
 
 
 </details>
@@ -33,16 +41,19 @@
 
 ```c
 
-
 #include <stdio.h>
 #include <stdint.h>
-#define GRIN "\033[0;32m"
+#define GRIN "\033[1;32m"
 #define SIN "\033[0;34m"
 #define GOL "\033[0;33m"
 #define RED "\033[0;36m" 
 #define RES "\033[0m"
-// функция для анализа 1,2,3 байта 
-void fun_for_byt1_byt2_byt3 (uint32_t *arr, char *stroka1, char *stroka2)
+void print (char *cvet)
+{
+	printf ("%s---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"RES, cvet);
+} 
+// функция для анализа 0,1,2,3 байта 
+void fyn_for_byt1_byt2_byt3 (uint32_t *arr, char *stroka1, char *stroka2)
 {
 	int a = 0;
 	for (int i = 0; i <= 255; i ++)
@@ -51,9 +62,26 @@ void fun_for_byt1_byt2_byt3 (uint32_t *arr, char *stroka1, char *stroka2)
 			a ++; if (a % 6 == 0) printf ("\n"); } 
 	}
 } 
- 
+// функция адрес источника адрес назначения 
+void fyn_sour_dist (uint32_t arr [256] [256])
+{
+	int a = 0;
+	for (uint32_t i = 0; i <= 255; i ++)
+	{
+		for (uint32_t j = 0; j <= 255; j ++)
+		{
+			if (arr [i] [j] > 0)
+			{
+				printf (" %-2X  -> %-2X  %-12u", i, j, arr [i] [j]);
+				a ++; if (a % 6 == 0) printf ("\n");
+			}
+		}
+	} 
+} 	
+
+
 // PGN параметрические диагностические 
-void fun_for_byte1_and_2 (uint32_t *arr, uint32_t a, uint32_t b)
+void fyn_pgn (uint32_t *arr, uint32_t a, uint32_t b)
 {
 	int d = 0;
 	for (int i = 0; i <= 65535; i ++) 
@@ -67,6 +95,21 @@ void fun_for_byte1_and_2 (uint32_t *arr, uint32_t a, uint32_t b)
 			} 
 		} 
 	} 
+} 
+// TCp
+void fyn_tcp (uint32_t arr [256] [256])
+{
+	int a = 0;
+	for (uint32_t i = 0; i <= 255; i ++)
+	{
+		for (uint32_t j = 0; j <= 255; j ++)
+		{
+			if (arr [i] [j] > 0)
+			{
+				printf (" %-3X  ->>   %-3X     %-10u", i, j, arr [i] [j]);
+			}
+		}
+	}
 } 
 int main (int argc, char *argv [])
 {
@@ -84,16 +127,8 @@ int main (int argc, char *argv [])
 	uint32_t read_frame = 0; // прочитаные фрейьы
 	uint32_t kol_poter_frame = 0; // потеряные фреймы 
 
-	uint32_t mas_byte1 [256] = {0}, mas_byte2 [256] = {0}, mas_byte3 [256] = {0};
-	uint16_t var_byte1 = 0, var_byte2 = 0, var_byte3 = 0;
-	
-	uint32_t mas_byte1_br [256] = {0};
-
-	uint32_t p2p = 0;
-	uint32_t brodcas = 0;
-
-	uint32_t mas_byte1_2 [65536] = {0}, var_byte1_2 = 0;
-
+	uint32_t arr_tcp_data [256] [256] = {0}, arr_tcp_connect [256] [256] = {0}, arr_byte2 [256] = {0}, arr_byte3 [256] = {0}, arr_pgn [65536] = {0}, arr_sour_dist [256] [256] = {0};
+	uint32_t byte0 = 0, byte1 = 0, byte2 = 0, byte3 = 0, pgn = 0;
 	while (fgets (byf_file, sizeof (byf_file), file))
 	{
 		all_frame ++; // все фреймы
@@ -101,78 +136,85 @@ int main (int argc, char *argv [])
 		for (int i = 0; i <= 7; i ++) data [i] = 0;
 		if (sscanf (byf_file, " (%lf) %*s %x [%*d] %hx %hx %hx %hx %hx %hx %hx %hx", &time,&id,&data[0],&data[1],&data[2],&data[3],&data[4],&data[5],&data[6],&data[7]) == 10);
 		{
+		read_frame ++;
+		byte0 = (id >> 24) & 0xff; byte1 = (id >> 16) & 0xff; byte2 = (id >> 8) & 0xff; byte3 = id & 0xff, pgn = (id >> 8) & 0xffff;  
 		
-		// анализируем 1 байт ID вещательный или адресный колличество вещат и адрес сообщений 
-		var_byte1 = (id >> 16) & 0xff;
-		if (var_byte1 < 240) { mas_byte1 [var_byte1] ++; p2p ++; }
-		else { mas_byte1_br [var_byte1] ++; brodcas ++; } 
+		// TCP
+		if (byte1 == 0xEC) { arr_tcp_connect [byte3] [byte2] ++; } 
+		else if (byte1 == 0xEB) { arr_tcp_data [byte3] [byte2] ++; }
 		
-		// анализируем 2 байт сколько куда были отправлены сообщения 
-		if (var_byte1 < 240) { var_byte2 = (id >> 8) & 0xff; mas_byte2 [var_byte2] ++; } 
+		// все блоки отправители 
+		arr_byte3 [byte3] ++; 
 		
-		// анализируем 3 адресный байт ID какие блоки в сети колличество сообщений с каждого блока
-         	var_byte3 = id & 0xff; 
-		mas_byte3 [var_byte3] ++;
-	        read_frame ++;	// прочитаные фреймы 
+		// сообщение с блока на блок
+		if (byte1 < 240) { arr_sour_dist [byte3] [byte2] ++; }  
 		
-		// анализируем 1 и 2 байт какой фрейм  диагностический или параметрический или свободный 
-		var_byte1_2 = (id >> 8) & 0xffff;
-		if (var_byte1_2 >= 61440) { mas_byte1_2 [var_byte1_2] ++; }
+		// pgn
+		else { arr_pgn [pgn] ++; }
+
 		} 
     		
-
 	} 
 	fclose (file);
-	 
+	
+	// все блоки отправители 
+	print (GRIN); printf (SIN"\t\tВсе блоки в сети\n"RES);
+	fyn_for_byt1_byt2_byt3 (arr_byte3, "блок", "фреймы");
+	printf ("\n"); 
+
+	// сообщение с блока на блок 
+	print (GRIN); printf (SIN"\t\tСообщение с блока >> на блок\n"RES);
+	fyn_sour_dist (arr_sour_dist);
 	printf ("\n");
 	
-	// все блоки в сети и колличество сообщений с каждого блока
-	printf (GRIN"==================================================== Адроеса источников ==== BYTE_3 & 0xFF == Блоки отправители ========================================================================\n"RES);
-        printf ("\n");	
-	fun_for_byt1_byt2_byt3 (mas_byte3, "блок", "отправлено"); // вызов функции 
+	// TCP	
+	print (GRIN); printf (SIN"\t\tTCP Запрос на подключение\n"RES);
+	fyn_tcp (arr_tcp_connect); 		
+	printf ("\n");
+	print (GRIN); printf (SIN"\t\tTCP ответ данные\n"RES);
+	fyn_tcp (arr_tcp_data);
 	printf ("\n");	
 	
-	printf (RED"=============================================== Блоки получвтели === if (byte1 < 240) id >> 8 & 0xff == BYTE_2 == P2P  КУДА ============================================================\n"RES);
-	printf ("\n");
-	fun_for_byt1_byt2_byt3 (mas_byte2, "блок", "получено");
-	printf ("\n\n"); 
-
-	// все адресные сообщения и колличество сообщений с каждого блока
-	printf (SIN"========================================================================== %u  Адресных сообщений == BYTE_1 < 240 ====================================================================\n"RES, p2p);
-	printf ("\n");
-	fun_for_byt1_byt2_byt3 (mas_byte1, "Byte1", "Сообщений");
-	printf ("\n\n");	
-	
-	// все вещательные сообщения и колличество сообщений с каждого блока
-	printf (GOL"===================================================================== %u Широковещательные сообщения == BYTE_1 >= 240 ===============================================================\n"RES, brodcas); 
-	printf ("\n");
-	fun_for_byt1_byt2_byt3 (mas_byte1_br, "Byte1", "Сообщений");	
-	printf ("\n\n");
-	
 	// PGN параметрические
-	printf (GRIN"======================================================================== Параметрические ==== от 61440 до 65087 ========================================================================\n"RES);
+	print (GRIN); printf (SIN"\t\tPGN параметрические\n"RES);
+	fyn_pgn (arr_pgn, 61440, 65087);
 	printf ("\n");
-	fun_for_byte1_and_2 (mas_byte1_2, 61440, 65087);
-	printf ("\n\n");
 	
 	// PGN диагностические 
-	printf (SIN"======================================================================== Диагностические ==== от 65088 до 65279 ========================================================================\n"RES);
-	fun_for_byte1_and_2 (mas_byte1_2, 65088, 65279); 
-	printf ("\n\n");
+	print (GRIN); printf (SIN"\t\tPGN диагностические\n"RES);
+	fyn_pgn (arr_pgn, 65088, 65279); 
+	
 	
 	// PGN свободные 
-	printf (GOL"======================================================================= Свободные ==== до 65280 до 65535 ===============================================================================\n"RES);
-	fun_for_byte1_and_2 (mas_byte1_2, 65280, 65535); 
-	printf ("\n\n");
-	printf (GOL"========================================================================================================================================================================================\n"RES);
+	print (GRIN); printf (SIN"\t\tPGN проприетарные\n"RES);
+	fyn_pgn (arr_pgn, 65280, 65535); 
 	printf ("\n");
-	kol_poter_frame = all_frame - read_frame; // вычисляем колличество не прочитаных сообщений
-	printf (GRIN"\tВсего %-15u"RES, all_frame);
-	printf (GRIN"\tПрочитано %-15u"RES, read_frame);
-	printf (GRIN"\tПропущенно %-15u\n\n"RES, kol_poter_frame);
+
+	// диагностика и сервис
+	print (GRIN); printf (SIN"\t\t\t\t\t\t\t\t\t\tРАЗДЕЛ ДИАГНОСТИКИ И СЕРВИСА\n"RES); print (GRIN); 
+	printf (SIN"\t\tДИАГНОСТИКА Коды неисправностей (DM1 - DM5, DM25)\n"RES);
+	fyn_pgn (arr_pgn, 0xFE6D, 0xFECE);
+	printf ("\n");
+
+	// сервис 
+	print (GRIN); printf (SIN"\t\tСЕРВИС Паспорта блоков и калибровок (DM11, DM19, DM24)\n"RES);
+	fyn_pgn (arr_pgn, 0xFE6F, 0xFED8);
+	printf ("\n");
+
+	// системные
+	print (GRIN); printf (SIN"\t\tСИСТЕМНЫЕ Запросы параметров и опрос сети (Request)\n"RES);
+	fyn_pgn (arr_pgn, 0xEA00, 0xEBFF);
+	printf ("\n");
+
+	kol_poter_frame = all_frame - read_frame;
+	printf (GOL"Всего %-15u Прочитано %-15u Пропущено %-15u\n"RES, all_frame, read_frame, kol_poter_frame);
+	printf ("\n");
+	
+
 	 
 	return 0;
 } 	
+
 
 ```
 
