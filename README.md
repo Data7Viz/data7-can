@@ -15,18 +15,17 @@
 
 ## Устройства
 
-- CAN-Hacker / USB-CAN анализатор
-- OBD2-сканер (ELM 327)
-- Arduino ESP32 + MCP2515
+- CANable 2.0 USB-CAN V2.0 Pro S
+- OBD2-сканер (SCANMATIK)
+- Мультиметр 
 
 ---
 
 ## Софт 
 
-- SavvyCAN  / CAPBUS
 - Wireshark / Radare2
-- TShark    / Termshark
-- Утилиты собственной разработки
+- Разработка своих утилит 
+
 ---
 
 - **CAN-шина**    - это цифровая сеть, виртуальная база данных
