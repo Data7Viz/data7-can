@@ -53,6 +53,7 @@
 <details>
 <summary><b>С отключенной массой</b></summary>
 
+<img width="1846" height="637" alt="Снимок экрана от 2026-07-04 15-10-11" src="https://github.com/user-attachments/assets/c8aeaa9b-2a71-4e3a-84c7-ffb122b75ab7" />
 
 
 </details>
@@ -60,6 +61,7 @@
 <details>
 <summary><b>C включенной массой и выключеным зажиганием</b></summary>
 
+<img width="1878" height="635" alt="Снимок экрана от 2026-07-04 15-11-45" src="https://github.com/user-attachments/assets/9156d986-59a0-4a38-9f28-207ebaa05cf6" />
 
 
 </details>
@@ -67,6 +69,7 @@
 <details>
 <summary><b>Зажигание включено</b></summary>
 
+<img width="1889" height="960" alt="Снимок экрана от 2026-07-04 15-12-29" src="https://github.com/user-attachments/assets/1208a6a5-7156-404a-b84f-20f39a5ba1d3" />
 
 
 </details>
@@ -74,6 +77,7 @@
 <details>
 <summary><b>Запуск ДВС</b></summary>
 
+<img width="1885" height="965" alt="Снимок экрана от 2026-07-04 15-08-27" src="https://github.com/user-attachments/assets/72e08894-9433-451f-918c-142976e5de9c" />
 
 
 </details>
@@ -81,6 +85,7 @@
 <details>
 <summary><b>Подключение scanmatik к ДВС</b></summary>
 
+<img width="1872" height="943" alt="Снимок экрана от 2026-07-04 15-13-40" src="https://github.com/user-attachments/assets/4df28181-dd46-45d4-a7b1-5bb5b5f34050" />
 
 
 </details> 
