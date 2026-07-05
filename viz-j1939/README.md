@@ -23,6 +23,7 @@
 - **Резерв**          с  -  0xFF00 - 65280  ( Проприетарные \ Заводские ) 
 - **Резевр**          до -  0xFFFF - 65535
 
+<img width="1856" height="617" alt="Снимок экрана от 2026-07-05 13-31-54" src="https://github.com/user-attachments/assets/40aaaa4a-1b83-436c-8785-cbf88f0e3605" />
 
 
 ---
@@ -44,6 +45,7 @@
 
 <img width="1900" height="287" alt="Снимок экрана от 2026-06-18 15-47-45" src="https://github.com/user-attachments/assets/c294584c-baa6-4ac5-bbee-48464d6763d9" />
 
+<img width="1844" height="1105" alt="Снимок экрана от 2026-07-05 13-16-26" src="https://github.com/user-attachments/assets/a7fe4561-1bcb-4ed5-95a8-584b983bba77" />
 
 
 </details>
