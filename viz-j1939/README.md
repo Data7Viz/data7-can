@@ -12,14 +12,18 @@
 - **0 byte** Приоритет, резерв, номер страницы
 - **byte < 240** По 2 байту определить адрес назначения
 
+## Вещательные делятся на следующие диапазоны 
+
 - **Параметрический** с  - 0xF000 - 61440
 - **Параметрический** до - 0xFE3F - 65087
 
 - **Диагностический** с  - 0xFE40 - 65088
 - **Диагностический** до - 0xFEFF - 65279                       
 
-- **Резерв**          с  -  0xFF00 - 65280
+- **Резерв**          с  -  0xFF00 - 65280  ( Проприетарные \ Заводские ) 
 - **Резевр**          до -  0xFFFF - 65535
+
+
 
 ---
 
@@ -39,6 +43,7 @@
 <img width="1903" height="343" alt="Снимок экрана от 2026-06-05 12-47-29" src="https://github.com/user-attachments/assets/05bf89f9-15ba-4060-8188-d4d3d1e7d642" />
 
 <img width="1900" height="287" alt="Снимок экрана от 2026-06-18 15-47-45" src="https://github.com/user-attachments/assets/c294584c-baa6-4ac5-bbee-48464d6763d9" />
+
 
 
 </details>
@@ -65,154 +70,115 @@
 
 ```c
 
-
-
+#define SIN "\033[38;5;73m"
+#define GRIN "\033[38;5;150m"
+#define YOT "\033[1;33m"
+#define RED "\033[38;5;167m"
+#define RES "\033[0m" 
 #include <stdio.h>
 #include <stdint.h>
-#define SIN "\033[1;34m"
-#define GRI "\033[1;32m"
-#define YOT "\033[1;33m"
-#define GOB "\033[1;36m"
-#define RES "\033[0m"
-
-// широковешательный заголовок (шапка)
-int broad () 
-{
-	printf (GRI" |       time           |   Pr | R Pg|      PF        PGN     PS         |    Src Addr     | "RES);
-	printf (GRI" |   d1   |   d2     |    d3    |    d4    |    d5    |    d6    |    d7    |    d8    | \n"RES);	
-	return 0;
-} 
-// адресный заголовок (шапка)
-int p2p ()
-{
-	printf (GRI" |       time           |   Pr | R Pg|      PF        p2p    Dst Adr     |   Src Addr      | "RES);
-	printf (GRI" |  d1    |   d2     |    d3    |    d4    |    d5    |    d6    |    d7    |    d8    | \n"RES);
-	return 0;
-} 
-
-// время фрейма
-int time (double var_time)
-{
-	printf (SIN"  %lf"RES, var_time);
-	return 0;
-} 
 
 // разлаживаем ID на биты
-int id_bit (uint32_t var_id)
+void id_bit (uint32_t var_id)
 {
-	printf ("\t\t\t");
 	for (int i = 28; i >= 0; i --) 
 	{
-		int bin_id = (var_id >> i) & 1;
-		if (bin_id == 1) { printf (YOT" 1"RES); }
-		else { printf (" 0"); } 
-		if (i % 8 == 0 || i % 26 == 0)
-		{
-		printf (YOT" |"RES);
-		}
-	} 
-
-	return 0;
-} 
-
-// разлаживаем DATA на биты
-int data_bit (uint8_t *var_data)
-{
-	printf ("  ");
-	for (int i = 0; i < 8; i ++) 
-	{
-		for (int bit = 7; bit >= 0; bit --)
-		{
-			if ((var_data [i] >> bit) & 1) { printf (YOT"1"RES); }
-			else { printf ("0"); }
-		}
-
-		printf (" | "); 
+		int bin_id = (var_id >> i) & 1; if (bin_id == 1)  printf (SIN" 1"RES); 
+		else { printf (" 0"); }  if (i % 8 == 0 || i % 26 == 0) printf (YOT" |"RES);
 	}
-	printf ("\n");
-	return 0;
 } 
 
-// выводим DEC данных
-int data_dec (uint8_t *var_dec)
+// разлаживаем данные на биты
+void data_bit (uint16_t *var_data)
 {
-	printf ("     ");
+	printf ("   ");
 	for (int i = 0; i <= 7; i ++)
 	{
-		printf (SIN"%11x"RES, var_dec [i]);
-		
+		for (int j = 7; j >= 0; j --)
+		{
+			int bit = (var_data [i] >> j) & 1;
+			if (bit == 1) printf (SIN"1"RES);
+		        else printf ("0");
+		}
+		printf (YOT" | "RES);
 	}
 	printf ("\n\n");
-	return 0;
-} 
+}
 
-// широковещательный декодер ID
-int decode_broad (uint32_t decode)
+// данные в HEX
+void data_hex (uint16_t *arr_data)
 {
-	uint8_t byte3 = decode & 0xFF;
-	uint16_t byte1_2 = decode >> 8 & 0xFFFF;
-	uint8_t bitP = decode >> 24 & 1;
-	uint8_t bitR = decode >> 25 & 1;
-	uint8_t byte0 = decode >> 26 & 7;
-	char *type = NULL;
-	if (byte1_2 >= 0xF000 && byte1_2 <= 0xFE3F) type = "P";
-	else if (byte1_2 >= 0xFE40 && byte1_2 <= 0xFEFF) type = "D";
-	else if (byte1_2 >= 0xFF00 && byte1_2 <= 0xFFFF) type = "R";
-	printf (SIN"     %4u %5u %1u %7s %13u %24u"RES, byte0, bitR, bitP, type, byte1_2, byte3);
-	return 0;
-} 
-
-// адресный декодер ID 
-int decode_p2p (uint32_t decode)
-{
-	uint8_t byte3 = decode & 0xFF;
-	uint8_t byte2 = decode >> 8 & 0xFF;
-	uint8_t byte1 = decode >> 16 & 0xFF;
-	uint8_t bitP = decode >> 24 & 1;
-	uint8_t bitR = decode >> 25 & 1;
-	uint8_t byte0 = decode >> 26 & 7;
-	printf (SIN"     %4u %5u %1u %11u %16u %17u"RES, byte0, bitR, bitP, byte1, byte2, byte3);
-	return 0;
-} 
-
-int main ()
-{
-	uint32_t can_fr = 0, broad_or_p2p = 0;
-	double time_frem = 1718715372.123456;
-	can_fr = 0x0cf00400; 
-	uint8_t can_data [8] = {0xFF, 0x7D, 0xB4, 0x23, 0x4E, 0xFF, 0xFF, 0xFF};		
-	broad_or_p2p = can_fr >> 16 & 0xFF;
-	if (broad_or_p2p >= 240) 
-	{ 	// широковещательный заголовок 
-		broad ();  
-		// индефикатор разлаживаем на биты
-		id_bit (can_fr);
-		// данные разлаживаем на биты 
-	        data_bit (can_data);
-		// время фрейма
-		time (time_frem);	
-		// декодер DEC широковещательного индефикатора
-		decode_broad (can_fr); 
-		// dec данных 
-		data_dec (can_data);
-	}  
-	else 
-	{  
-		// адресный заголовок
-		p2p ();  
-		// индефикатор разлаживаем на биты
-		id_bit (can_fr); 
-		// данные разлаживаем на биты
-		data_bit (can_data); 
-		// время фрейма
-		time (time_frem);
-		// декодер адресного индефикатора 
-		decode_p2p (can_fr);
-	        // dec данных  
-		data_dec (can_data);	
+	printf ("\033[91G");
+	for (int i = 0; i <= 7; i ++)
+	{
+		printf (GRIN"   %-8X"RES, arr_data [i]);
 	}
-	
-	return 0;
+	printf ("\n");
+} 
+
+// функция разделяем HEX id на части 
+void hex_id (uint32_t var_data)
+{
+	uint32_t byte1 = (var_data >> 16) & 0xFF, byte2 = (var_data >> 8) & 0xFF, byte3 = var_data & 0xFF;
+	printf (GRIN"\033[9G%30u %6X  %10X  %15X "RES, byte1, byte1, byte2, byte3); 	 
+} 
+
+// функция в функции  
+void fyn_fyn (uint32_t var_count, double time_time, uint32_t id_id, uint16_t *data_data) 
+{
+	uint32_t byte1 = (id_id >> 16) & 0xFF;
+	if (byte1 < 240)
+	{
+		printf (GRIN" %u "RES, var_count); hex_id (id_id); data_hex (data_data);
+	        printf (RED" %lf "RES, time_time); id_bit (id_id); data_bit (data_data); 
+		
+	}
+	else 
+	{
+		printf (GRIN" %u "RES, var_count); hex_id (id_id); data_hex (data_data); 
+		printf (RED" %lf "RES, time_time); id_bit (id_id); data_bit (data_data);
+	        
+	}
+} 
+
+int main (int argc, char *argv [])
+{
+	if (argc < 2)
+	{
+		printf (" Ошибка -> Укажи имя файла \n");
+		return 1;
+	}
+
+	FILE *file = fopen (argv [1], "r");
+	if (file == NULL)
+	{
+		printf (" Ошибка : не удалось открыть файл %s\n", argv [1]);
+		return 1;
+	}
+
+	char buf_file [256] = {0};
+	double time = 0.0;
+	uint32_t id = 0;
+	uint16_t data [8] = {0}; 
+
+	uint32_t byte0 = 0, byte1 = 0, byte2 = 0, byte3 = 0, pgn = 0, line_counter = 0; 
+	uint16_t line_print = 0;
+	while (fgets (buf_file, sizeof (buf_file), file)) { 
+	line_counter ++; // счётчик прочитаных фреймов 
+	for (int i = 0; i <= 7; i ++) { data [i] = 0xFF; } // очищаем поле данных  
+	sscanf (buf_file, " (%lf) %*s %X [%*d] %hx %hx %hx %hx %hx %hx %hx %hx", &time,&id,&data [0],&data [1],&data [2],&data [3],&data [4],&data [5],&data [6],&data [7]);
+	// фильтр пргораммы 
+	pgn = (id >> 8) & 0xFFFF;
+	if (pgn == 0xFECA) 
+	{	
+	fyn_fyn (line_counter, time, id, data); // вызов основной функции 
+	// читаем по 10 строк 
+	line_print ++;
+	if (line_print >= 10) { getchar (); line_print = 0; } 
+	} 
+	} // закр скобки while 
+fclose (file);
+return 0;	
 } 
 
 
@@ -221,7 +187,7 @@ int main ()
 </details> 
 
 <details>
-<summary><b>Смотреть как работает</b></summary>
+<summary><b>Смотреть как работает Читаем активные ошибки</b></summary>
 
 <img width="1900" height="287" alt="Снимок экрана от 2026-06-18 15-47-45" src="https://github.com/user-attachments/assets/3c7a624a-f65d-4107-8acc-789b02535757" />
 
