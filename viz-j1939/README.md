@@ -191,7 +191,8 @@ return 0;
 <details>
 <summary><b>Смотреть как работает Читаем активные ошибки</b></summary>
 
-<img width="1900" height="287" alt="Снимок экрана от 2026-06-18 15-47-45" src="https://github.com/user-attachments/assets/3c7a624a-f65d-4107-8acc-789b02535757" />
+<img width="1844" height="1105" alt="Снимок экрана от 2026-07-05 13-16-26" src="https://github.com/user-attachments/assets/592a7c63-d562-40f5-b7b5-396550fc6297" />
+
 
 
 
