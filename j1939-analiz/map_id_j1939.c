@@ -1,12 +1,19 @@
 #include <stdio.h>
 #include <stdint.h>
-#define GRIN "\033[1;32m"
+#define GRIN "\033[0;32m"
 #define SIN "\033[0;34m"
-#define GOL "\033[0;33m"
+#define GOT "\033[0;33m"
+#define RED "\033[0;31m"
 #define RES "\033[0m"
-void print (char *cvet)
+
+void print_bl ()
 {
-	printf ("%s---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n"RES, cvet);
+	printf (GRIN"----------------------------------------------------------------------------------------------------------------------------------------------------------------- Все блоки сети\n"RES);
+} 
+
+void print (char *cvet, char *stroka)
+{
+	printf ("%s- P ----- D ---- H ----- BL --- FR -------- P ----- D ---- H ----- BL --- FR -------- P ----- D ---- H ----- BL --- FR -------- P ----- D ---- H ----- BL --- FR  %s\n"RES,cvet,stroka);
 } 
 // функция для анализа 0,1,2,3 байта 
 void fyn_for_byt1_byt2_byt3 (uint32_t *arr, char *stroka1, char *stroka2)
@@ -18,53 +25,21 @@ void fyn_for_byt1_byt2_byt3 (uint32_t *arr, char *stroka1, char *stroka2)
 			a ++; if (a % 6 == 0) printf ("\n"); } 
 	}
 } 
-// функция адрес источника адрес назначения 
-void fyn_sour_dist (uint32_t arr [256] [256])
-{
-	int b = 0;
-	for (uint32_t i = 0; i <= 255; i ++)
-	{
-		for (uint32_t j = 0; j <= 255; j ++)
-		{
-			if (arr [i] [j] > 0)
-			{
-				printf (" %-2X  -> %-2X  %-12u", i, j, arr [i] [j]);
-				b ++; if (b % 6 == 0) printf ("\n");
-			}
-		}
-	} 
-} 	
 
-
-// PGN параметрические диагностические 
-void fyn_pgn (uint32_t *arr, uint32_t *arr_prior, uint32_t min, uint32_t max)
+// функция адресные вещательные сообщения 
+void fyn_pgn (uint32_t *arr_prior, uint32_t *arr, uint32_t *sour, uint32_t min, uint32_t max)
 {
 	int c = 0;
 	for (int i = min; i <= max; i ++) 
 	{ 
 		if (arr [i] > 0)
 		{	
-				printf ("pri  %-2u pgn %-2X  -> %-10u", arr_prior [i], i, arr [i]); 
-				c ++; if (c % 6 == 0) printf ("\n"); 
+				printf ("  %u "GOT" |"RES"  %5u   %4X    %2X "GOT" |"RES"   %-10u", arr_prior [i], i, i, sour [i], arr [i]); 
+				c ++; if (c % 4 == 0) printf ("\n"); 
 		} 
-	} 
-} 
-// TCp
-void fyn_tcp (uint32_t arr [256] [256])
-{
-	int d = 0;
-	for (uint32_t i = 0; i <= 255; i ++)
-	{
-		for (uint32_t j = 0; j <= 255; j ++)
-		{
-			if (arr [i] [j] > 0)
-			{
-				printf (" %-3X  ->>   %-3X     %-10u", i, j, arr [i] [j]);
-				d ++; if (d % 6 == 0) printf ("\n"); 
-			}
-		}
 	}
 } 
+
 int main (int argc, char *argv [])
 {
 	if (argc < 2) { printf (" Ошибка -> Укажи имя файла \n"); return 1; }
@@ -81,8 +56,7 @@ int main (int argc, char *argv [])
 	uint32_t read_frame = 0; // прочитаные фрейьы
 	uint32_t kol_poter_frame = 0; // потеряные фреймы 
 	// память для логики 
-	uint32_t arr_tcp_data [256] [256] = {0}, arr_tcp_connect [256] [256] = {0}, arr_byte2 [256] = {0}, arr_byte3 [256] = {0}, arr_pgn [65536] = {0}, arr_sour_dist [256] [256] = {0};
-	uint32_t arr_prior [65536] = {0}; 
+	uint32_t arr_byte2 [256] = {0}, arr_byte3 [256] = {0}, arr_pgn [65536] = {0}, arr_prior [65536] = {0}, arr_addr_sour [65536] = {0};; 
 	uint32_t byte0 = 0, byte1 = 0, byte2 = 0, byte3 = 0, pgn = 0, prior = 0;
 	while (fgets (byf_file, sizeof (byf_file), file))
 	{
@@ -94,62 +68,33 @@ int main (int argc, char *argv [])
 		read_frame ++;
 		byte0 = (id >> 24) & 0xff; byte1 = (id >> 16) & 0xff; byte2 = (id >> 8) & 0xff; byte3 = id & 0xff, pgn = (id >> 8) & 0x3ffff, prior = (id >> 26) & 7;  
 		// все блоки сети 
-		arr_byte3 [byte3] ++;
-		// TCP
-		if (byte1 == 0xEC) { arr_tcp_connect [byte3] [byte2] ++; } 
-		else if (byte1 == 0xEB) { arr_tcp_data [byte3] [byte2] ++; } 
-		// сообщение с блока на блок
-		else if (byte1 < 240) { arr_sour_dist [byte3] [byte2] ++; arr_pgn [pgn] ++; arr_prior [pgn] = prior; }  
-		// pgn
-		else { arr_pgn [pgn] ++; arr_prior [pgn] = prior; }
+		arr_byte3 [byte3] ++; 
+		// адресные
+		if (byte1 < 240) { arr_prior [pgn] = prior; arr_pgn [pgn] ++; arr_addr_sour [pgn] = byte3; }  
+		// вещательное
+		else { arr_prior [pgn] = prior; arr_pgn [pgn] ++; arr_addr_sour [pgn] = byte3; }
 		} 
     		
 	} 
 	fclose (file);
-	// все блоки отправители 
-	printf (SIN"\t\tВсе блоки в сети\n"RES);
-	fyn_for_byt1_byt2_byt3 (arr_byte3, "блок", "фреймы");
-	printf ("\n"); 
-	// сообщение с блока на блок 
-	print (GRIN); printf (SIN"\t\tСообщение с блока >> на блок\n"RES);
-	fyn_sour_dist (arr_sour_dist);
+
+	print_bl ();
+	fyn_for_byt1_byt2_byt3 (arr_byte3, "BL", "FR");
+	printf ("\n\n");
+
+	print (SIN, "-------Адресные"); fyn_pgn (arr_prior, arr_pgn, arr_addr_sour, 0, 61439);
+	printf ("\n\n");
+	
+	print (GRIN, "-- Вещательные");  fyn_pgn (arr_prior, arr_pgn, arr_addr_sour, 61440, 65535);
+	printf ("\n\n");
+
+	print (SIN, "----- Заводские"); fyn_pgn (arr_prior, arr_pgn, arr_addr_sour, 65280, 65535);
 	printf ("\n");
-	// TCP	
-	print (GRIN); printf (SIN"\t\tTCP Запрос на подключение\n"RES);
-	fyn_tcp (arr_tcp_connect); 		
-	printf ("\n");
-	print (GRIN); printf (SIN"\t\tTCP ответ данные\n"RES);
-	fyn_tcp (arr_tcp_data);
-	printf ("\n");	
-	// PGN параметрические
-	print (GRIN); printf (SIN"\t\tPGN параметрические\n"RES);
-	fyn_pgn (arr_pgn, arr_prior, 61440, 65087);
-	printf ("\n");
-	// PGN диагностические 
-	print (GRIN); printf (SIN"\t\tPGN диагностические\n"RES);
-	fyn_pgn (arr_pgn, arr_prior, 65088, 65279); 
-	printf ("\n");
-	// PGN свободные 
-	print (GRIN); printf (SIN"\t\tPGN проприетарные\n"RES);
-	fyn_pgn (arr_pgn, arr_prior, 65280, 65535);
-        printf ("\n");	
-	// диагностика и сервис
-	print (GRIN); printf (SIN"\t\t\t\t\t\t\t\t\t\tРАЗДЕЛ ДИАГНОСТИКИ И СЕРВИСА\n"RES);
-	printf (SIN"\t\tДИАГНОСТИКА Коды неисправностей (DM1 - DM5, DM25)\n"RES);
-	fyn_pgn (arr_pgn, arr_prior, 0xFE6D, 0xFECE);
-	printf ("\n");
-	// сервис 
-	print (GRIN); printf (SIN"\t\tСЕРВИС Паспорта блоков и калибровок (DM11, DM19, DM24)\n"RES);
-	fyn_pgn (arr_pgn, arr_prior, 0xFE6F, 0xFED8);
-	printf ("\n");
- 	// системные
-	print (GRIN); printf (SIN"\t\tСИСТЕМНЫЕ Запросы параметров и опрос сети (Request)\n"RES);
-	fyn_pgn (arr_pgn, arr_prior, 0xEA00, 0xEBFF);
-	printf ("\n");
-	print (GRIN); 
-	// КОЛЛИЧЕСТВО прочитаных фрейьов
+	 
+	
+	// КОЛЛИЧЕСТВО прочитаных фреймов
 	kol_poter_frame = all_frame - read_frame;
-	printf (GOL"Всего %-15u Прочитано %-15u Пропущено %-15u\n"RES, all_frame, read_frame, kol_poter_frame);
+	printf (GOT"Всего %-15u Прочитано %-15u Пропущено %-15u\n"RES, all_frame, read_frame, kol_poter_frame);
 	printf ("\n");
 	return 0;
 } 	
