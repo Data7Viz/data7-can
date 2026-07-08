@@ -85,7 +85,7 @@ int main (int argc, char *argv [])
 	print (SIN, "-------Адресные"); fyn_pgn (arr_prior, arr_pgn, arr_addr_sour, 0, 61439);
 	printf ("\n\n");
 	
-	print (GRIN, "-- Вещательные");  fyn_pgn (arr_prior, arr_pgn, arr_addr_sour, 61440, 65535);
+	print (GRIN, "-- Вещательные");  fyn_pgn (arr_prior, arr_pgn, arr_addr_sour, 61440, 65279);
 	printf ("\n\n");
 
 	print (SIN, "----- Заводские"); fyn_pgn (arr_prior, arr_pgn, arr_addr_sour, 65280, 65535);
