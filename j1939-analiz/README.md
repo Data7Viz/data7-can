@@ -1,6 +1,7 @@
-# Карта ID J1939
+# Карта ID J1939 на стадии разработки 
 
-**Утилита вывводит карту индификатора CAN J1939 для быстрого анализа сети 
+
+**Утилита вывводит карту индификатора CAN J1939 для быстрого анализа сети** 
 **Логи это тоже сеть**
 
 ## Структура ID
@@ -144,14 +145,9 @@ P      D       H      BL     FR
 #define RED "\033[0;31m"
 #define RES "\033[0m"
 
-void print_bl ()
-{
-	printf (GRIN"----------------------------------------------------------------------------------------------------------------------------------------------------------------- Все блоки сети\n"RES);
-} 
-
 void print (char *cvet, char *stroka)
 {
-	printf ("%s- P ----- D ---- H ----- BL --- FR -------- P ----- D ---- H ----- BL --- FR -------- P ----- D ---- H ----- BL --- FR -------- P ----- D ---- H ----- BL --- FR  %s\n"RES,cvet,stroka);
+	printf ("%s%s--------------------------------------------------------------------------------------------------------------------------------------------------------------\n"RES,cvet,stroka);
 } 
 // функция для анализа 0,1,2,3 байта 
 void fyn_for_byt1_byt2_byt3 (uint32_t *arr, char *stroka1, char *stroka2)
@@ -159,25 +155,41 @@ void fyn_for_byt1_byt2_byt3 (uint32_t *arr, char *stroka1, char *stroka2)
 	int a = 0;
 	for (int i = 0; i <= 255; i ++)
 	{
-		if (arr [i] > 0) { printf (" %s %-2X %s %-12u", stroka1, i, stroka2, arr [i]);
+		if (arr [i] > 0) { printf ("%s"SIN" %-2X"RES" "GRIN"%-3u"RES" %s "GRIN"%-12u"RES"", stroka1, i, i, stroka2, arr [i]);
 			a ++; if (a % 6 == 0) printf ("\n"); } 
 	}
 } 
 
 // функция адресные вещательные сообщения 
-void fyn_pgn (uint32_t *arr_prior, uint32_t *arr, uint32_t *sour, uint32_t min, uint32_t max)
+void fyn_pgn (uint32_t *arr_prior, uint32_t *arr, uint32_t min, uint32_t max)
 {
-	int c = 0;
+	int b = 0;
 	for (int i = min; i <= max; i ++) 
 	{ 
 		if (arr [i] > 0)
 		{	
-				printf ("  %u "GOT" |"RES"  %5u   %4X    %2X "GOT" |"RES"   %-10u", arr_prior [i], i, i, sour [i], arr [i]); 
-				c ++; if (c % 4 == 0) printf ("\n"); 
+				printf ("  %u "GOT" |"RES"  "SIN"%4X"RES"   "GRIN"%-5u"RES""GOT" |"RES" "GRIN"%-7u"RES"", arr_prior [i], i, i, arr [i]); 
+				b ++; if (b % 6 == 0) printf ("\n"); 
 		} 
 	}
 } 
 
+// функция сообщения с блока на блок
+void fyn_su_dt (uint32_t su_dt [256] [256])
+{
+	int c = 0;
+	for (int i = 0; i <= 255; i ++)
+	{
+		for (int j = 0; j <= 255; j ++)
+		{
+			if (su_dt [i] [j] > 0)
+			{
+				printf (" с >>"SIN" %-2X"RES" на >>"SIN" %-2X "RES"сообщ %-7u", i, j, su_dt [i] [j]); 
+				c ++; if (c % 6 == 0) printf ("\n");
+			}
+		}
+	}
+} 
 int main (int argc, char *argv [])
 {
 	if (argc < 2) { printf (" Ошибка -> Укажи имя файла \n"); return 1; }
@@ -194,39 +206,54 @@ int main (int argc, char *argv [])
 	uint32_t read_frame = 0; // прочитаные фрейьы
 	uint32_t kol_poter_frame = 0; // потеряные фреймы 
 	// память для логики 
-	uint32_t arr_byte2 [256] = {0}, arr_byte3 [256] = {0}, arr_pgn [65536] = {0}, arr_prior [65536] = {0}, arr_addr_sour [65536] = {0};; 
-	uint32_t byte0 = 0, byte1 = 0, byte2 = 0, byte3 = 0, pgn = 0, prior = 0;
+	uint32_t arr_byte1 [256] = {0}, arr_byte2 [256] = {0}, arr_byte3 [256] = {0}, arr_pgn [65536] = {0}, arr_prior [65536] = {0}, arr_sour_dist [256] [256] = {0}; 
+	uint32_t byte0 = 0, byte1 = 0, byte2 = 0, byte3 = 0, pgn = 0, prior = 0;	
 	while (fgets (byf_file, sizeof (byf_file), file))
 	{
 		all_frame ++; // все фреймы
 		// парсим очищвем логи
 		for (int i = 0; i <= 7; i ++) data [i] = 0;
-		if (sscanf (byf_file, " (%lf) %*s %x [%*d] %hx %hx %hx %hx %hx %hx %hx %hx", &time,&id,&data[0],&data[1],&data[2],&data[3],&data[4],&data[5],&data[6],&data[7]) == 10);
+		if (sscanf (byf_file," (%lf) %*s %x [%*d] %hx %hx %hx %hx %hx %hx %hx %hx", &time,&id,&data[0],&data[1],&data[2],&data[3],&data[4],&data[5],&data[6],&data[7]) == 10);
 		{
 		read_frame ++;
 		byte0 = (id >> 24) & 0xff; byte1 = (id >> 16) & 0xff; byte2 = (id >> 8) & 0xff; byte3 = id & 0xff, pgn = (id >> 8) & 0x3ffff, prior = (id >> 26) & 7;  
 		// все блоки сети 
+		arr_byte1 [byte1] ++;
+		arr_byte2 [byte2] ++;
 		arr_byte3 [byte3] ++; 
 		// адресные
-		if (byte1 < 240) { arr_prior [pgn] = prior; arr_pgn [pgn] ++; arr_addr_sour [pgn] = byte3; }  
+		if (byte1 < 240) { 
+			arr_prior [pgn] = prior; 
+			arr_pgn [pgn] ++; 
+			arr_sour_dist [byte3] [byte2] ++;
+		}  	
+
 		// вещательное
-		else { arr_prior [pgn] = prior; arr_pgn [pgn] ++; arr_addr_sour [pgn] = byte3; }
+		else { arr_prior [pgn] = prior; arr_pgn [pgn] ++; }
 		} 
     		
 	} 
 	fclose (file);
+	
+	print (GOT, "байт 1"); fyn_for_byt1_byt2_byt3 (arr_byte1, "байт1", "сооб");
+	printf ("\n");
 
-	print_bl ();
-	fyn_for_byt1_byt2_byt3 (arr_byte3, "BL", "FR");
+	print (GOT, "байт 2"); fyn_for_byt1_byt2_byt3 (arr_byte2, "байт2", "сооб");
+	printf ("\n");
+
+	print (GOT, "байт 3"); fyn_for_byt1_byt2_byt3 (arr_byte3, "байт3", "сооб");
 	printf ("\n\n");
 
-	print (SIN, "-------Адресные"); fyn_pgn (arr_prior, arr_pgn, arr_addr_sour, 0, 61439);
+	print (GOT, "С блока на блок"); fyn_su_dt (arr_sour_dist);
+	printf ("\n\n");
+
+	print (GOT, "Адресные"); fyn_pgn (arr_prior, arr_pgn, 0, 61439);
 	printf ("\n\n");
 	
-	print (GRIN, "-- Вещательные");  fyn_pgn (arr_prior, arr_pgn, arr_addr_sour, 61440, 65535);
+	print (GOT, "Вещательные");  fyn_pgn (arr_prior, arr_pgn, 61440, 65279);
 	printf ("\n\n");
 
-	print (SIN, "----- Заводские"); fyn_pgn (arr_prior, arr_pgn, arr_addr_sour, 65280, 65535);
+	print (GOT, "Заводские"); fyn_pgn (arr_prior, arr_pgn, 65280, 65535);
 	printf ("\n");
 	 
 	
