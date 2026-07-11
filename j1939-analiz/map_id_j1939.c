@@ -62,7 +62,7 @@ int main (int argc, char *argv [])
 	double time = 0.0;
 	uint32_t id = 0;
 	uint16_t data [8] = {0};
-
+	uint16_t a = 0;
 	uint32_t all_frame = 0; // все фреймы 
 	uint32_t read_frame = 0; // прочитаные фрейьы
 	uint32_t kol_poter_frame = 0; // потеряные фреймы 
@@ -92,29 +92,30 @@ int main (int argc, char *argv [])
 		// вещательное
 		else { arr_prior [pgn] = prior; arr_pgn [pgn] ++; }
 		} 
+		else { printf ("Не прочитаные : %s", byf_file); } 
     		
 	} 
 	fclose (file);
 	
-	print (GOT, "байт 1"); fyn_for_byt1_byt2_byt3 (arr_byte1, "байт1", "сооб");
+	print (GOT, "байт 1 ----------"); fyn_for_byt1_byt2_byt3 (arr_byte1, "байт1", "сооб");
 	printf ("\n\n");
 
-	print (GOT, "байт 2"); fyn_for_byt1_byt2_byt3 (arr_byte2, "байт2", "сооб");
+	print (GOT, "байт 2 ----------"); fyn_for_byt1_byt2_byt3 (arr_byte2, "байт2", "сооб");
 	printf ("\n\n");
 
-	print (GOT, "байт 3"); fyn_for_byt1_byt2_byt3 (arr_byte3, "байт3", "сооб");
+	print (GOT, "байт 3 ----------"); fyn_for_byt1_byt2_byt3 (arr_byte3, "байт3", "сооб");
 	printf ("\n\n");
 
-	print (GOT, "С блока на блок"); fyn_su_dt (arr_sour_dist);
+	print (GOT, "С блока на блок -"); fyn_su_dt (arr_sour_dist);
 	printf ("\n\n");
 
-	print (GOT, "Адресные"); fyn_pgn (arr_prior, arr_pgn, 0, 61439);
+	print (GOT, "Адресные --------"); fyn_pgn (arr_prior, arr_pgn, 0, 61439);
 	printf ("\n\n");
 	
-	print (GOT, "Вещательные");  fyn_pgn (arr_prior, arr_pgn, 61440, 65279);
+	print (GOT, "Вещательные -----");  fyn_pgn (arr_prior, arr_pgn, 61440, 65279);
 	printf ("\n\n");
 
-	print (GOT, "Заводские"); fyn_pgn (arr_prior, arr_pgn, 65280, 65535);
+	print (GOT, "Заводские -------"); fyn_pgn (arr_prior, arr_pgn, 65280, 65535);
 	printf ("\n");
 	 
 	
