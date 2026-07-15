@@ -74,7 +74,19 @@ P      D       H      BL     FR
 - map_id_j1939_nosime.c 
 - map_id_j1939.c 
 
-При компиляции в termux предупреждение от компилятора есть. В Linux терминале нет. Компилировал gcc. 
+<details>
+<summary><b>Смотреть компиляцию в termux gcc</b></summary>
+
+
+
+</details>
+
+</details.
+<summary><b>Смотреть компиляцию в Linux терминал gcc</b></summary.
+
+
+
+</details> 
  
 ---
 
