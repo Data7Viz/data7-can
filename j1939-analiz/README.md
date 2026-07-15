@@ -399,6 +399,10 @@ int main (int argc, char *argv [])
 <details>
 <summary><b>Смотреть</b></summary>
 
+<img width="1779" height="1054" alt="Снимок экрана от 2026-07-15 11-28-09" src="https://github.com/user-attachments/assets/2f4446c3-128c-46ab-b1d1-c62a44b45d11" />
+
+<img width="1801" height="945" alt="Снимок экрана от 2026-07-15 12-27-44" src="https://github.com/user-attachments/assets/3180149f-d7af-4fbc-a95c-8810d69aa4d7" />
+
 
 
 </details> 
