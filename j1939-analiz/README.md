@@ -84,7 +84,7 @@ P      D       H      BL     FR
 <details>
 <summary><b>Смотреть компиляцию в Linux терминал gcc</b></summary.
 
-<img width="881" height="100" alt="Снимок экрана от 2026-07-15 13-04-39" src="https://github.com/user-attachments/assets/24288859-7c89-485b-a86a-ffbbf2e776e1" />
+<img width="881" height="100" alt="Снимок экрана от 2026-07-15 13-04-39" src="https://github.com/user-attachments/assets/fae23807-5bbd-4a52-972c-f028fa594e3a" />
 
 
 </details> 
