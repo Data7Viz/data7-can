@@ -107,51 +107,6 @@ P      D       H      BL     FR
 
 
 
-**СМОТРЕТЬ ЛОГИ**
-
-<details>
-<summary><b>С отключенной массой</b></summary>
-
-<img width="1843" height="289" alt="Снимок экрана от 2026-07-08 18-05-10" src="https://github.com/user-attachments/assets/e42da90b-4a95-40b3-9796-151d2c3ad4de" />
-
-
-
-</details>
-
-<details>
-<summary><b>C включенной массой и выключеным зажиганием</b></summary>
-
-<img width="1860" height="292" alt="Снимок экрана от 2026-07-08 18-07-41" src="https://github.com/user-attachments/assets/4fde86b1-5cae-4691-b905-86220d5e2e57" />
-
-
-
-</details>
-
-<details>
-<summary><b>Зажигание включено</b></summary>
-
-<img width="1868" height="795" alt="Снимок экрана от 2026-07-08 18-08-40" src="https://github.com/user-attachments/assets/3616b5e2-5ab7-4d70-b2b9-a95bd47d6725" />
-
-
-
-</details>
-
-<details>
-<summary><b>Запуск ДВС</b></summary>
-
-<img width="1873" height="798" alt="Снимок экрана от 2026-07-08 18-09-18" src="https://github.com/user-attachments/assets/3c124fda-2fc4-48f7-832a-891c58ab47ab" />
-
-
-
-</details>
-
-<details>
-<summary><b>Подключение scanmatik к ДВС</b></summary>
-
-<img width="1870" height="755" alt="Снимок экрана от 2026-07-08 18-09-56" src="https://github.com/user-attachments/assets/7cf6680d-036b-4c12-a71d-5d52dab610b0" />
-
-
-
 </details> 
 
 <details>
@@ -434,6 +389,7 @@ int main (int argc, char *argv [])
 	return 0;
 } 	
 
+```
 
 </details>
 
@@ -444,7 +400,5 @@ int main (int argc, char *argv [])
 <summary><b>Смотреть</b></summary>
 
 
-```
 
-</details> 
-
+</summary> 
