@@ -99,6 +99,9 @@ P      D       H      BL     FR
 <details>
 <summary><b>Смотреть как работает</b></summary>
 
+<img width="1200" height="1920" alt="546" src="https://github.com/user-attachments/assets/3d17dc64-d43b-4677-b079-a9ef47344005" />
+
+<img width="1920" height="1200" alt="547" src="https://github.com/user-attachments/assets/f05fadd3-12c0-4f7b-bd1d-ebbc2ad22b5f" />
 
 
 </details> 
