@@ -8,15 +8,15 @@
 
 void print (char *cvet, char *stroka)
 {
-	printf ("%s%s--------------------------------------------------------------------------------------------------------------------------------------------------------------\n"RES,cvet,stroka);
+	printf ("%s%s-------------------------------------------------------------------------------------------------------------------------------------------------\n"RES,cvet,stroka);
 } 
 // функция для анализа 0,1,2,3 байта 
-void fyn_for_byt1_byt2_byt3 (uint32_t *arr, char *stroka1, char *stroka2)
+void fyn_for_byt1_byt2_byt3 (uint32_t *arr, char *stroka2)
 {
 	int a = 0;
 	for (int i = 0; i <= 255; i ++)
 	{
-		if (arr [i] > 0) { printf ("%s"SIN" %-2X"RES" "GRIN"%-3u"RES" %s "GRIN"%-12u"RES"", stroka1, i, i, stroka2, arr [i]);
+		if (arr [i] > 0) { printf (SIN" %-2X"RES" "GRIN"%-3u"RES" %s "GRIN"%-12u"RES, i, i, stroka2, arr [i]);
 			a ++; if (a % 6 == 0) printf ("\n"); } 
 	}
 } 
@@ -67,7 +67,7 @@ int main (int argc, char *argv [])
 	uint32_t read_frame = 0; // прочитаные фрейьы
 	uint32_t kol_poter_frame = 0; // потеряные фреймы 
 	// память для логики 
-	uint32_t arr_byte1 [256] = {0}, arr_byte2 [256] = {0}, arr_byte3 [256] = {0}, arr_pgn [65536] = {0}, arr_prior [65536] = {0}, arr_sour_dist [256] [256] = {0}; 
+	uint32_t arr_byte1 [256] = {0}, arr_byte2 [256] = {0}, arr_byte3 [256] = {0}, arr_pgn [65536] = {0}, arr_prior [65536] = {0}, arr_sour_dist [256] [256] = {0}, arr_dist [256] = {0}; 
 	uint32_t byte0 = 0, byte1 = 0, byte2 = 0, byte3 = 0, pgn = 0, prior = 0;	
 	while (fgets (byf_file, sizeof (byf_file), file))
 	{
@@ -87,6 +87,7 @@ int main (int argc, char *argv [])
 			arr_prior [pgn] = prior; 
 			arr_pgn [pgn] ++; 
 			arr_sour_dist [byte3] [byte2] ++;
+			arr_dist [byte2] ++; 
 		}  	
 
 		// вещательное
@@ -97,22 +98,25 @@ int main (int argc, char *argv [])
 	} 
 	fclose (file);
 	
-	print (GOT, "байт 1 ----------"); fyn_for_byt1_byt2_byt3 (arr_byte1, "байт1", "сооб");
+	print (GOT, "байт 1 ----------"); fyn_for_byt1_byt2_byt3 (arr_byte1, "сооб");
 	printf ("\n\n");
 
-	print (GOT, "байт 2 ----------"); fyn_for_byt1_byt2_byt3 (arr_byte2, "байт2", "сооб");
+	print (GOT, "байт 2 ----------"); fyn_for_byt1_byt2_byt3 (arr_byte2, "сооб");
 	printf ("\n\n");
 
-	print (GOT, "байт 3 ----------"); fyn_for_byt1_byt2_byt3 (arr_byte3, "байт3", "сооб");
+	print (GOT, "Байт 3 все адреса источники "); fyn_for_byt1_byt2_byt3 (arr_byte3, "сооб");
 	printf ("\n\n");
 
-	print (GOT, "С блока на блок -"); fyn_su_dt (arr_sour_dist);
+	print (GOT, "Байт 2 все адреса назначения "); fyn_for_byt1_byt2_byt3 (arr_dist, "сооб");
+        printf ("\n\n"); 	
+
+	print (GOT, "Адресные с блока на >> блок байт2 << байт3 "); fyn_su_dt (arr_sour_dist);
 	printf ("\n\n");
 
-	print (GOT, "Адресные --------"); fyn_pgn (arr_prior, arr_pgn, 0, 61439);
+	print (GOT, "Адресные байт1 байт2 "); fyn_pgn (arr_prior, arr_pgn, 0, 61439);
 	printf ("\n\n");
 	
-	print (GOT, "Вещательные -----");  fyn_pgn (arr_prior, arr_pgn, 61440, 65279);
+	print (GOT, "Вещательные байт1 байт2 ");  fyn_pgn (arr_prior, arr_pgn, 61440, 65279);
 	printf ("\n\n");
 
 	print (GOT, "Заводские -------"); fyn_pgn (arr_prior, arr_pgn, 65280, 65535);
