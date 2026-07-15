@@ -394,7 +394,7 @@ int main (int argc, char *argv [])
 </details>
 
 
-## Что выводит map_id_j1939.c и map_id_j1939_nosemi 
+ Что выводит map_id_j1939.c и map_id_j1939_nosemi 
 
 <details>
 <summary><b>Смотреть</b></summary>
