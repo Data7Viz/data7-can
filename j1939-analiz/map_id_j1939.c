@@ -6,7 +6,7 @@
 #define RES "\033[0m"
 void print (char *cvet, char *stroka)
 {
-	printf ("%s%-30s==============================================================================================================================================================%s\n", cvet, stroka, RES);
+	printf ("%s%-30s============================================================================================================================================================%s\n", cvet, stroka, RES);
 } 
 // функция для анализа или 0 или 1 или 2 или 3 байта 
 void fyn_for_byt1_byt2_byt3 (uint32_t *arr)
@@ -91,28 +91,28 @@ int main (int argc, char *argv [])
 	} 
 	fclose (file);
 	
-	print (SIN, " byte1 ======================="); fyn_for_byt1_byt2_byt3 (arr_byte1);
-	printf ("\n");
+	print (SIN, "byte1 ========================="); fyn_for_byt1_byt2_byt3 (arr_byte1);
+	printf ("\n\n");
 
-	print (GRIN, " byte2 ======================"); fyn_for_byt1_byt2_byt3 (arr_byte2);
-	printf ("\n");
+	print (GRIN, "byte2 ========================"); fyn_for_byt1_byt2_byt3 (arr_byte2);
+	printf ("\n\n");
 	
-	print (SIN, " byte3 все  блоки   источники"); fyn_for_byt1_byt2_byt3 (arr_byte3);
-	printf ("\n"); 
+	print (SIN, "byte3 все  блоки   источники =="); fyn_for_byt1_byt2_byt3 (arr_byte3);
+	printf ("\n\n"); 
 
-	print (GRIN, " byte2 все  блоки  назначения"); fyn_for_byt1_byt2_byt3 (arr_dist);
-	printf ("\n");
+	print (GRIN, "byte2 все  блоки  назначения ="); fyn_for_byt1_byt2_byt3 (arr_dist);
+	printf ("\n\n");
 	
-        print (SIN, " Сообщения с блока >> на блок"); fyn_sour_dist (arr_sour_dist);
-	printf ("\n");
+        print (SIN, "Сообщения с блока >> на блок =="); fyn_sour_dist (arr_sour_dist);
+	printf ("\n\n");
 	
-	print (GRIN, " Адресные           сообщения"); fyn_pgn (arr_pgn, arr_prior, 0, 61439);
-	printf ("\n");	
+	print (GRIN, "Адресные           сообщения ="); fyn_pgn (arr_pgn, arr_prior, 0, 61439);
+	printf ("\n\n");	
 	
-        print (SIN, " Вещательные   сообщение  PGN"); fyn_pgn (arr_pgn, arr_prior, 61440, 65535);
-	printf ("\n");
+        print (SIN, "Вещательные   сообщение  PGN =="); fyn_pgn (arr_pgn, arr_prior, 61440, 65535);
+	printf ("\n\n");
 
-	print (GRIN, " Диагностическое    сообщение"); fyn_pgn (arr_pgn, arr_prior, 65226, 65237);
+	print (GRIN, "Диагностическое    сообщение ="); fyn_pgn (arr_pgn, arr_prior, 65226, 65237);
 	printf ("\n");
 	
 	// КОЛЛИЧЕСТВО прочитаных фрейьов
