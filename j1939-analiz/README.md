@@ -77,6 +77,7 @@ P      D       H      BL     FR
 <details>
 <summary><b>Смотреть компиляцию в termux gcc</b></summary>
 
+<img width="1200" height="1920" alt="545" src="https://github.com/user-attachments/assets/412c8ed5-05b8-4f19-8316-31d003bfd4cf" />
 
 
 </details>
