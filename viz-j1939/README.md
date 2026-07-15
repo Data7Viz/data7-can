@@ -204,6 +204,7 @@ return 0;
 <details>
 <summary><b>Смотреть работу в Termux</b></summary> 
 
+<img width="1920" height="1200" alt="548" src="https://github.com/user-attachments/assets/64d611fb-2e55-4c2a-ae19-04b8e53e3b36" />
 
 
 </details> 
