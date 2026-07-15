@@ -81,7 +81,7 @@ P      D       H      BL     FR
 
 </details>
 
-</details.
+<details>
 <summary><b>Смотреть компиляцию в Linux терминал gcc</b></summary.
 
 
