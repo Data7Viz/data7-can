@@ -193,7 +193,7 @@ return 0;
 
 
 
-</summary>
+</details>
  
 
 ## Termux
