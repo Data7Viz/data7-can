@@ -13,7 +13,7 @@ A repository dedicated to studying the CAN bus using the C programming language.
 * **C, ASM**
 * **Bits, logic, memory, neuron**
 * **Multimeter: voltage, direction, and CAN bus resistance**
-* **VK Engineer's Log:** [[CAN_j1939 — Software development in C](https://vk.ru)]
+* **VK Engineer's Log:** [[CAN_j1939 — Software development in C](https://vk.ru/j1939)]
 
 ### 🔌 Devices
 * **CANable 2.0 USB-CAN V2.0 Pro S**
@@ -48,7 +48,7 @@ A repository dedicated to studying the CAN bus using the C programming language.
 * **C, ASM**
 * **Биты, логика, память, нейрон**
 * **Мультиметр, напряжение, сопротивление CAN-шины**
-* **Дневник инженера ВК:** [[CAN_j1939 — Разработка утилит на C](https://vk.ru)]
+* **Дневник инженера ВК:** [[CAN_j1939 — Разработка утилит на C](https://vk.ru/j1939)]
 
 ### 🔌 Устройства
 * **CANable 2.0 USB-CAN V2.0 Pro S**
