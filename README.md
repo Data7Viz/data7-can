@@ -31,10 +31,10 @@ A repository dedicated to studying the CAN bus using the C programming language.
 
 ### 🗺 Project Navigation
 * 📂 **[Multimeter measurements](/multimeter)** — Multimeter data and parameters
-* 📂 **[Bitwise visualizer](/bit_viz)** — Bit-level data visualization
-* 📂 **[Masks and shifts](/mask_shift)** — Operations with bitmasks and offsets
-* 📂 **[J1939 Decoder](/viz_j1939)** — Protocol decoding module
-* 📂 **[J1939 Analyzer](/j1939_analiz)** — Advanced traffic analysis tool
+* 📂 **[Bitwise visualizer](/bit-viz)** — Bit-level data visualization
+* 📂 **[Masks and shifts](/mask-shift)** — Operations with bitmasks and offsets
+* 📂 **[J1939 Decoder](/viz-j1939)** — Protocol decoding module
+* 📂 **[J1939 Analyzer](/j1939-analiz)** — Advanced traffic analysis tool
 * 📂 **[Tests sandbox](/tests)** — Test scripts and playground
 
 ---
@@ -66,10 +66,10 @@ A repository dedicated to studying the CAN bus using the C programming language.
 
 ### 🗺 Навигация по проекту
 * 📂 **[Замеры мультиметром](/multimeter)**
-* 📂 **[Битовый визуализатор](/bit_viz)**
-* 📂 **[Маски сдвиги](/mask_shift)**
-* 📂 **[Декодер j1939](/viz_j1939)**
-* 📂 **[Анализатор j1939](/j1939_analiz)**
+* 📂 **[Битовый визуализатор](/bit-viz)**
+* 📂 **[Маски сдвиги](/mask-shift)**
+* 📂 **[Декодер j1939](/viz-j1939)**
+* 📂 **[Анализатор j1939](/j1939-analiz)**
 * 📂 **[Песочница tests](/tests)**
 
 
