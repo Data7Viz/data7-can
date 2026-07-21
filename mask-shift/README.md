@@ -1,3 +1,66 @@
+# Shifts and Masks / Сдвиги и маски
+
+🌐 [Read in English](#-english-version) | 🇷🇺 [Читать на русском](#-русская-версия)
+
+---
+
+## 🌐 English Version
+
+An interactive CLI utility for visualizing bitwise operations, shifts, and masking. Developed as part of the **data7-can** project for visual analysis of CAN frame ID DATA. 
+
+Started development in **Termux on a smartphone**, then migrated to **Termux on a tablet**, and currently refactoring on a **Linux laptop**.
+
+### ⚙️ Features
+* **Bit-width support**
+* **Visual byte separation** using the `|` symbol
+* **Color highlighting** for set bits (1s) and operators in the terminal
+
+### 🛠 Technical Details
+To ensure the code handles signed variables properly, we need:
+* `long long` data type instead of `unsigned long long`
+* `scanf` format specifier `%lli` to read signed, hex, and dec values
+* `printf` output with `%lld`
+* Screen size adjustments for smartphones, tablets, or laptops
+* User input `>` < actual bitwise operations `>>` `<<`
+* Exit program with `Ctrl + C`
+
+### 🚀 Compilation & Launch
+
+<details>
+<summary><b>See how it works: Smartphone Termux</b></summary>
+
+*(Вставь сюда свои <img> теги со скриншотами для смартфона)*
+
+</details>
+
+<details>
+<summary><b>See how it works: Tablet Termux</b></summary>
+
+*(Вставь сюда свои <img> теги со скриншотами для планшета)*
+
+</details>
+
+<details>
+<summary><b>See how it works: Laptop</b></summary>
+
+*(Вставь сюда свои <img> теги со скриншотами для ноутбука)*
+
+</details>
+
+### 📄 Current Code Version
+
+<details>
+<summary><b>mask_shift.c</b></summary>
+
+```c
+// Paste your mask_shift.c code here
+```
+</details>
+
+---
+
+## 🇷🇺 Русская Версия
+
 # Сдвиги и маски
 
 Интерактивная консольная утилита для визуализации побитовых операций, сдвигов и наложения масок. Разработана в рамках проекта **data7-can** для наглядного анализа содержимого CAN-кадров ID DATA. Начинал писать в **termux на смартфоне**. Потом проект перекочевал **на планшет в termux**. Теперь допиливаю на ноутбуке **Linux**.   
