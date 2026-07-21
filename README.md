@@ -31,7 +31,6 @@ A repository dedicated to studying the CAN bus using the C programming language.
 
 ### 🗺 Project Navigation
 * 📂 **[Multimeter measurements](/multimeter)** — Multimeter data and parameters
-* 📂 **[Bitwise visualizer](/bit-viz)** — Bit-level data visualization
 * 📂 **[Masks and shifts](/mask-shift)** — Operations with bitmasks and offsets
 * 📂 **[J1939 Decoder](/viz-j1939)** — Protocol decoding module
 * 📂 **[J1939 Analyzer](/j1939-analiz)** — Advanced traffic analysis tool
@@ -66,7 +65,6 @@ A repository dedicated to studying the CAN bus using the C programming language.
 
 ### 🗺 Навигация по проекту
 * 📂 **[Замеры мультиметром](/multimeter)**
-* 📂 **[Битовый визуализатор](/bit-viz)**
 * 📂 **[Маски сдвиги](/mask-shift)**
 * 📂 **[Декодер j1939](/viz-j1939)**
 * 📂 **[Анализатор j1939](/j1939-analiz)**
