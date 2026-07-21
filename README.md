@@ -1,50 +1,76 @@
 # data7-can
 
-Репозиторий для изучения CAN-шины на языке С. Проект находится на стадии сбора теоритической базы и проектирования.
+🌐 [Read in English](#-english-version) | 🇷🇺 [Читать на русском](#-русская-версия)
 
 ---
 
-## Окружение и стэк
+## 🌐 English Version
 
-- Linux / Android / Termux 
-- C, ASM
-- Биты, логика, память, нейрон
-- Мультиметр, напряжение, сопротивление CAN-шины
-- Дневник инженера ВК: [CAN J1939 - Разработка утилит на С](https://vk.ru/j1939) 
+A repository dedicated to studying the CAN bus using the C programming language. The project is currently in the stage of gathering a theoretical framework and initial design.
+
+### 🛠 Environment & Stack
+* **Linux / Android / Termux**
+* **C, ASM**
+* **Bits, logic, memory, neuron**
+* **Multimeter: voltage, direction, and CAN bus resistance**
+* **VK Engineer's Log:** [[CAN_j1939 — Software development in C](https://vk.ru)]
+
+### 🔌 Devices
+* **CANable 2.0 USB-CAN V2.0 Pro S**
+* **OBD2 Scanner (SCANMATIK)**
+* **Multimeter**
+
+### 💻 Software
+* **Wireshark / Radare2**
+* **In-house utility development**
+
+### 🎯 Core Concepts
+* **CAN bus** — a digital network, acting as a virtual database.
+* **Monitoring** — a discovery and search tool.
+* **Telematics** — a client-server architecture.
+
+### 🗺 Project Navigation
+* 📂 **[Multimeter measurements](./multimeter)** — Multimeter data and parameters
+* 📂 **[Bitwise visualizer](./bit_viz)** — Bit-level data visualization
+* 📂 **[Masks and shifts](./mask_shift)** — Operations with bitmasks and offsets
+* 📂 **[J1939 Decoder](./viz_j1939)** — Protocol decoding module
+* 📂 **[J1939 Analyzer](./j1939_analiz)** — Advanced traffic analysis tool
+* 📂 **[Tests sandbox](./tests)** — Test scripts and playground
 
 ---
 
-## Устройства
+## 🇷🇺 Русская Версия
 
-- CANable 2.0 USB-CAN V2.0 Pro S
-- OBD2-сканер (SCANMATIK)
-- Мультиметр 
+Репозиторий для изучения CAN-шины на языке C. Проект находится на стадии сбора теоретической базы и проектирования.
 
----
+### 🛠 Окружение и стек
+* **Linux / Android / Termux**
+* **C, ASM**
+* **Биты, логика, память, нейрон**
+* **Мультиметр, напряжение, сопротивление CAN-шины**
+* **Дневник инженера ВК:** [[CAN_j1939 — Разработка утилит на C](https://vk.ru)]
 
-## Софт 
+### 🔌 Устройства
+* **CANable 2.0 USB-CAN V2.0 Pro S**
+* **OBD2-сканер (SCANMATIK)**
+* **Мультиметр**
 
-- Wireshark / Radare2
-- Разработка своих утилит 
+### 💻 Софт
+* **Wireshark / Radare2**
+* **Разработка своих утилит**
 
----
+### 🎯 Основные понятия
+* **CAN-шина** — это цифровая сеть, виртуальная база данных.
+* **Мониторинг** — это поисковик.
+* **Телематика** — это клиент-сервер.
 
-- **CAN-шина**    - это цифровая сеть, виртуальная база данных
-- **Мониторинг**  - это поисковик
-- **Телематика**  - это клиент - сервер
+### 🗺 Навигация по проекту
+* 📂 **[Замеры мультиметром](./multimeter)**
+* 📂 **[Битовый визуализатор](./bit_viz)**
+* 📂 **[Маски сдвиги](./mask_shift)**
+* 📂 **[Декодер j1939](./viz_j1939)**
+* 📂 **[Анализатор j1939](./j1939_analiz)**
+* 📂 **[Песочница tests](./tests)**
 
----
 
-## Навигация по проекту 
 
-**[Замеры мультиметром (`/multimeter`)](./multimeter)** 
-
-**[Битовый визуализатор (`/bit_viz`)](./bit-viz)**
-
-**[Маски сдвиги (`/mask_shift`)](./mask-shift)** 
-
-**[Декодер j1939  (`/viz_j1939`)](./viz-j1939)**
-
-**[Анализатор j1939 (`/j1939_analiz`)](./j1939-analiz)**
-
-**[Песочница tests ](./tests)**  
