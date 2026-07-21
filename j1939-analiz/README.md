@@ -1,4 +1,89 @@
-# Карта ID J1939 на стадии разработки 
+# J1939 ID Map (Under Development) / Карта ID J1939 на стадии разработки
+
+🌐 [Read in English](#-english-version) | 🇷🇺 [Читать на русском](#-русская-версия)
+
+---
+
+## 🌐 English Version
+
+This utility outputs a J1939 identifier map for quick network analysis. Logs are networks too.
+
+### 📊 ID Structure
+* We read bytes from left to right, starting from index zero.
+* `0` -> priority byte
+* `1` -> header byte
+* `2` -> tail byte
+* `3` -> address byte
+
+### ⚙️ Features
+* Changing shifts and masks makes the tool capable of extracting any type of data.
+* For detailed analysis, I am developing the `viz_j1939` utility; you can switch to it in the [viz-j1939 directory](viz-j1939).
+* Future feature expansion is possible.
+
+### 💡 A Fortunate Mistake
+I ended up with two separate utilities. I made a mistake in an `if (sscanf...)` condition; there were no compiler warnings, but I noticed and fixed it later. After fixing it, the program started working differently. That is how two separate programs were born. A program with a syntax error also has a right to exist.
+* `map_id_j1939_nosime.c`
+* `map_id_j1939.c`
+
+### 📱 Termux
+<details>
+  <summary>Show Termux compilation using gcc</summary>
+  
+  ```bash
+  gcc map_id_j1939.c -o map_id_j1939
+  ```
+</details>
+
+<details>
+  <summary>Show Linux terminal compilation using gcc</summary>
+  
+  ```bash
+  gcc map_id_j1939.c -o map_id_j1939
+  ```
+</details>
+
+#### Running the map in Termux on a tablet:
+I changed the number of columns to 4 and decreased `i--`. This fits my vertical and horizontal view comfortably. Tested on an 11-inch tablet.
+<details>
+  <summary>Show how it works</summary>
+  
+  *(Insert your screenshot or code execution example here)*
+</details>
+
+### 📄 map_id_j1939_nosime.c
+<details>
+  <summary>Show map evolution</summary>
+  
+  *(Insert text or links to older versions here)*
+</details>
+
+<details>
+  <summary>Show utility code (latest version)</summary>
+  
+  ```c
+  // Paste your map_id_j1939_nosime.c code here
+  ```
+</details>
+
+### 📄 map_id_j1939.c
+<details>
+  <summary>Show map_id_j1939.c code</summary>
+  
+  ```c
+  // Paste your map_id_j1939.c code here
+  ```
+</details>
+
+#### Output details for map_id_j1939.c and map_id_j1939_nosime.c:
+<details>
+  <summary>Show output</summary>
+  
+  *(Insert sample console output here)*
+</details>
+
+---
+
+## 🇷🇺 Русская Версия
 
 
 **Утилита вывводит карту индификатора CAN J1939 для быстрого анализа сети** 
