@@ -50,6 +50,16 @@ A CLI utility written in C for parsing raw CAN bus data according to the SAE J19
 <details>
 <summary><b>Header description</b></summary>
 
+<details>
+<summary><b>Header description</b></summary>
+
+* **0 byte** — Priority, reserved, data page. Priority acts like a traffic light: the lower the number, the brighter the green light (highest priority). In my opinion, it is more logical to assign 0 to this byte.
+* **1 byte** — Header, most significant PGN byte. Client-server architecture. But here things are slightly different. The header commands, and the rest obey. It defines the structure, indicating whether the packet is sent to a specific address or broadcast to everyone. By the same logic, it is the first, the main one.
+* **2 byte** — Tail, least significant PGN byte. It obeys. If the header `< 240`, the destination address is written here. If the header `>= 240`, it acts as a parameter group extension.
+* **3 byte** — Source address. The physical address of the node that transmitted this message.
+* **1-2 byte** — Calculate destination \ parameter \ diagnostic \ proprietary.
+
+</details>
 
 
 </details>
