@@ -47,8 +47,6 @@ A CLI utility written in C for parsing raw CAN bus data according to the SAE J19
 
 </details>
 
-<details>
-<summary><b>Header description</b></summary>
 
 <details>
 <summary><b>Header description</b></summary>
@@ -58,9 +56,6 @@ A CLI utility written in C for parsing raw CAN bus data according to the SAE J19
 * **2 byte** — Tail, least significant PGN byte. It obeys. If the header `< 240`, the destination address is written here. If the header `>= 240`, it acts as a parameter group extension.
 * **3 byte** — Source address. The physical address of the node that transmitted this message.
 * **1-2 byte** — Calculate destination \ parameter \ diagnostic \ proprietary.
-
-</details>
-
 
 </details>
 
