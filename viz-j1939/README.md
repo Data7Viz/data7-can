@@ -1,3 +1,75 @@
+# 📊 J1939 CAN Visual Parser / Визуальный парсер CAN j1939
+
+🌐 [Read in English](#-english-version) | 🇷🇺 [Читать на русском](#-русская-версия)
+
+---
+
+## 🌐 English Version
+
+A CLI utility written in C for parsing raw CAN bus data according to the SAE J1939 standard.
+
+### 📑 Frame ID Parsing
+* **Frame ID**: Detected automatically.
+* `byte-1 >= 240`: Broadcast transmission.
+* `byte-1 < 240`: Addressable transmission.
+* If `byte-1 >= 240`: Combine **Byte-1** and **Byte-2** to get the **PGN**. **Byte-3** is the **Source Address**.
+* If `byte-1 < 240`: **Byte-2** is the **Destination Address**. **Byte-3** is the **Source Address**.
+* **0 Byte**: Priority, reserved bit, data page.
+
+### ✉️ Addressable Messages
+* System, Request, Response, Acknowledgement, Data Transfer.
+
+### 📢 Broadcast Messages
+* Parameter Group Messages (Data).
+* Diagnostic Messages.
+* Proprietary / Manufacturer-Specific / Free-form.
+
+### 🏗 Header Logic
+
+<details>
+<summary><b>Header evolution</b></summary>
+
+*(Copy and paste your <img> tags with the header evolution screenshots here)*
+
+</details>
+
+<details>
+<summary><b>Header description</b></summary>
+
+*(Insert text or screenshots explaining the header here)*
+
+</details>
+
+---
+
+<details>
+<summary><b>Current version of viz_j1939.c</b></summary>
+
+```c
+// Paste the latest code of viz_j1939.c here
+```
+</details>
+
+<details>
+<summary><b>See how it works: Reading active fault codes (DTCs)</b></summary>
+
+*(Insert screenshot or log output demonstrating active error reading here)*
+
+</details>
+
+### 📱 Termux
+The utility runs out-of-the-box without any code modifications. Just compiled and launched. The screen is oriented horizontally. Unlike other devices, I had to manually scale it to fit my specific screen resolution.
+
+<details>
+<summary><b>See Termux in action</b></summary>
+
+*(Insert your Termux operation screenshots here)*
+
+</details>
+
+## 🇷🇺 Русская Версия
+
+
 # Визуальный парсер CAN j1939
 
 **Консольная утилита на языке С для разбора сырых данных CAN-шины по стандарту j1939.**
