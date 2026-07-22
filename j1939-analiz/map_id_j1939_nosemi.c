@@ -3,7 +3,7 @@
 #define GRIN "\033[0;32m"
 #define SIN "\033[0;34m"
 #define GOT "\033[0;33m"
-#define RED "\033[0;31m"
+#define GR "\033[0;90m"
 #define RES "\033[0m"
 
 void print (char *cvet, char *stroka)
@@ -16,7 +16,7 @@ void fyn_for_byt1_byt2_byt3 (uint32_t *arr, char *str)
 	int a = 0;
 	for (int i = 0; i <= 255; i ++)
 	{
-		if (arr [i] > 0) { printf (""RED" |"RES" %s"SIN" %-2X"RES" "GRIN"%-3u"RES" сбщ %-7u", str, i, i, arr [i]);
+		if (arr [i] > 0) { printf (""GR" |"RES" %s"SIN" %-2X"RES" "GRIN"%-3u"RES" сбщ %-7u", str, i, i, arr [i]);
 			a ++; if (a % 6 == 0) printf ("\n"); } 
 	}
 } 
@@ -29,7 +29,7 @@ void fyn_pgn (uint32_t *arr_prior, uint32_t *arr, uint32_t min, uint32_t max)
 	{ 
 		if (arr [i] > 0)
 		{	
-				printf (""RED" |"RES" %u"SIN" %4X"RES" "GRIN"%-5u"RES" сбщ %-7u ", arr_prior [i], i, i, arr [i]); 
+				printf (""GR" |"RES" %u"SIN" %4X"RES" "GRIN"%-5u"RES" сбщ %-7u ", arr_prior [i], i, i, arr [i]); 
 				b ++; if (b % 6 == 0) printf ("\n"); 
 		} 
 	}
@@ -45,7 +45,7 @@ void fyn_su_dt (uint32_t su_dt [256] [256])
 		{
 			if (su_dt [i] [j] > 0)
 			{
-				printf (""RED" |"RES" ис"SIN" %-2X"RES" наз"SIN" %-2X "RES" сбщ %-7u", i, j, su_dt [i] [j]); 
+				printf (""GR" |"RES" ис"SIN" %-2X"RES" наз"SIN" %-2X "RES" сбщ %-7u", i, j, su_dt [i] [j]); 
 				c ++; if (c % 6 == 0) printf ("\n");
 			}
 		}
@@ -69,6 +69,9 @@ int main (int argc, char *argv [])
 	// память для логики 
 	uint32_t arr_byte1 [256] = {0}, arr_byte2 [256] = {0}, arr_byte3 [256] = {0}, arr_br_byte3 [256] = {0}, arr_pgn [65536] = {0}, arr_prior [65536] = {0}, arr_sour_dist [256] [256] = {0}; 
 	uint32_t byte0 = 0, byte1 = 0, byte2 = 0, byte3 = 0, pgn = 0, prior = 0;	
+	// счётчики вещательных и адресных сообщений общее колличество
+	uint32_t count_br = 0, count_addr = 0;
+	// длительность снятия лога 
 	double start_time = 0.0, end_time = 0.0;
 	while (fgets (byf_file, sizeof (byf_file), file))
 	{
@@ -87,14 +90,11 @@ int main (int argc, char *argv [])
 		arr_byte3 [byte3] ++; 
 		// адресные
 		if (byte1 < 240) { 
-			arr_prior [pgn] = prior;
-			arr_byte1 [byte1] ++;
-			arr_pgn [pgn] ++; 
-			arr_sour_dist [byte3] [byte2] ++; 
-		}  	
+			arr_prior [pgn] = prior; arr_byte1 [byte1] ++; arr_pgn [pgn] ++; arr_sour_dist [byte3] [byte2] ++; count_addr ++;}  	
 
 		// вещательное
-		else { arr_prior [pgn] = prior; arr_br_byte3 [byte3] ++; arr_pgn [pgn] ++; }
+		else { 
+			arr_prior [pgn] = prior; arr_br_byte3 [byte3] ++; arr_pgn [pgn] ++; count_br ++;}
 		} 
 		else { printf ("Не прочитаные : %s", byf_file); } 
 	} 
@@ -125,8 +125,8 @@ int main (int argc, char *argv [])
 	
 	// КОЛЛИЧЕСТВО прочитаных фреймов
 	kol_poter_frame = all_frame - read_frame;
-	printf (GOT"Всего %-15u Прочитано %-15u Пропущено %-15u  Длительность лога %-15.0lf сек\n"RES, all_frame, read_frame, kol_poter_frame, end_time - start_time);
-	printf ("\n");
+	printf (GRIN"Всего %-7u Прочитано %-7u Пропущено %-7u"RES" "GOT" Длительность лога %-7.0lf сек"RES, all_frame, read_frame, kol_poter_frame, end_time - start_time);
+	printf (SIN"\tВещательных %-7u  Адресных %-7u\n"RES, count_br, count_addr);
 	return 0;
 } 	
 
