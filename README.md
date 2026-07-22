@@ -8,6 +8,13 @@
 
 A repository dedicated to studying the CAN bus using the C programming language. The project is currently in the stage of gathering a theoretical framework and initial design.
 
+### 🛠️ Project Target Systems
+Low-level development on pure C for reverse engineering, decoding, and parsing raw HEX CAN bus data logs (SAE J1939 standard). The project provides console tools for automotive diagnostics:
+* **Engine ECU** (Weichai, Yuchai)
+* **Brake Systems ABS / EBS** (WABCO)
+* **Suspension ECAS** (WABCO)
+* **Transmission & Gearbox** (Fast Gear, Voith, Allison)
+
 ### 🛠 Environment & Stack
 * **Linux / Android / Termux**
 * **C, ASM**
