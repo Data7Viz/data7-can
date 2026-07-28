@@ -4,7 +4,6 @@
 #define GRIN "\033[0;32m"
 #define SIN "\033[0;34m"
 #define GOT "\033[0;33m"
-#define RED "\033[0;90m"
 #define RES "\033[0m"
 
 // функция для анализа 0,1,2,3 байта 
@@ -14,7 +13,7 @@ void fyn_for_byt1_byt2_byt3 (uint32_t *arr, char *str)
 	for (int i = 0; i <= 255; i ++)
 	{
 		if (arr [i] > 0) { printf (" %s"SIN" %-2X"RES" "GRIN"%-3u"RES" сбщ %-7u", str, i, i, arr [i]);
-			a ++; if (a % 6 == 0) printf ("\n"); } 
+			a ++; if (a % 8 == 0) printf ("\n"); } 
 	}
 	printf ("\n\n\n\n");
 } 
@@ -28,7 +27,7 @@ void fyn_pgn (uint32_t *arr_prior, uint32_t *arr, uint32_t min, uint32_t max)
 		if (arr [i] > 0)
 		{	
 				printf (" %u"SIN" %4X"RES" "GRIN"%-5u"RES" сбщ %-7u ", arr_prior [i], i, i, arr [i]); 
-				b ++; if (b % 6 == 0) printf ("\n"); 
+				b ++; if (b % 8 == 0) printf ("\n"); 
 		} 
 	}
 	printf ("\n\n\n\n");
@@ -45,7 +44,7 @@ void fyn_su_dt (uint32_t su_dt [256] [256])
 			if (su_dt [i] [j] > 0)
 			{
 				printf (" ис"SIN" %-2X"RES" наз"SIN" %-2X "RES" сбщ %-7u", i, j, su_dt [i] [j]); 
-				c ++; if (c % 6 == 0) printf ("\n");
+				c ++; if (c % 8 == 0) printf ("\n");
 			}
 		}
 	}
@@ -99,19 +98,19 @@ int main (int argc, char *argv [])
 		else { arr_prior [pgn] = prior; arr_br_byte3 [byte3] ++; arr_pgn [pgn] ++; count_br ++; } 
 
 	printf ("\033[H\n"); 
-	// fyn_for_byt1_byt2_byt3 (arr_byte1, "b1<204");
+	fyn_for_byt1_byt2_byt3 (arr_byte1, "b1<204");
 	
-	// fyn_for_byt1_byt2_byt3 (arr_br_byte3, "вщ блк");
+	fyn_for_byt1_byt2_byt3 (arr_br_byte3, "вщ блк");
 
-	// fyn_for_byt1_byt2_byt3 (arr_byte3, "все бл"); 
+	fyn_for_byt1_byt2_byt3 (arr_byte3, "все бл"); 
 
-	// fyn_su_dt (arr_sour_dist);
+	fyn_su_dt (arr_sour_dist);
 
-	// fyn_pgn (arr_prior, arr_pgn, 0, 61439); 
+	fyn_pgn (arr_prior, arr_pgn, 0, 61439); 
 	
 	fyn_pgn (arr_prior, arr_pgn, 61440, 65279);
 
-	// fyn_pgn (arr_prior, arr_pgn, 65280, 65535);
+	 fyn_pgn (arr_prior, arr_pgn, 65280, 65535);
 	
 	}
 	} 
