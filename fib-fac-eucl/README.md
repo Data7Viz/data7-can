@@ -48,7 +48,8 @@
 
 <details>
 <summary><b>Смотреть скрин</b></summary>
-
+  
+<img width="684" height="630" alt="Снимок экрана от 2026-07-28 20-05-05" src="https://github.com/user-attachments/assets/3b9a03ab-113f-4583-a79e-0a313ed3f409" />
 
 </details> 
 
