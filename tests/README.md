@@ -429,3 +429,23 @@ int main (int argc, char *argv [])
 </details> 
 
 ---
+---
+
+## Для анализа и статистики логов хочу внедрить математику в map_id_j1939
+
+**Написал прототип** 
+
+- fibonacci.c  
+- factorial.c 
+- euclid.c 
+
+**Перенесу в репо fac-fib-euc корень data7-can** 
+
+<details>
+<summary><b>Смотреть как работает</b></summary>
+
+
+
+</details> 
+
+
