@@ -820,7 +820,7 @@ sleep (0.5)
 <details>
 <summary><b>Смотреть как работает с файла</b></summary> 
 
-
+https://github.com/user-attachments/assets/19803f27-e49c-486c-9bb7-54da0d69a638
 
 </details> 
 
