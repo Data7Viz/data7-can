@@ -444,6 +444,7 @@ int main (int argc, char *argv [])
 <details>
 <summary><b>Смотреть как работает</b></summary>
 
+<img width="571" height="640" alt="Снимок экрана от 2026-07-28 14-03-28" src="https://github.com/user-attachments/assets/84212776-8ca5-4c47-b88a-f5eadf9ab98d" />
 
 
 </details> 
