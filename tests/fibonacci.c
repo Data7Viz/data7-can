@@ -1,8 +1,9 @@
 #include <stdio.h>
 int main ()
 {
-	unsigned int a = 0, b = 1, res = 0;
-	for (int i = 1; i <= 29; i ++)
+	unsigned int a = 0, b = 1, res = 0, fib_num = 0;
+	scanf ("%u", &fib_num);
+	for (int i = 1; i <= fib_num; i ++)
 	{
 		res = a + b;
 		b = a; 
