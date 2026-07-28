@@ -109,10 +109,10 @@ int main (int argc, char *argv [])
 	print (GRIN, "Адресные           сообщения ="); fyn_pgn (arr_pgn, arr_prior, 0, 61439);
 	printf ("\n\n");	
 	
-        print (SIN, "Вещательные   сообщение  PGN =="); fyn_pgn (arr_pgn, arr_prior, 61440, 65535);
+        print (SIN, "Вещательные   сообщение  PGN =="); fyn_pgn (arr_pgn, arr_prior, 61440, 65279);
 	printf ("\n\n");
 
-	print (GRIN, "Диагностическое    сообщение ="); fyn_pgn (arr_pgn, arr_prior, 65226, 65237);
+	print (GRIN, "Проприетарные Заводские ======"); fyn_pgn (arr_pgn, arr_prior, 65280, 65535);
 	printf ("\n");
 	
 	// КОЛЛИЧЕСТВО прочитаных фрейьов
