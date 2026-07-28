@@ -15,3 +15,10 @@
 ## Fibonacci 
 
 Наложить структуру ID на Fibonacci
+
+<details>
+<summary><b>Эволюция разработки в скринах</b></summary> 
+
+
+
+</details>  
