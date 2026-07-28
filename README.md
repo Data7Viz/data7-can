@@ -80,6 +80,7 @@ Low-level development on pure C for reverse engineering, decoding, and parsing r
 * 📂 **[Маски сдвиги](/mask-shift)**
 * 📂 **[Декодер j1939](/viz-j1939)**
 * 📂 **[Анализатор j1939](/j1939-analiz)**
+* 📂 **[Внедрить Fibonacci Factorial Euclid](/fib-fac-eucl)**
 * 📂 **[Песочница tests](/tests)**
 
 
