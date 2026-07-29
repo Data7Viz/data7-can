@@ -105,6 +105,7 @@ int main ()
 <details>
 <summary><b>Смотреть как работает</b></summary>
 
+<img width="1200" height="1920" alt="670" src="https://github.com/user-attachments/assets/a8d3feed-7d1f-4c6a-8233-907157c148e7" />
 
 
 </details>
