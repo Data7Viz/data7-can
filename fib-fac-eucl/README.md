@@ -120,6 +120,7 @@ int main ()
 <details>
 <summary><b>Смотреть: наложил структуру ID J1939 на fibonacci по новому</b></summary>
 
+<img width="1200" height="1920" alt="692" src="https://github.com/user-attachments/assets/7cdb3adb-0d9f-46dc-b523-3ac5a3dcbdda" />
 
 
 </details>
