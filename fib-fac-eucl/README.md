@@ -223,8 +223,6 @@ int main ()
 } 
 
 
-</details> 
-
 ```
 
 </details> 
