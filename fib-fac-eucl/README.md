@@ -183,7 +183,8 @@ int main ()
 
 <details>
 <summary><b>Смотреть fibonacci -> factorial</b></summary> 
-
+	
+<img width="710" height="225" alt="Снимок экрана от 2026-08-01 20-27-45" src="https://github.com/user-attachments/assets/0db62733-4e7f-4d3b-95fe-16303c46b728" />
 
 </details>
 
