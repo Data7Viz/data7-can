@@ -22,14 +22,15 @@ void fyn_for_byt1_byt2_byt3 (uint32_t *arr, char *str)
 } 
 
 // функция адресные вещательные сообщения 
-void fyn_pgn (uint32_t *arr_prior, uint32_t *arr, double *arr_min, double *arr_max, uint32_t min, uint32_t max)
+void fyn_pgn (uint32_t *arr_prior, uint32_t *arr, double *arr_min, double *arr_max, double dlitel_log, uint32_t min, uint32_t max)
 {
 	int b = 0;
 	for (int i = min; i <= max; i ++) 
 	{ 
 		if (arr [i] > 0)
 		{	
-				printf (""GR" |"RES" %u"SIN" %4X"RES" "GRIN"%-5u"RES" сбщ %-7u delta %-10lf ", arr_prior [i], i, i, arr [i], arr_max [i] - arr_min [i]); 
+				double molch_blok = dlitel_log - (arr_max [i] - arr_min [i]); 
+				printf (""GR" |"RES" %u"SIN" %4X"RES" "GRIN"%-5u"RES" сбщ %-7u бл молч %-10lf сек ", arr_prior [i], i, i, arr [i], molch_blok); 
 				b ++; if (b % 4 == 0) printf ("\n"); 
 		} 
 	}
@@ -111,6 +112,8 @@ int main (int argc, char *argv [])
 		else { printf ("Не прочитаные : %s", byf_file); } 
 	} 
 	fclose (file);
+	kol_poter_frame = all_frame - read_frame;
+	double dlitel_log = end_time - start_time; 
 	
 	//printf ("\n");
 	//print (GOT, "[ Байт 1 ] Сетевые / Транспортные ---------------------------------"); fyn_for_byt1_byt2_byt3 (arr_byte1, "byte 1");
@@ -128,16 +131,13 @@ int main (int argc, char *argv [])
 	//print (GOT, "[ байт 2 Байт 3 ] Адресные сообщения [ byte 1 < 240 ] -------------"); fyn_pgn (arr_prior, arr_pgn, 0, 61439);
 	//printf ("\n\n");
 	
-	print (GOT, "[ Байт 1 Байт 2] Вещательные сообщения [ byte 1 >= 240 ] ----------");  fyn_pgn (arr_prior, arr_pgn, arr_min, arr_max, 61440, 65279);
+	print (GOT, "[ Байт 1 Байт 2] Вещательные сообщения [ byte 1 >= 240 ] ----------");  fyn_pgn (arr_prior, arr_pgn, arr_min, arr_max, dlitel_log, 61440, 65279);
 	printf ("\n\n");
 
 	//print (GOT, "[ Байт 1 Байт 2 ] Заводские Проприетарные [ byte 1 >= 240 ] -------"); fyn_pgn (arr_prior, arr_pgn, 65280, 65535);
 	//printf ("\n\n");
-	 
 	
-	// КОЛЛИЧЕСТВО прочитаных фреймов
-	kol_poter_frame = all_frame - read_frame;
-	printf (GRIN"Всего %-7u Прочитано %-7u Пропущено %-7u"RES" "GOT" Длительность лога %-7lf сек"RES, all_frame, read_frame, kol_poter_frame, end_time - start_time);
+	printf (GRIN"Всего %-7u Прочитано %-7u Пропущено %-7u"RES" "GOT" Длительность лога %-7lf сек"RES, all_frame, read_frame, kol_poter_frame, dlitel_log);
 	printf (SIN"\tВещательных %-7u  Адресных %-7u\n"RES, count_br, count_addr);
 	return 0;
 } 	
