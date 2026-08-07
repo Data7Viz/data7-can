@@ -33,6 +33,9 @@
 
 <img width="515" height="651" alt="Снимок экрана от 2026-07-28 18-55-51" src="https://github.com/user-attachments/assets/28283043-a46e-4f3b-bebc-068ce474140c" />
 
+<img width="1200" height="1920" alt="692" src="https://github.com/user-attachments/assets/ae2e1f83-75e8-4e75-beee-5c7a5583e553" />
+
+
 </details>
 
 ---
