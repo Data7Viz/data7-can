@@ -977,6 +977,8 @@ int main (int argc, char *argv [])
 <details>
 <summary><b>Фото ./map_time_j1939 file</b></summary> 
 
+<img width="1341" height="685" alt="Снимок экрана_2026-07-30_01-10-36" src="https://github.com/user-attachments/assets/54873f0b-fc63-47c6-93d4-1327f5c8c4a2" />
+
 
 </details> 
 
