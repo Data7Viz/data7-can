@@ -969,3 +969,15 @@ int main (int argc, char *argv [])
 ```
 
 </details> 
+
+--- 
+
+## map_time_j1939.c 
+
+<details>
+<summary><b>Фото ./map_time_j1939 file</b></summary> 
+
+
+</details> 
+
+Комментарий к фото: Если выполнить математическую операцию >>  Длительность лога - Дельта PGN =  Время молчания блока. 
