@@ -22,15 +22,15 @@ void fyn_for_byt1_byt2_byt3 (uint32_t *arr, char *str)
 } 
 
 // функция адресные вещательные сообщения 
-void fyn_pgn (uint32_t *arr_prior, uint32_t *arr, double *arr_min, double *arr_max, double dlitel_log, uint32_t min, uint32_t max)
+void fyn_pgn (uint32_t *arr_prior, uint32_t *arr, double *pgn_start, double *pgn_end, double dlitel_log, uint32_t min, uint32_t max)
 {
 	int b = 0;
 	for (int i = min; i <= max; i ++) 
 	{ 
 		if (arr [i] > 0)
 		{	
-				double molch_blok = dlitel_log - (arr_max [i] - arr_min [i]); 
-				printf (""GR" |"RES" %u"SIN" %4X"RES" "GRIN"%-5u"RES" сбщ %-7u бл молч %-10lf сек ", arr_prior [i], i, i, arr [i], molch_blok); 
+				double molch_blok = dlitel_log - (pgn_end [i] - pgn_start [i]); 
+				printf (""GR" |"RES" %u"SIN" %4X"RES" "GRIN"%-5u"RES" сбщ %-7u края %-5.3lf сек ", arr_prior [i], i, i, arr [i], molch_blok); 
 				b ++; if (b % 4 == 0) printf ("\n"); 
 		} 
 	}
@@ -75,7 +75,7 @@ int main (int argc, char *argv [])
 	// длительность снятия лога 
 	double start_time = 0.0, end_time = 0.0;
 	// переменные для тайминга
-	double arr_min [65536] = {0.0}, arr_max [65536] = {0.0}, res = 0.0;
+	double pgn_start [65536] = {0.0}, pgn_end [65536] = {0.0}, res = 0.0;
 
 	while (fgets (byf_file, sizeof (byf_file), file))
 	{
@@ -103,9 +103,9 @@ int main (int argc, char *argv [])
 			arr_pgn [pgn] ++; 
 			count_br ++;}
 			
-		if (arr_min [pgn] == 0.0 || time < arr_min [pgn]) arr_min [pgn] = time;
+		if (pgn_start [pgn] == 0.0 || time < pgn_start [pgn]) pgn_start [pgn] = time;
 
-		if (arr_max [pgn] == 0.0 || time > arr_max [pgn]) arr_max [pgn] = time; 
+		if (pgn_end [pgn] == 0.0 || time > pgn_end [pgn]) pgn_end [pgn] = time; 
 
 
 		} 
@@ -131,7 +131,7 @@ int main (int argc, char *argv [])
 	//print (GOT, "[ байт 2 Байт 3 ] Адресные сообщения [ byte 1 < 240 ] -------------"); fyn_pgn (arr_prior, arr_pgn, 0, 61439);
 	//printf ("\n\n");
 	
-	print (GOT, "[ Байт 1 Байт 2] Вещательные сообщения [ byte 1 >= 240 ] ----------");  fyn_pgn (arr_prior, arr_pgn, arr_min, arr_max, dlitel_log, 61440, 65279);
+	print (GOT, "[ Байт 1 Байт 2] Вещательные сообщения [ byte 1 >= 240 ] ----------");  fyn_pgn (arr_prior, arr_pgn, pgn_start, pgn_end, dlitel_log, 61440, 65279);
 	printf ("\n\n");
 
 	//print (GOT, "[ Байт 1 Байт 2 ] Заводские Проприетарные [ byte 1 >= 240 ] -------"); fyn_pgn (arr_prior, arr_pgn, 65280, 65535);
