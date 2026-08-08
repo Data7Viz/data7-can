@@ -1020,3 +1020,13 @@ int main (int argc, char *argv [])
 
 ---
 
+<details>
+<summary><b>Фото ./map_time_j1939 file</b></summary>
+
+
+</details>
+
+Переписал код. Пытаюсь поймать закономерность. 
+
+--- 
+
