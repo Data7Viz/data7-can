@@ -445,6 +445,8 @@ int main (int argc, char *argv [])
 
 ## map_id_j1939_nosime.c 
 
+**Программа без ошибки** 
+
 
 <details>
 <summary><b>Эволюция карты Смотреть</b></summary>
@@ -628,6 +630,8 @@ int main (int argc, char *argv [])
 
 ## map_id_j1939.c <- здесь синтатическая ошибка 
 
+**Программа с ошибкой**
+
 ```c
 if ( sscanf (....) == 10); 
 
@@ -787,6 +791,8 @@ int main (int argc, char *argv [])
 ---
 
 ## map_id_j1939_file_obd.c 
+
+**Программа для чтения с файла и с OBD в реальном времени** 
 
 - Изменил логику на входе утилиты
 
@@ -973,6 +979,8 @@ int main (int argc, char *argv [])
 --- 
 
 ## map_time_j1939.c 
+
+**Разработка и анализ сообщений J1939 во времени** 
 
 <details>
 <summary><b>Фото ./map_time_j1939 file</b></summary> 
