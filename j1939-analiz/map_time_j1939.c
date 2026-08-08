@@ -29,9 +29,8 @@ void fyn_pgn (uint32_t *arr_prior, uint32_t *arr, double *pgn_start, double *pgn
 	{ 
 		if (arr [i] > 0)
 		{	
-				double molch_blok = dlitel_log - (pgn_end [i] - pgn_start [i]); 
-				printf (""GR" |"RES" %u"SIN" %4X"RES" "GRIN"%-5u"RES" сбщ %-7u края %-5.3lf сек ", arr_prior [i], i, i, arr [i], molch_blok); 
-				b ++; if (b % 4 == 0) printf ("\n"); 
+				printf (""GR" |"RES" %u"SIN" %4X"RES" "GRIN"%-5u"RES" сбщ %-7u end - start %-10lf ", arr_prior [i], i, i, arr [i], pgn_end [i] - pgn_start [i]); 
+				b ++; if (b % 3 == 0) printf ("\n"); 
 		} 
 	}
 } 
