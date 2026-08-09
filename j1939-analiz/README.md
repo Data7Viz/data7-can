@@ -983,7 +983,7 @@ int main (int argc, char *argv [])
 **Разработка и анализ сообщений J1939 во времени** 
 
 <details>
-<summary><b>Фото ./map_time_j1939 file</b></summary> 
+<summary><b>Фото1 ./map_time_j1939</b></summary> 
 
 <img width="1471" height="493" alt="Снимок экрана от 2026-08-07 20-02-23" src="https://github.com/user-attachments/assets/76b1c0da-f116-42be-a3cc-2432c6a16f53" />
 
@@ -995,7 +995,7 @@ int main (int argc, char *argv [])
 ---
 
 <details>
-<summary><b>Фото ./map_time_j1939 file</b></summary>
+<summary><b>Фото2 ./map_time_j1939</b></summary>
 
 <img width="1648" height="499" alt="Снимок экрана от 2026-08-07 21-15-45" src="https://github.com/user-attachments/assets/e4711384-ffb3-43cb-8e6a-8e4a25747b5c" />
 
@@ -1007,7 +1007,7 @@ int main (int argc, char *argv [])
 --- 
 
 <details>
-<summary><b>Фото ./map_time_j1939 file</b></summary>
+<summary><b>Фото3 ./map_time_j1939</b></summary>
 	
 <img width="1583" height="562" alt="Снимок экрана от 2026-08-08 11-15-47" src="https://github.com/user-attachments/assets/143fb854-58e5-4b26-92d0-1c14225b1013" />
 
@@ -1015,13 +1015,13 @@ int main (int argc, char *argv [])
 
 - То как сообщения лежат в сети по краям.  зазор на старте | напрмер массив 256 сообщений | зазор на финише. 
 - Сумарный зазор КРАЯ = (Зазор на финише - Зазор на старте) - Длительность лога.  
-- (pgn_end [pgn] - pgn_start [pgn]) - dlitel_log. 
+- dlittej_log - (pgn_end [pgn] - pgn_start [pgn]). 
 - Суммарный зазор по идее будет равен периоду вещания. 
 
 ---
 
 <details>
-<summary><b>Фото ./map_time_j1939 file</b></summary>
+<summary><b>Фото4 ./map_time_j1939</b></summary>
 	
 <img width="1785" height="1142" alt="Снимок экрана от 2026-08-08 17-22-55" src="https://github.com/user-attachments/assets/e7ff71c0-759e-4e83-bc79-b3b62a76c66a" />
 
@@ -1031,3 +1031,13 @@ int main (int argc, char *argv [])
 
 --- 
 
+<details>
+<summary><b>Фото5 ./map_time_j1939</b></summary>
+
+</details>
+
+Пытаюсь вывести на печать в поле вещательных зазор по краям. Сейчас общая картина чем ближе число к длительности лога тем меньше краевые зазоры. Нужен детальный анализ по краям. 
+- pgn_end [pgn] - pgn_start [pgn] видим FEFF сбщ 2 края 10.002 сек <- это зазор с левого края (фото 5)
+- dlitel_log (pgn_end [pgn] - pgn_start [pgn]) видим FEFF сбщ 2 15.756 сек <- это зазор и с левого и правого края общий зазор (фото 3) 
+- Получается первое сообщение на 10 сек второе на 20 сек левый зазор 10 сек + правый зазор 5 сек = 15 сек
+- FEF8 сбщ 25 края 24.028 сек <- здесь уже толком ни чего не понятно. При вычитании ты видишь общюю сумму по краям. (фото3) 
