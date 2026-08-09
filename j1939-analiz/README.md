@@ -553,6 +553,6 @@ int main (int argc, char *argv [])
 
 <details>
 <summary><b>Смотреть как работает ./map_j1939</b></summary>
-
+<img width="1699" height="1089" alt="Снимок экрана от 2026-08-09 11-23-49" src="https://github.com/user-attachments/assets/061ed0ec-206b-4061-a153-fb5ea0252f5b" />
 
 </summary> 
