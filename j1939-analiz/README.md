@@ -81,6 +81,7 @@ I changed the number of columns to 4 and decreased `i--`. This fits my vertical 
 
 <img width="1745" height="955" alt="Снимок экрана от 2026-07-20 17-03-10" src="https://github.com/user-attachments/assets/62a1c31d-c264-413a-8e5d-76c190bdce47" />
 
+<img width="1699" height="1089" alt="Снимок экрана от 2026-08-09 11-23-49" src="https://github.com/user-attachments/assets/04e6ab3d-fcf0-42e7-8c04-3bf3fbeaa960" />
   
 </details>
 
