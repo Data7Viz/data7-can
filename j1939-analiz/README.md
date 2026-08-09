@@ -115,6 +115,7 @@ I changed the number of columns to 4 and decreased `i--`. This fits my vertical 
 - 3 > байт адресный
 
 ---
+---
 
 ## Функционал
 
@@ -124,16 +125,17 @@ I changed the number of columns to 4 and decreased `i--`. This fits my vertical 
 
 
 --- 
-
+---
 
 ## Удачная ошибка 
 
 У меня появилось две утилиты. Допустил ошибку в условии if (sscanf ......); предупреджений от компилятора не было потом заметил исправил. После исправления программа стала работать по другому. Так появилось две прогрммы. Программа с синтатической ошибкой тоже имеет право на жизнь. 
 
-- map_id_j1939_nosime.c 
-- map_id_j1939.c 
+- map_id_j1939_nosime.c программа без ошибки
+- map_id_j1939.c программа с ошибкой
 
 ---
+--- 
 
 ## Termux
 
@@ -153,7 +155,6 @@ I changed the number of columns to 4 and decreased `i--`. This fits my vertical 
 
 </details> 
  
----
 
 **Запуск карты в Termux на планшете**  
 
@@ -169,6 +170,7 @@ I changed the number of columns to 4 and decreased `i--`. This fits my vertical 
 
 </details> 
 
+---
 ---
 
 ## map_id_j1939_nosime.c 
@@ -206,6 +208,7 @@ I changed the number of columns to 4 and decreased `i--`. This fits my vertical 
 
 </details>
 
+---
 --- 
 
 ## map_id_j1939.c <- здесь синтатическая ошибка 
@@ -230,6 +233,7 @@ if ( sscanf (....) == 10);
 
 </details> 
 
+---
 ---
 
 ## map_id_j1939_file_obd.c 
@@ -265,6 +269,7 @@ sleep (0.5)
 - Если закоментировать можно вывести на печать одну функцию.
 
 --- 
+---
 
 <details>
 <summary><b>Смотреть как работает с файла</b></summary> 
@@ -281,6 +286,7 @@ https://github.com/user-attachments/assets/19803f27-e49c-486c-9bb7-54da0d69a638
 Посмотреть [Демонстрацию работы в реальном времени (Видео ВКонтакте)](https://vk.ru/clip-227479791_456239043?c=1)
 
 --- 
+---
 
 ## map_time_j1939.c 
 
@@ -297,6 +303,7 @@ https://github.com/user-attachments/assets/19803f27-e49c-486c-9bb7-54da0d69a638
 Если выполнить математическую операцию >>  Длительность лога - Дельта PGN =  Время молчания блока. 
 
 ---
+---
 
 <details>
 <summary><b>Фото2 ./map_time_j1939</b></summary>
@@ -309,6 +316,7 @@ https://github.com/user-attachments/assets/19803f27-e49c-486c-9bb7-54da0d69a638
 Запрограммировал время молчания , простой блока. Это суммарное время, в течении которого прибор не вещал сообщения.  
 
 --- 
+---
 
 <details>
 <summary><b>Фото3 ./map_time_j1939</b></summary>
@@ -323,6 +331,7 @@ https://github.com/user-attachments/assets/19803f27-e49c-486c-9bb7-54da0d69a638
 - Суммарный зазор по идее будет равен периоду вещания. 
 
 ---
+---
 
 <details>
 <summary><b>Фото4 ./map_time_j1939</b></summary>
@@ -334,6 +343,7 @@ https://github.com/user-attachments/assets/19803f27-e49c-486c-9bb7-54da0d69a638
 Переписал код. Пытаюсь поймать закономерность. 
 
 --- 
+---
 
 <details>
 <summary><b>Фото5 ./map_time_j1939</b></summary>
@@ -348,6 +358,7 @@ https://github.com/user-attachments/assets/19803f27-e49c-486c-9bb7-54da0d69a638
 - FEF8 сбщ 25 края 24.028 сек <- здесь уже толком ни чего не понятно. При вычитании ты видишь общюю сумму по краям. (фото3) 
 
 --- 
+---
 
 <details>
 <summary><b>Фото6 map_time_j1939</b></summary> 
@@ -375,10 +386,10 @@ https://github.com/user-attachments/assets/19803f27-e49c-486c-9bb7-54da0d69a638
 
 0xFECA этот PGN блоки тормозной системы, ДВС, АКПП, пневмоподвеска делят между собой. 
 
-** -п 6 FECA 65226 б 11 с 101 лв 0.638 пр 0.117 <- здесь "каша"** 
+**-п 6 FECA 65226 б 11 с 101 лв 0.638 пр 0.117 <- здесь "каша"** 
 
 Существуют ли подобные PGN которые блоки делят между собой? Требуется дальнейшее исследование. 
 
 ---
-
+--- 
 
