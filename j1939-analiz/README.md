@@ -473,6 +473,8 @@ int main (int argc, char *argv [])
 
 <img width="1679" height="1088" alt="Снимок экрана от 2026-07-22 17-58-39" src="https://github.com/user-attachments/assets/22ef9eba-3568-4fec-ab7a-9c0577ac3209" />
 
+<img width="1699" height="1089" alt="Снимок экрана от 2026-08-09 11-23-49" src="https://github.com/user-attachments/assets/be44fe8c-9c47-4f23-ab56-b74b50895960" />
+
 
 </details>
 
@@ -1047,6 +1049,7 @@ int main (int argc, char *argv [])
 
 <details>
 <summary><b>Фото6 map_time_j1939</b></summary> 
+<img width="1699" height="1089" alt="Снимок экрана от 2026-08-09 11-23-49" src="https://github.com/user-attachments/assets/8c320b98-ca62-4ce8-9116-2570ac93b52a" />
 
 </details>
 
@@ -1064,6 +1067,7 @@ int main (int argc, char *argv [])
 
 <details>
 <summary><b>Фото7 ./viz_j1939 это микроскоп</b></summary>
+<img width="1793" height="604" alt="Снимок экрана от 2026-08-04 12-52-36" src="https://github.com/user-attachments/assets/8a9e554b-f65e-437c-a4d5-0922e0351bde" />
 
 </details>
 
