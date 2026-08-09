@@ -391,12 +391,12 @@ https://github.com/user-attachments/assets/19803f27-e49c-486c-9bb7-54da0d69a638
 ---
 --- 
 
-## Итоги разработки карты CAN J1939 на 9.08.2026 год map_j1939
+## Итоги разработки карты ID CAN J1939 на 9.08.2026 год map_id_j1939
 
 Именна переменных + комментарии к коду ??? 
 
 <details>
-<summary><b>Смотреть код программы map_j1939.c</b></summary> 
+<summary><b>Смотреть код программы map_id_j1939.c</b></summary> 
 
 ```c
 
@@ -552,7 +552,7 @@ int main (int argc, char *argv [])
 </details>
 
 <details>
-<summary><b>Смотреть как работает ./map_j1939</b></summary>
+<summary><b>Смотреть как работает ./map_id_j1939</b></summary>
 <img width="1699" height="1089" alt="Снимок экрана от 2026-08-09 11-23-49" src="https://github.com/user-attachments/assets/061ed0ec-206b-4061-a153-fb5ea0252f5b" />
 
 </summary> 
