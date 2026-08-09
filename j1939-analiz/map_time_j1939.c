@@ -22,16 +22,17 @@ void fyn_for_byt1_byt2_byt3 (uint32_t *arr, char *str)
 } 
 
 // функция вещательные сообщения 
-void fyn_pgn (uint32_t *arr_prior, uint32_t *arr_pgn, uint32_t *pgn_sour, double *pgn_start, double *pgn_end, uint32_t min, uint32_t max)
+void fyn_pgn (uint32_t *arr_prior, uint32_t *arr_pgn, uint32_t *pgn_sour, double *pgn_start, double *pgn_end, double start_time, double end_time, uint32_t min, uint32_t max)
 {
 	int b = 0;
 	for (int i = min; i <= max; i ++) 
 	{ 
 			if (arr_pgn [i] > 0)  
 			{	
-				
-				printf (""GR" |"RES" %u"SIN" %4X"RES" "GRIN"%-5u"RES" %-3u сбщ %-7u края %-6.3lf", arr_prior [i], i, i, pgn_sour [i], arr_pgn [i], pgn_end [i] - pgn_start [i]); 
-				b ++; if (b % 4 == 0) printf ("\n"); 
+				double zaz_lv = pgn_start [i] - start_time;
+				double zaz_pr = end_time - pgn_end [i]; 
+				printf (""GR" |"RES""GRIN" п "RES"%u"SIN" %4X"RES" %-5u "GRIN" б "RES"%-3u "GRIN"с "RES"%-7u "GRIN"лв "RES"%-6.3lf "GRIN"пр "RES"%-6.3lf", arr_prior [i], i, i, pgn_sour [i], arr_pgn [i], zaz_lv, zaz_pr); 
+				b ++; if (b % 3 == 0) printf ("\n"); 
 			} 
 		
 	}
@@ -133,10 +134,10 @@ int main (int argc, char *argv [])
 	//print (GOT, "[ байт 2 Байт 3 ] Адресные сообщения [ byte 1 < 240 ] -------------"); fyn_pgn (arr_prior, arr_pgn, 0, 61439);
 	//printf ("\n\n");
 	
-	print (GOT, "[ Байт 1 Байт 2] Вещательные сообщения [ byte 1 >= 240 ] ----------"); fyn_pgn (arr_prior, arr_pgn, pgn_sour, pgn_start, pgn_end, 61440, 65279);
+	print (GOT, "[ Байт 1 Байт 2] Вещательные сообщения [ byte 1 >= 240 ] ----------"); fyn_pgn (arr_prior, arr_pgn, pgn_sour, pgn_start, pgn_end, start_time, end_time, 61440, 65279);
 	printf ("\n\n");
 
-	print (GOT, "[ Байт 1 Байт 2 ] Заводские Проприетарные [ byte 1 >= 240 ] -------"); fyn_pgn (arr_prior, arr_pgn, pgn_sour, pgn_start, pgn_end, 65280, 65535);
+	print (GOT, "[ Байт 1 Байт 2 ] Заводские Проприетарные [ byte 1 >= 240 ] -------"); fyn_pgn (arr_prior, arr_pgn, pgn_sour, pgn_start, pgn_end, start_time, end_time, 65280, 65535);
 	printf ("\n\n");
 	
 	printf (GRIN"Всего %-7u Прочитано %-7u Пропущено %-7u"RES" "GOT" Длительность лога %-7lf сек"RES, all_frame, read_frame, kol_poter_frame, dlitel_log);
