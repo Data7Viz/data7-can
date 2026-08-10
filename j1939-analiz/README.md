@@ -556,3 +556,5 @@ int main (int argc, char *argv [])
 <img width="1699" height="1089" alt="Снимок экрана от 2026-08-09 11-23-49" src="https://github.com/user-attachments/assets/061ed0ec-206b-4061-a153-fb5ea0252f5b" />
 
 </summary> 
+<img width="4096" height="1430" alt="752" src="https://github.com/user-attachments/assets/a04c53aa-f0cb-4abe-9587-60b13431a629" />
+
