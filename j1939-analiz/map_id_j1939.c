@@ -22,15 +22,15 @@ void fyn_for_byt1_byt2_byt3 (uint32_t *arr, char *str)
 } 
 
 // функция вещательные сообщения 
-void fyn_pgn (uint32_t *arr_prior, uint32_t *arr_pgn, uint32_t *pgn_sour, double *pgn_start, double *pgn_end, double start_time, double end_time, uint32_t min, uint32_t max)
+void fyn_pgn (uint32_t *arr_prior, uint32_t *arr_pgn, uint32_t *pgn_sour, double *start_pgn_min, double *end_pgn_max, double start_time_frame, double end_time_frame, uint32_t min, uint32_t max)
 {
 	int b = 0;
 	for (int i = min; i <= max; i ++) 
 	{ 
 			if (arr_pgn [i] > 0)  
 			{	
-				double zaz_lv = pgn_start [i] - start_time;
-				double zaz_pr = end_time - pgn_end [i]; 
+				double zaz_lv = start_pgn_min [i] - start_time_frame;
+				double zaz_pr = end_time_frame - end_pgn_max [i]; 
 				printf (""GR" |"RES""GRIN" п "RES"%u"SIN" %4X"RES" %-5u "GRIN" б "RES"%-3u "GRIN"с "RES"%-7u "GRIN"лв "RES"%-6.3lf "GRIN"пр "RES"%-6.3lf", arr_prior [i], i, i, pgn_sour [i], arr_pgn [i], zaz_lv, zaz_pr); 
 				b ++; if (b % 3 == 0) printf ("\n"); 
 			} 
@@ -66,34 +66,41 @@ int main (int argc, char *argv [])
 	uint32_t id = 0;
 	uint16_t data [8] = {0};
 	uint16_t a = 0;
-	uint32_t all_frame = 0; // все фреймы 
-	uint32_t read_frame = 0; // прочитаные фрейьы
-	uint32_t kol_poter_frame = 0; // потеряные фреймы 
+	
+	// переменные для счётчиков подсчёта фреймов
+	uint32_t all_frame = 0, read_frame = 0,  kol_poter_frame = 0;
+	
 	// память для логики 
 	uint32_t pgn_sour [65536] = {0}, arr_byte1 [256] = {0}, arr_byte2 [256] = {0}, arr_byte3 [256] = {0}, arr_br_byte3 [256] = {0}, arr_pgn [65536] = {0}, arr_prior [65536] = {0}, arr_sour_dist [256] [256] = {0}; 
 	uint32_t byte0 = 0, byte1 = 0, byte2 = 0, byte3 = 0, pgn = 0, prior = 0;	
+	
 	// счётчики вещательных и адресных сообщений общее колличество
 	uint32_t count_br = 0, count_addr = 0;
-	// длительность снятия лога 
-	double start_time = 0.0, end_time = 0.0;
-	// переменные для тайминга
-	double pgn_start [65536] = {0.0}, pgn_end [65536] = {0.0};
+	
+	// длительность  лога 
+	double start_time_frame = 0.0, end_time_frame = 0.0;
+	
+	// переменные для тайминга левый и правый зазор
+	double start_pgn_min [65536] = {0.0}, end_pgn_max [65536] = {0.0};
 
 	while (fgets (byf_file, sizeof (byf_file), file))
 	{
-		all_frame ++; // все фреймы
+		all_frame ++; // все сообщения
+		
 		// парсим очищвем логи
 		for (int i = 0; i <= 7; i ++) data [i] = 0;
 		if (sscanf (byf_file," (%lf) %*s %x [%*d] %hx %hx %hx %hx %hx %hx %hx %hx", &time,&id,&data[0],&data[1],&data[2],&data[3],&data[4],&data[5],&data[6],&data[7]) == 10)
 		{
-		end_time = time;
-		read_frame ++;
-		byte0 = (id >> 24) & 0xff; byte1 = (id >> 16) & 0xff; byte2 = (id >> 8) & 0xff; byte3 = id & 0xff, pgn = (id >> 8) & 0xffff, prior = (id >> 26) & 7;  
+		read_frame ++; // прочитаные сообщения
 		
-		if (read_frame == 1) { start_time = time; }  
+		end_time_frame = time; // время последнего сообщения
+		if (read_frame == 1) { start_time_frame = time; }  // время первого сообщеня
+		
+		prior = (id >> 26) & 7, byte1 = (id >> 16) & 0xFF, byte2 = (id >> 8) & 0xFF, byte3 = id & 0xFF, pgn = (id >> 8) & 0xFFFF;  
 		
 		// все блоки сети
 		arr_byte3 [byte3] ++; 
+		
 		// адресные
 		if (byte1 < 240) { 
 			arr_prior [pgn] = prior; arr_byte1 [byte1] ++; arr_sour_dist [byte3] [byte2] ++; count_addr ++;}  	
@@ -105,10 +112,11 @@ int main (int argc, char *argv [])
 			arr_pgn [pgn] ++;
 		        pgn_sour [pgn] = byte3;	
 			count_br ++;}
-			
-		if (pgn_start [pgn] == 0.0 || time < pgn_start [pgn]) pgn_start [pgn] = time;
-
-		if (pgn_end [pgn] == 0.0 || time > pgn_end [pgn]) pgn_end [pgn] = time; 
+		// зазор слева	
+		if (start_pgn_min [pgn] == 0.0 || time < start_pgn_min [pgn]) start_pgn_min [pgn] = time;
+		
+		// зазор с права
+		if (end_pgn_max [pgn] == 0.0 || time > end_pgn_max [pgn]) end_pgn_max [pgn] = time; 
 
 
 		} 
@@ -116,7 +124,7 @@ int main (int argc, char *argv [])
 	} 
 	fclose (file);
 	kol_poter_frame = all_frame - read_frame;
-	double dlitel_log = end_time - start_time; 
+	double dlitel_log = end_time_frame - start_time_frame; 
 	
 	printf ("\n");
 	print (GOT, "[ Байт 1 ] Сетевые / Транспортные ---------------------------------"); fyn_for_byt1_byt2_byt3 (arr_byte1, "byte 1");
@@ -134,10 +142,10 @@ int main (int argc, char *argv [])
 	//print (GOT, "[ байт 2 Байт 3 ] Адресные сообщения [ byte 1 < 240 ] -------------"); fyn_pgn (arr_prior, arr_pgn, 0, 61439);
 	//printf ("\n\n");
 	
-	print (GOT, "[ Байт 1 Байт 2] Вещательные сообщения [ byte 1 >= 240 ] ----------"); fyn_pgn (arr_prior, arr_pgn, pgn_sour, pgn_start, pgn_end, start_time, end_time, 61440, 65279);
+	print (GOT, "[ Байт 1 Байт 2] Вещательные сообщения [ byte 1 >= 240 ] ----------"); fyn_pgn (arr_prior, arr_pgn, pgn_sour, start_pgn_min, end_pgn_max, start_time_frame, end_time_frame, 61440, 65279);
 	printf ("\n\n");
 
-	print (GOT, "[ Байт 1 Байт 2 ] Заводские Проприетарные [ byte 1 >= 240 ] -------"); fyn_pgn (arr_prior, arr_pgn, pgn_sour, pgn_start, pgn_end, start_time, end_time, 65280, 65535);
+	print (GOT, "[ Байт 1 Байт 2 ] Заводские Проприетарные [ byte 1 >= 240 ] -------"); fyn_pgn (arr_prior, arr_pgn, pgn_sour, start_pgn_min, end_pgn_max, start_time_frame, end_time_frame, 65280, 65535);
 	printf ("\n\n");
 	
 	printf (GRIN"Всего %-7u Прочитано %-7u Пропущено %-7u"RES" "GOT" Длительность лога %-7lf сек"RES, all_frame, read_frame, kol_poter_frame, dlitel_log);
