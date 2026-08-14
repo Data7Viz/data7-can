@@ -115,7 +115,6 @@ I changed the number of columns to 4 and decreased `i--`. This fits my vertical 
 - 3 > байт адресный
 
 ---
----
 
 ## Функционал
 
@@ -123,9 +122,7 @@ I changed the number of columns to 4 and decreased `i--`. This fits my vertical 
 - для детального анализа разрабатываю утилиту viz_j1939.c перейти в [директорию viz-j1939](../viz-j1939/) 
 - возможно расширение функционала 
 
-
 --- 
----
 
 ## Удачная ошибка 
 
@@ -134,7 +131,6 @@ I changed the number of columns to 4 and decreased `i--`. This fits my vertical 
 - map_id_j1939_nosime.c программа без ошибки
 - map_id_j1939.c программа с ошибкой
 
----
 --- 
 
 ## Termux
@@ -170,7 +166,6 @@ I changed the number of columns to 4 and decreased `i--`. This fits my vertical 
 
 </details> 
 
----
 ---
 
 ## map_id_j1939_nosime.c 
@@ -208,7 +203,6 @@ I changed the number of columns to 4 and decreased `i--`. This fits my vertical 
 
 </details>
 
----
 --- 
 
 ## map_id_j1939.c <- здесь синтатическая ошибка 
@@ -233,7 +227,6 @@ if ( sscanf (....) == 10);
 
 </details> 
 
----
 ---
 
 ## map_id_j1939_file_obd.c 
@@ -284,7 +277,6 @@ https://github.com/user-attachments/assets/19803f27-e49c-486c-9bb7-54da0d69a638
 Посмотреть [Демонстрацию работы в реальном времени (Видео ВКонтакте)](https://vk.ru/clip-227479791_456239043?c=1)
 
 --- 
----
 
 ## map_time_j1939.c 
 
@@ -301,7 +293,6 @@ https://github.com/user-attachments/assets/19803f27-e49c-486c-9bb7-54da0d69a638
 Если выполнить математическую операцию >>  Длительность лога - Дельта PGN =  Время молчания блока. 
 
 ---
----
 
 <details>
 <summary><b>Фото2 ./map_time_j1939</b></summary>
@@ -314,7 +305,6 @@ https://github.com/user-attachments/assets/19803f27-e49c-486c-9bb7-54da0d69a638
 Запрограммировал время молчания , простой блока. Это суммарное время, в течении которого прибор не вещал сообщения.  
 
 --- 
----
 
 <details>
 <summary><b>Фото3 ./map_time_j1939</b></summary>
@@ -329,7 +319,6 @@ https://github.com/user-attachments/assets/19803f27-e49c-486c-9bb7-54da0d69a638
 - Суммарный зазор по идее будет равен периоду вещания. 
 
 ---
----
 
 <details>
 <summary><b>Фото4 ./map_time_j1939</b></summary>
@@ -341,7 +330,6 @@ https://github.com/user-attachments/assets/19803f27-e49c-486c-9bb7-54da0d69a638
 Переписал код. Пытаюсь поймать закономерность. 
 
 --- 
----
 
 <details>
 <summary><b>Фото5 ./map_time_j1939</b></summary>
@@ -356,7 +344,6 @@ https://github.com/user-attachments/assets/19803f27-e49c-486c-9bb7-54da0d69a638
 - FEF8 сбщ 25 края 24.028 сек <- здесь уже толком ни чего не понятно. При вычитании ты видишь общюю сумму по краям. (фото3) 
 
 --- 
----
 
 <details>
 <summary><b>Фото6 map_time_j1939</b></summary> 
@@ -389,9 +376,9 @@ https://github.com/user-attachments/assets/19803f27-e49c-486c-9bb7-54da0d69a638
 Существуют ли подобные PGN которые блоки делят между собой? Требуется дальнейшее исследование. 
 
 ---
---- 
+---
 
-## Итоги разработки карты ID CAN J1939 на 9.08.2026 год map_id_j1939
+### Итоги разработки карты ID CAN J1939 на 9.08.2026 год map_id_j1939
 
 Именна переменных + комментарии к коду ??? 
 
@@ -558,3 +545,23 @@ int main (int argc, char *argv [])
 </summary> 
 <img width="4096" height="1430" alt="752" src="https://github.com/user-attachments/assets/a04c53aa-f0cb-4abe-9587-60b13431a629" />
 
+---
+---
+
+## Разработка программы time_j1939 для анализа времени лог с файла
+
+Часы, минуты, секунды это время для человека. Чтоб понять что происходит под "капотом" CAN J1939 нужно опуститься ниже на низкий уровень. Миллисекунды - Микросекунды. 
+Написал логику перемещения по времени. Можно проанализировать любой промежуток времени. Какие были события за 1,2,05 сек. и так далее любое время. Выбор времени задаётся в исходном коде. 
+
+```
+if (read_frame == 1)
+                {
+                        start_time = time;
+                        frame_0 = ceil (start_time); // обнуляю разряды после точки стартового сообщения
+                        frame_jmp = frame_0 + 1; // прыгаю на 1 секунду вперё
+                        printf ("%lf  %lf\n", frame_0, frame_jmp);
+                }
+
+```
+
+ 
