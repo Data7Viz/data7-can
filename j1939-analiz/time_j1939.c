@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdint.h>
+#include <math.h> 
 #define GRIN "\033[0;32m"
 #define SIN "\033[0;34m"
 #define GOT "\033[0;33m"
@@ -73,6 +74,10 @@ int main (int argc, char *argv [])
 	uint32_t count_br = 0, count_addr = 0;
 	// длительность снятия лога 
 	double start_time = 0.0, end_time = 0.0;
+	
+	// переменные для анализа времени
+	double frame_0 = 0.0, frame_jmp = 0.0; 
+
 	while (fgets (byf_file, sizeof (byf_file), file))
 	{
 		all_frame ++; // все фреймы
@@ -84,10 +89,18 @@ int main (int argc, char *argv [])
 		read_frame ++;
 		byte0 = (id >> 24) & 0xff; byte1 = (id >> 16) & 0xff; byte2 = (id >> 8) & 0xff; byte3 = id & 0xff, pgn = (id >> 8) & 0x3ffff, prior = (id >> 26) & 7;  
 		
-		if (read_frame == 1) { start_time = time; }  
-		
+		if (read_frame == 1) 
+		{ 
+			start_time = time;
+			frame_0 = ceil (start_time); // обнуляю разряды после точки стартового сообщения
+			frame_jmp = frame_0 + 1; // прыгаю на 1 секунду вперё
+			printf ("%lf  %lf\n", frame_0, frame_jmp);
+		}   	
+
+     				
 		} 
-		else { printf ("Не прочитаные : %s", byf_file); } 
+		else { //printf ("Не прочитаные : %s", byf_file); 
+		     } 
 	} 
 	fclose (file);
 	
@@ -116,7 +129,7 @@ int main (int argc, char *argv [])
 	
 	// КОЛЛИЧЕСТВО прочитаных фреймов
 	kol_poter_frame = all_frame - read_frame;
-	printf (GRIN"Всего %-7u Прочитано %-7u Пропущено %-7u"RES" "GOT" Длительность лога %-7.0lf сек"RES, all_frame, read_frame, kol_poter_frame, end_time - start_time);
+	printf (GRIN"Всего %-7u Прочитано %-7u Пропущено %-7u"RES" "GOT" Длительность лога %-7lf сек"RES, all_frame, read_frame, kol_poter_frame, end_time - start_time);
 	printf (SIN"\tВещательных %-7u  Адресных %-7u\n"RES, count_br, count_addr);
 	return 0;
 } 	
