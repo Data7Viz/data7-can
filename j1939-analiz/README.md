@@ -568,13 +568,8 @@ if (read_frame == 1)
 
 ```
 
-<<<<<<< HEAD
 <img width="1079" height="74" alt="Снимок экрана от 2026-08-14 11-24-17" src="https://github.com/user-attachments/assets/810301a1-7dcd-450b-8dc3-45660a99a979" />
 
-
-
- 
-=======
 ---
 
 ## Анализ всех событий в течении секунды 
@@ -606,9 +601,9 @@ if (read_frame == 1)
 
 <details>
 <summary><b>Смотреть все события за 1 секунду></b></summary>
-
+	
+<img width="1855" height="1093" alt="Снимок экрана от 2026-08-14 12-24-37" src="https://github.com/user-attachments/assets/a74a1cb2-d464-4d3b-bae3-109f1e2633b1" />
 
 </details> 
 
---- 
->>>>>>> c0185d4 (добавил поле в README.md анализ всех событий в течении 1 сек)
+---
