@@ -545,6 +545,8 @@ int main (int argc, char *argv [])
 </summary> 
 <img width="4096" height="1430" alt="752" src="https://github.com/user-attachments/assets/a04c53aa-f0cb-4abe-9587-60b13431a629" />
 
+</details> 
+
 ---
 ---
 
