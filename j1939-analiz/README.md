@@ -497,6 +497,8 @@ int main (int argc, char *argv [])
 			
 		if (pgn_start [pgn] == 0.0 || time < pgn_start [pgn]) pgn_start [pgn] = time;
 
+
+
 		if (pgn_end [pgn] == 0.0 || time > pgn_end [pgn]) pgn_end [pgn] = time; 
 
 
@@ -565,5 +567,8 @@ if (read_frame == 1)
                 }
 
 ```
+
+<img width="1793" height="604" alt="Снимок экрана от 2026-08-04 12-52-36" src="https://github.com/user-attachments/assets/5f63b986-5719-4890-85cf-40029b13c79c" />
+
 
  
