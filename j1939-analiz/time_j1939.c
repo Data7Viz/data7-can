@@ -73,7 +73,7 @@ int main (int argc, char *argv [])
 	// счётчики вещательных и адресных сообщений общее колличество
 	uint32_t count_br = 0, count_addr = 0;
 	// длительность снятия лога 
-	double start_time = 0.0, end_time = 0.0;
+	double start_time = 0.0, end_time = 0.0, prochl_time = 0.0, zazor = 0.0;
 	
 	// переменные для анализа времени
 	double frame_0 = 0.0, frame_jmp = 0.0; 
@@ -98,10 +98,14 @@ int main (int argc, char *argv [])
 		}   	
 		if ((time >= frame_0) && (time <= frame_jmp)) 
 		{
-			printf ("%-20lf", time);
-			count_0_jmp ++; // счётчик сообщений 
-			if (count_0_jmp % 13 == 0) printf ("\n"); // отрисовка таблицы  
-			
+			if (prochl_time > 0.0)
+			{
+				zazor = time - prochl_time; // вычисляем зазор между кадрами 
+				printf ("%-10lf", zazor);
+				count_0_jmp ++; // счётчик сообщений 
+				if (count_0_jmp % 20 == 0) printf ("\n"); // отрисовка таблицы  
+			}
+			prochl_time = time; // берём прошлое время 
 		}
      				
 		} 
