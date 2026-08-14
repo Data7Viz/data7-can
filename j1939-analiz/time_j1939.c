@@ -73,10 +73,12 @@ int main (int argc, char *argv [])
 	// счётчики вещательных и адресных сообщений общее колличество
 	uint32_t count_br = 0, count_addr = 0;
 	// длительность снятия лога 
-	double start_time = 0.0, end_time = 0.0, prochl_time = 0.0, zazor = 0.0;
+	double start_time = 0.0, end_time = 0.0;
 	uint32_t prochl_id = 0;	
+	
 	// переменные для анализа времени
-	double frame_0 = 0.0, frame_jmp = 0.0; 
+	double frame_0 = 0.0, frame_jmp = 0.0;
+	double prochl_time [65536] = {0.0}, zazor [65536] = {0.0}, max_zazor [65536] = {0.0}; 
 	uint32_t count_0_jmp = 0;
 
 	while (fgets (byf_file, sizeof (byf_file), file))
@@ -96,26 +98,44 @@ int main (int argc, char *argv [])
 			frame_0 = ceil (start_time); // обнуляю разряды после точки стартового сообщения
 			frame_jmp = frame_0 + 1; // прыгаю на 1 секунду вперё
 		}   	
+	 
 		if ((time >= frame_0) && (time <= frame_jmp)) 
 		{
-			if (prochl_time > 0.0)
-			{
-				zazor = time - prochl_time; // вычисляем зазор между кадрами 
-				printf (""SIN"|"RES" "GRIN"вещает"RES" %-8X "GRIN"зазор"RES" %-8lf "GRIN"c"RES" %-8X", prochl_id, zazor, id);
+				if (byte1 >= 240)
+				{	
+				if (prochl_time [pgn] > 0.0)
+				{
+				zazor [pgn] = time - prochl_time [pgn]; // вычисляем зазор между кадрами 
+				
+				if (zazor [pgn] > max_zazor [pgn]) max_zazor [pgn] = zazor [pgn];
+				
 				count_0_jmp ++; // счётчик сообщений 
-				if (count_0_jmp % 4 == 0) printf ("\n"); // отрисовка таблицы  
-			}
-			prochl_time = time; // берём прошлое время 
-			prochl_id = id;
-		}	
-     				
+				
+				//if (count_0_jmp % 4 == 0) printf ("\n"); // отрисовка таблицы  
+				}
+					prochl_time [pgn] = time; // берём прошлое время 
+				} 
+	  
+	
+		} 
+		
 		} 
 		else { //printf ("Не прочитаные : %s", byf_file); 
 		     } 
 	} 
 	fclose (file);
-	printf ("\t СООБЩЕНИЙ %u  ЗАГРУЗКА СЕТИ %lf\n", count_0_jmp, count_0_jmp * 0.000500);
-	
+	//printf ("\t СООБЩЕНИЙ %u  ЗАГРУЗКА СЕТИ %lf\n", count_0_jmp, count_0_jmp * 0.000500);
+	int p = 0;
+	for (int i = 0; i <= 65535; i ++)
+	{
+		if (max_zazor [i] > 0.0)
+		{
+			printf (" | %-5X  %-10lf", i, max_zazor [i]);
+			p ++; if (p % 8 == 0) printf ("\n");
+			
+		}
+	} 
+	printf ("\n");	
 	//printf ("\n");
 	//print (GOT, "[ Байт 1 ] Сетевые / Транспортные ---------------------------------"); fyn_for_byt1_byt2_byt3 (arr_byte1, "byte 1");
 	//printf ("\n\n");
