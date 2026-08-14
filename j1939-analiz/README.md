@@ -638,8 +638,9 @@ if (read_frame == 1)
 ```
 
 <details>
-<summary><b>Смотреть зазор между кадрами</b></summary.
-
+<summary><b>Смотреть зазор между кадрами</b></summary. 
+												
+<img width="1829" height="870" alt="Снимок экрана от 2026-08-14 13-37-03" src="https://github.com/user-attachments/assets/c065b662-7665-42fd-9042-595aee0c9c1d" />
 
 </details>
 
