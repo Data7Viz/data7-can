@@ -607,3 +607,40 @@ if (read_frame == 1)
 </details> 
 
 ---
+
+## Межфреймовый зазор (интервал) Пространство между кадрами
+
+**Зазор это или**
+
+- Тишина сети ( ни один блок не вещал )
+- Задержка ( Арбитраж )
+
+```c
+
+if (read_frame == 1)
+                {
+                        start_time = time;
+                        frame_0 = ceil (start_time); // обнуляю разряды после точки стартового сообщения
+                        frame_jmp = frame_0 + 1; // прыгаю на 1 секунду вперё
+                }
+                if ((time >= frame_0) && (time <= frame_jmp))
+                {
+                        if (prochl_time > 0.0)
+                        {
+                                zazor = time - prochl_time; // вычисляем зазор между кадрами 
+                                printf ("%-10lf", zazor);
+                                count_0_jmp ++; // счётчик сообщений 
+                                if (count_0_jmp % 20 == 0) printf ("\n"); // отрисовка таблицы  
+                        }
+                        prochl_time = time; // берём прошлое время 
+                }
+
+```
+
+<details>
+<summary><b>Смотреть зазор между кадрами</b></summary.
+
+
+</details>
+
+ 
