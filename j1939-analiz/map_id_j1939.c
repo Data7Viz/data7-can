@@ -22,7 +22,16 @@ void fyn_for_byt1_byt2_byt3 (uint32_t *arr, char *str)
 } 
 
 // функция вещательные сообщения 
-void fyn_pgn (uint32_t *arr_prior, uint32_t *arr_pgn, uint32_t *pgn_sour, double *start_pgn_min, double *end_pgn_max, double start_time_frame, double end_time_frame, uint32_t min, uint32_t max)
+void fyn_pgn (uint32_t *arr_prior, 
+		uint32_t *arr_pgn, 
+		uint32_t *pgn_sour, 
+		double *start_pgn_min, 
+		double *end_pgn_max, 
+		double start_time_frame, 
+		double end_time_frame, 
+		double *max_zazor,
+		uint32_t min, 
+		uint32_t max)
 {
 	int b = 0;
 	for (int i = min; i <= max; i ++) 
@@ -31,8 +40,9 @@ void fyn_pgn (uint32_t *arr_prior, uint32_t *arr_pgn, uint32_t *pgn_sour, double
 			{	
 				double zaz_lv = start_pgn_min [i] - start_time_frame;
 				double zaz_pr = end_time_frame - end_pgn_max [i]; 
-				printf (""GR" |"RES""GRIN" п "RES"%u"SIN" %4X"RES" %-5u "GRIN" б "RES"%-3u "GRIN"с "RES"%-7u "GRIN"лв "RES"%-6.3lf "GRIN"пр "RES"%-6.3lf", arr_prior [i], i, i, pgn_sour [i], arr_pgn [i], zaz_lv, zaz_pr); 
-				b ++; if (b % 3 == 0) printf ("\n"); 
+				printf (""GR" | "RES""GRIN" ПР "RES"%u"SIN" %4X"RES" %-5u "GRIN" БЛ "RES"%-3u "GRIN"СБЩ "RES"%-7u "GRIN"ЗАЗ.ЛВ "RES"%-6.3lf "GRIN"ЗАЗ.ПР "RES"%-6.3lf "GRIN"ЗАДЕРЖ"RES" %lf", 
+						arr_prior [i], i, i, pgn_sour [i], arr_pgn [i], zaz_lv, zaz_pr, max_zazor [i]); 
+				b ++; if (b % 2 == 0) printf ("\n"); 
 			} 
 		
 	}
@@ -82,7 +92,8 @@ int main (int argc, char *argv [])
 	
 	// переменные для тайминга левый и правый зазор
 	double start_pgn_min [65536] = {0.0}, end_pgn_max [65536] = {0.0};
-
+	
+	double arr_zazor [65536] = {0.0}, max_zazor [65536] = {0.0}, prochl_time = 0.0;
 	while (fgets (byf_file, sizeof (byf_file), file))
 	{
 		all_frame ++; // все сообщения
@@ -117,15 +128,23 @@ int main (int argc, char *argv [])
 		
 		// зазор с права
 		if (end_pgn_max [pgn] == 0.0 || time > end_pgn_max [pgn]) end_pgn_max [pgn] = time; 
-
-
+		
+		// задержка
+		if (prochl_time > 0)
+		{
+			arr_zazor [pgn] = time - prochl_time;
+			if (arr_zazor [pgn] > max_zazor [pgn]) max_zazor [pgn] = arr_zazor [pgn]; 
+		}
+		prochl_time = time;
+	 
 		} 
 		else { printf ("Не прочитаные : %s", byf_file); } 
 	} 
 	fclose (file);
 	kol_poter_frame = all_frame - read_frame;
 	double dlitel_log = end_time_frame - start_time_frame; 
-	
+ 	double zagr = ((all_frame * 0.000500) / dlitel_log) * 100.0;	
+	uint32_t zagr_seti = (uint32_t)zagr;
 	printf ("\n");
 	print (GOT, "[ Байт 1 ] Сетевые / Транспортные ---------------------------------"); fyn_for_byt1_byt2_byt3 (arr_byte1, "byte 1");
 	printf ("\n\n");
@@ -142,14 +161,30 @@ int main (int argc, char *argv [])
 	//print (GOT, "[ байт 2 Байт 3 ] Адресные сообщения [ byte 1 < 240 ] -------------"); fyn_pgn (arr_prior, arr_pgn, 0, 61439);
 	//printf ("\n\n");
 	
-	print (GOT, "[ Байт 1 Байт 2] Вещательные сообщения [ byte 1 >= 240 ] ----------"); fyn_pgn (arr_prior, arr_pgn, pgn_sour, start_pgn_min, end_pgn_max, start_time_frame, end_time_frame, 61440, 65279);
+	print (GOT, "[ Байт 1 Байт 2] Вещательные сообщения [ byte 1 >= 240 ] ----------"); 
+	fyn_pgn (arr_prior, 
+			arr_pgn, pgn_sour, 
+			start_pgn_min, 
+			end_pgn_max, 
+			start_time_frame, 
+			end_time_frame, 
+			max_zazor,
+			61440, 65279);
 	printf ("\n\n");
 
-	print (GOT, "[ Байт 1 Байт 2 ] Заводские Проприетарные [ byte 1 >= 240 ] -------"); fyn_pgn (arr_prior, arr_pgn, pgn_sour, start_pgn_min, end_pgn_max, start_time_frame, end_time_frame, 65280, 65535);
+	print (GOT, "[ Байт 1 Байт 2 ] Заводские Проприетарные [ byte 1 >= 240 ] -------"); 
+	fyn_pgn (arr_prior, 
+			arr_pgn, pgn_sour, 
+			start_pgn_min, 
+			end_pgn_max, 
+			start_time_frame, 
+			end_time_frame, 
+			max_zazor,
+			65280, 65535);
 	printf ("\n\n");
 	
 	printf (GRIN"Всего %-7u Прочитано %-7u Пропущено %-7u"RES" "GOT" Длительность лога %-7lf сек"RES, all_frame, read_frame, kol_poter_frame, dlitel_log);
-	printf (SIN"\tВещательных %-7u  Адресных %-7u\n"RES, count_br, count_addr);
+	printf (SIN"\tВещательных %-7u  Адресных %-7u"RES" "GRIN" Загрузка сети %u процентов\n"RES, count_br, count_addr, zagr_seti);
 	return 0;
 } 	
 
