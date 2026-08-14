@@ -667,7 +667,7 @@ if (read_frame == 1)
 	
 <img width="1776" height="1094" alt="Снимок экрана от 2026-08-14 15-15-29" src="https://github.com/user-attachments/assets/a3a4fc97-521d-4b29-930b-a0f5bde9938d" />
 
-</summary> 
+</details> 
 
 ---
 
