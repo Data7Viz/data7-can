@@ -78,7 +78,7 @@ int main (int argc, char *argv [])
 	
 	// переменные для анализа времени
 	double frame_0 = 0.0, frame_jmp = 0.0;
-	double prochl_time [65536] = {0.0}, zazor [65536] = {0.0}, max_zazor [65536] = {0.0}; 
+	double prochl_time = 0.0, zazor [65536] = {0.0}, max_zazor [65536] = {0.0}; 
 	uint32_t count_0_jmp = 0;
 
 	while (fgets (byf_file, sizeof (byf_file), file))
@@ -103,9 +103,9 @@ int main (int argc, char *argv [])
 		{
 				if (byte1 >= 240)
 				{	
-				if (prochl_time [pgn] > 0.0)
+				if (prochl_time  > 0.0)
 				{
-				zazor [pgn] = time - prochl_time [pgn]; // вычисляем зазор между кадрами 
+				zazor [pgn] = time - prochl_time; // вычисляем зазор между кадрами 
 				
 				if (zazor [pgn] > max_zazor [pgn]) max_zazor [pgn] = zazor [pgn];
 				
@@ -113,7 +113,7 @@ int main (int argc, char *argv [])
 				
 				//if (count_0_jmp % 4 == 0) printf ("\n"); // отрисовка таблицы  
 				}
-					prochl_time [pgn] = time; // берём прошлое время 
+					prochl_time = time; // берём прошлое время 
 				} 
 	  
 	
