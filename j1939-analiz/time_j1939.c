@@ -77,6 +77,7 @@ int main (int argc, char *argv [])
 	
 	// переменные для анализа времени
 	double frame_0 = 0.0, frame_jmp = 0.0; 
+	uint32_t count_0_jmp = 0;
 
 	while (fgets (byf_file, sizeof (byf_file), file))
 	{
@@ -94,15 +95,21 @@ int main (int argc, char *argv [])
 			start_time = time;
 			frame_0 = ceil (start_time); // обнуляю разряды после точки стартового сообщения
 			frame_jmp = frame_0 + 1; // прыгаю на 1 секунду вперё
-			printf ("%lf  %lf\n", frame_0, frame_jmp);
 		}   	
-
+		if ((time >= frame_0) && (time <= frame_jmp)) 
+		{
+			printf ("%-20lf", time);
+			count_0_jmp ++; // счётчик сообщений 
+			if (count_0_jmp % 13 == 0) printf ("\n"); // отрисовка таблицы  
+			
+		}
      				
 		} 
 		else { //printf ("Не прочитаные : %s", byf_file); 
 		     } 
 	} 
 	fclose (file);
+	printf ("\t СООБЩЕНИЙ %u  ЗАГРУЗКА СЕТИ %lf\n", count_0_jmp, count_0_jmp * 0.000500);
 	
 	//printf ("\n");
 	//print (GOT, "[ Байт 1 ] Сетевые / Транспортные ---------------------------------"); fyn_for_byt1_byt2_byt3 (arr_byte1, "byte 1");
@@ -128,9 +135,9 @@ int main (int argc, char *argv [])
 	 
 	
 	// КОЛЛИЧЕСТВО прочитаных фреймов
-	kol_poter_frame = all_frame - read_frame;
-	printf (GRIN"Всего %-7u Прочитано %-7u Пропущено %-7u"RES" "GOT" Длительность лога %-7lf сек"RES, all_frame, read_frame, kol_poter_frame, end_time - start_time);
-	printf (SIN"\tВещательных %-7u  Адресных %-7u\n"RES, count_br, count_addr);
+	//kol_poter_frame = all_frame - read_frame;
+	//printf (GRIN"Всего %-7u Прочитано %-7u Пропущено %-7u"RES" "GOT" Длительность лога %-7lf сек"RES, all_frame, read_frame, kol_poter_frame, end_time - start_time);
+	//printf (SIN"\tВещательных %-7u  Адресных %-7u\n"RES, count_br, count_addr);
 	return 0;
 } 	
 
