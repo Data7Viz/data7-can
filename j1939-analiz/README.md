@@ -677,5 +677,7 @@ if (read_frame == 1)
 
 <details>
 <summary><b>Смотреть период</b></summary>
+	
+<img width="1642" height="162" alt="Снимок экрана от 2026-08-14 17-15-02" src="https://github.com/user-attachments/assets/705437f7-af95-4cfa-91ab-68b64aa93b9a" />
 
 </details>  
