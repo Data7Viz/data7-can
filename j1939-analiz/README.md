@@ -568,7 +568,8 @@ if (read_frame == 1)
 
 ```
 
-<img width="1793" height="604" alt="Снимок экрана от 2026-08-04 12-52-36" src="https://github.com/user-attachments/assets/5f63b986-5719-4890-85cf-40029b13c79c" />
+<img width="1079" height="74" alt="Снимок экрана от 2026-08-14 11-24-17" src="https://github.com/user-attachments/assets/810301a1-7dcd-450b-8dc3-45660a99a979" />
+
 
 
  
