@@ -74,7 +74,7 @@ int main (int argc, char *argv [])
 	uint32_t count_br = 0, count_addr = 0;
 	// длительность снятия лога 
 	double start_time = 0.0, end_time = 0.0, prochl_time = 0.0, zazor = 0.0;
-	
+	uint32_t prochl_id = 0;	
 	// переменные для анализа времени
 	double frame_0 = 0.0, frame_jmp = 0.0; 
 	uint32_t count_0_jmp = 0;
@@ -88,7 +88,7 @@ int main (int argc, char *argv [])
 		{
 		end_time = time;
 		read_frame ++;
-		byte0 = (id >> 24) & 0xff; byte1 = (id >> 16) & 0xff; byte2 = (id >> 8) & 0xff; byte3 = id & 0xff, pgn = (id >> 8) & 0x3ffff, prior = (id >> 26) & 7;  
+		byte0 = (id >> 24) & 0xff; byte1 = (id >> 16) & 0xff; byte2 = (id >> 8) & 0xff; byte3 = id & 0xff, pgn = (id >> 8) & 0xffff, prior = (id >> 26) & 7;  
 		
 		if (read_frame == 1) 
 		{ 
@@ -101,12 +101,13 @@ int main (int argc, char *argv [])
 			if (prochl_time > 0.0)
 			{
 				zazor = time - prochl_time; // вычисляем зазор между кадрами 
-				printf ("%-10lf", zazor);
+				printf (""SIN"|"RES" "GRIN"вещает"RES" %-8X "GRIN"зазор"RES" %-8lf "GRIN"c"RES" %-8X", prochl_id, zazor, id);
 				count_0_jmp ++; // счётчик сообщений 
-				if (count_0_jmp % 20 == 0) printf ("\n"); // отрисовка таблицы  
+				if (count_0_jmp % 4 == 0) printf ("\n"); // отрисовка таблицы  
 			}
 			prochl_time = time; // берём прошлое время 
-		}
+			prochl_id = id;
+		}	
      				
 		} 
 		else { //printf ("Не прочитаные : %s", byf_file); 
