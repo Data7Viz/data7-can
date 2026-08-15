@@ -78,7 +78,7 @@ int main (int argc, char *argv [])
 	
 	// переменные для анализа времени
 	double frame_0 = 0.0, frame_jmp = 0.0;
-	double prochl_time = 0.0, zazor [65536] = {0.0}, max_zazor [65536] = {0.0}; 
+	double prochl_time = 0.0, zazor = 0.0, max_zazor = 0.0; 
 	uint32_t count_0_jmp = 0;
 
 	while (fgets (byf_file, sizeof (byf_file), file))
@@ -105,17 +105,17 @@ int main (int argc, char *argv [])
 				{	
 				if (prochl_time  > 0.0)
 				{
-				zazor [pgn] = time - prochl_time; // вычисляем зазор между кадрами 
-				
-				if (zazor [pgn] > max_zazor [pgn]) max_zazor [pgn] = zazor [pgn];
+				zazor = time - prochl_time; // вычисляем зазор между кадрами 
+				printf ("    "GRIN"%-18lf %-8X"RES" зазор %-10lf"SIN"%-8X %-18lf"RES, prochl_time, prochl_id, zazor, id, time); 
 				
 				count_0_jmp ++; // счётчик сообщений 
 				
-				//if (count_0_jmp % 4 == 0) printf ("\n"); // отрисовка таблицы  
+				if (count_0_jmp % 2 == 0) printf ("\n"); // отрисовка таблицы  
 				}
 					prochl_time = time; // берём прошлое время 
-				} 
-	  
+					prochl_id = id;
+				}       
+	  		
 	
 		} 
 		
@@ -126,15 +126,15 @@ int main (int argc, char *argv [])
 	fclose (file);
 	//printf ("\t СООБЩЕНИЙ %u  ЗАГРУЗКА СЕТИ %lf\n", count_0_jmp, count_0_jmp * 0.000500);
 	int p = 0;
-	for (int i = 0; i <= 65535; i ++)
-	{
-		if (max_zazor [i] > 0.0)
-		{
-			printf (" | %-5X  %-10lf", i, max_zazor [i]);
-			p ++; if (p % 8 == 0) printf ("\n");
+	//for (int i = 0; i <= 65535; i ++)
+	//{
+		//if (max_zazor [i] > 0.0)
+		//{
+			//printf (" | %-5X  %-10lf", i, max_zazor [i]);
+			//p ++; if (p % 8 == 0) printf ("\n");
 			
-		}
-	} 
+		//}
+	//} 
 	printf ("\n");	
 	//printf ("\n");
 	//print (GOT, "[ Байт 1 ] Сетевые / Транспортные ---------------------------------"); fyn_for_byt1_byt2_byt3 (arr_byte1, "byte 1");
