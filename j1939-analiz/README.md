@@ -217,6 +217,8 @@ I changed the number of columns to 4 and decreased `i--`. This fits my vertical 
 
 <img width="1699" height="1089" alt="Снимок экрана от 2026-08-09 11-23-49" src="https://github.com/user-attachments/assets/be44fe8c-9c47-4f23-ab56-b74b50895960" />
 
+<img width="1046" height="1032" alt="Снимок экрана от 2026-08-14 20-59-21" src="https://github.com/user-attachments/assets/cd0c6494-2b0f-4633-901e-3bf60eaeaedc" />
+
 
 </details>
 
