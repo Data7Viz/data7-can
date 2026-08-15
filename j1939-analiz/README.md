@@ -112,9 +112,15 @@ I changed the number of columns to 4 and decreased `i--`. This fits my vertical 
 
 ---
 
-## |      BYTE 0               |        BYTE 1            |       BYTE 2            |     BYTE 3
-## | ID ID ID ID ID ID | ID ID | ID ID  ID ID ID ID ID ID | ID ID ID ID ID ID ID ID | ID ID ID ID ID ID ID ID 
-## |     ПРИОРИТЕТ     |       |        ГОЛОВА            |       ХВОСТ             |    АДРЕСНЫЙ
+# ID ID ID   
+
+```text
+
+ |  BYTE 0   |  BYTE 1        |   BYTE 2       |  BYTE 3
+ |IDIDID|IDID|IDIDIDIDIDIDIDID|IDIDIDIDIDIDIDID|IDIDIDIDIDIDIDID 
+ |ПРИОРИТЕТ  |  ГОЛОВА        |   ХВОСТ        |  АДРЕСНЫЙ
+
+``` 
 
 
 **Утилита вывводит карту индификатора CAN J1939 для быстрого анализа сети** 
@@ -131,6 +137,7 @@ I changed the number of columns to 4 and decreased `i--`. This fits my vertical 
 - если byte_1 < 240 byte_3 адрес источника byte_2 адрес назначения byte_1 функции ( команды, запрос - ответ, транспортировка ) 
 - byte_0 2,3,4 биты приоритет чем меньше число тем ярче зелёный цвет
 - byte_0  0 и 1 бит расширение 
+- индефикатор 29 битный
 ---
 
 ## Функционал
@@ -224,7 +231,7 @@ I changed the number of columns to 4 and decreased `i--`. This fits my vertical 
 
 --- 
 
-## map_id_j1939.c <- здесь синтатическая ошибка 
+## map_id_j1939_semi.c <- здесь синтатическая ошибка 
 
 **Программа с ошибкой**
 
@@ -295,10 +302,17 @@ https://github.com/user-attachments/assets/19803f27-e49c-486c-9bb7-54da0d69a638
 
 Посмотреть [Демонстрацию работы в реальном времени (Видео ВКонтакте)](https://vk.ru/clip-227479791_456239043?c=1)
 
+---
 --- 
 
-## 1782249169. |     991       |     480
-##             | МИКРОСЕКУНДЫ  | МИЛЛИСЕКУНДЫ
+# TIME TIME TIME 
+
+```text
+
+1782249169. |     991       |     480
+            | МИКРОСЕКУНДЫ  | МИЛЛИСЕКУНДЫ
+
+```
 
 ### Структура времени CAN J1939
 
