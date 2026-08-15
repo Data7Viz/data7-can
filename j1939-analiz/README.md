@@ -563,6 +563,9 @@ if (read_frame == 1)
 
 <details>
 <summary><b>Смотреть как работает</b></summary>
+	
+<img width="1046" height="1032" alt="Снимок экрана от 2026-08-14 20-59-21" src="https://github.com/user-attachments/assets/646b83f0-9ec4-45bf-ad6a-6b2474b73b17" />
+<img width="1727" height="1108" alt="Снимок экрана от 2026-08-14 20-59-46" src="https://github.com/user-attachments/assets/7dc383c3-8679-4d67-bd29-386f9f5db779" />
 
 </details>
 
