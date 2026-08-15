@@ -636,7 +636,8 @@ if (read_frame == 1)
 
 <details>
 <summary><b>Что вывела логика</b></summary>
-
+	
+<img width="1560" height="1091" alt="Снимок экрана от 2026-08-15 12-12-05" src="https://github.com/user-attachments/assets/542569d1-c5eb-48c7-8784-42d352ae14db" />
 
 </details>
 
