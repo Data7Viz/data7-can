@@ -8,7 +8,7 @@
 
 void print (char *cvet, char *stroka)
 {
-	printf ("%s%s---------------------------------------------------------------------------------------------------\n\n"RES,cvet,stroka);
+	printf ("%s%s---------------------------------------------------------------------------------------------------------------------------------\n\n"RES,cvet,stroka);
 } 
 // функция для анализа 0,1,2,3 байта 
 void fyn_for_byt1_byt2_byt3 (uint32_t *arr, char *str)
@@ -17,7 +17,7 @@ void fyn_for_byt1_byt2_byt3 (uint32_t *arr, char *str)
 	for (int i = 0; i <= 255; i ++)
 	{
 		if (arr [i] > 0) { printf (""GR" |"RES" %s"SIN" %-2X"RES" "GRIN"%-3u"RES" сбщ %-7u", str, i, i, arr [i]);
-			a ++; if (a % 6 == 0) printf ("\n"); } 
+			a ++; if (a % 7 == 0) printf ("\n"); } 
 	}
 } 
 
@@ -29,7 +29,6 @@ void fyn_pgn (uint32_t *arr_prior,
 		double *end_pgn_max, 
 		double start_time_frame, 
 		double end_time_frame, 
-		double *max_zazor,
 		uint32_t min, 
 		uint32_t max)
 {
@@ -40,9 +39,10 @@ void fyn_pgn (uint32_t *arr_prior,
 			{	
 				double zaz_lv = start_pgn_min [i] - start_time_frame;
 				double zaz_pr = end_time_frame - end_pgn_max [i]; 
-				printf (""GR" | "RES""GRIN" ПР "RES"%u"SIN" %4X"RES" %-5u "GRIN" БЛ "RES"%-3u "GRIN"СБЩ "RES"%-7u "GRIN"ЗАЗ.ЛВ "RES"%-6.3lf "GRIN"ЗАЗ.ПР "RES"%-6.3lf "GRIN"ЗАДЕРЖ"RES" %lf", 
-						arr_prior [i], i, i, pgn_sour [i], arr_pgn [i], zaz_lv, zaz_pr, max_zazor [i]); 
-				b ++; if (b % 2 == 0) printf ("\n"); 
+				printf (""GR" | "RES""GRIN" Пр "RES"%u"SIN" %4X"RES" %-5u "GRIN"Ист "RES"%-3u "GRIN"Сбщ "RES"%-7u "GRIN"Дс.Лв "RES"%-6.3lf "SIN"Дс.Пр "RES"%-6.3lf", 
+						arr_prior [i], i, i, pgn_sour [i], arr_pgn [i], zaz_lv, zaz_pr); 
+				
+				b ++; if (b % 3 == 0) printf ("\n"); 
 			} 
 		
 	}
@@ -59,7 +59,7 @@ void fyn_su_dt (uint32_t su_dt [256] [256])
 			if (su_dt [i] [j] > 0)
 			{
 				printf (""GR" |"RES" ис"SIN" %-2X"RES" наз"SIN" %-2X "RES" сбщ %-7u", i, j, su_dt [i] [j]); 
-				c ++; if (c % 6 == 0) printf ("\n");
+				c ++; if (c % 7 == 0) printf ("\n");
 			}
 		}
 	}
@@ -92,8 +92,7 @@ int main (int argc, char *argv [])
 	
 	// переменные для тайминга левый и правый зазор
 	double start_pgn_min [65536] = {0.0}, end_pgn_max [65536] = {0.0};
-	
-	double arr_zazor [65536] = {0.0}, max_zazor [65536] = {0.0}, prochl_time = 0.0;
+
 	while (fgets (byf_file, sizeof (byf_file), file))
 	{
 		all_frame ++; // все сообщения
@@ -116,7 +115,7 @@ int main (int argc, char *argv [])
 		if (byte1 < 240) { 
 			arr_prior [pgn] = prior; arr_byte1 [byte1] ++; arr_sour_dist [byte3] [byte2] ++; count_addr ++;}  	
 
-		// вещательное
+		// вещательные
 		else { 
 			arr_prior [pgn] = prior; 
 			arr_br_byte3 [byte3] ++; 
@@ -128,23 +127,19 @@ int main (int argc, char *argv [])
 		
 		// зазор с права
 		if (end_pgn_max [pgn] == 0.0 || time > end_pgn_max [pgn]) end_pgn_max [pgn] = time; 
-		
-		// задержка
-		if (prochl_time > 0)
-		{
-			arr_zazor [pgn] = time - prochl_time;
-			if (arr_zazor [pgn] > max_zazor [pgn]) max_zazor [pgn] = arr_zazor [pgn]; 
-		}
-		prochl_time = time;
 	 
 		} 
 		else { printf ("Не прочитаные : %s", byf_file); } 
 	} 
 	fclose (file);
-	kol_poter_frame = all_frame - read_frame;
-	double dlitel_log = end_time_frame - start_time_frame; 
- 	double zagr = ((all_frame * 0.000500) / dlitel_log) * 100.0;	
-	uint32_t zagr_seti = (uint32_t)zagr;
+	
+	kol_poter_frame = all_frame - read_frame; // вычисляем коллчество не прочитанных сообщений
+	double dlitel_log = end_time_frame - start_time_frame; // вычисляем длительность лога
+ 	double zagr_seti = ((all_frame * 0.000500) / dlitel_log) * 100.0; // вычисляем загрузку сети 	
+	double time_tx = (dlitel_log / 100.0) * zagr_seti; // вычисляем время передачи
+	double time_idle = dlitel_log - time_tx; // вычисляем время тишины
+	double avg_time_tx = time_tx / read_frame; // вычисляем среднюю длину одного кадра 
+
 	printf ("\n");
 	print (GOT, "[ Байт 1 ] Сетевые / Транспортные ---------------------------------"); fyn_for_byt1_byt2_byt3 (arr_byte1, "byte 1");
 	printf ("\n\n");
@@ -163,28 +158,29 @@ int main (int argc, char *argv [])
 	
 	print (GOT, "[ Байт 1 Байт 2] Вещательные сообщения [ byte 1 >= 240 ] ----------"); 
 	fyn_pgn (arr_prior, 
-			arr_pgn, pgn_sour, 
+			arr_pgn, 
+			pgn_sour, 
 			start_pgn_min, 
 			end_pgn_max, 
 			start_time_frame, 
 			end_time_frame, 
-			max_zazor,
 			61440, 65279);
 	printf ("\n\n");
 
 	print (GOT, "[ Байт 1 Байт 2 ] Заводские Проприетарные [ byte 1 >= 240 ] -------"); 
 	fyn_pgn (arr_prior, 
-			arr_pgn, pgn_sour, 
+			arr_pgn, 
+			pgn_sour, 
 			start_pgn_min, 
 			end_pgn_max, 
 			start_time_frame, 
 			end_time_frame, 
-			max_zazor,
 			65280, 65535);
 	printf ("\n\n");
 	
-	printf (GRIN"Всего %-7u Прочитано %-7u Пропущено %-7u"RES" "GOT" Длительность лога %-7lf сек"RES, all_frame, read_frame, kol_poter_frame, dlitel_log);
-	printf (SIN"\tВещательных %-7u  Адресных %-7u"RES" "GRIN" Загрузка сети %u процентов\n"RES, count_br, count_addr, zagr_seti);
+	printf (GRIN"Всего сообщений  %-7u Прочитано %-7u Пропущено %-7u"RES" "GOT" Длительность лога %-7lf сек"RES, all_frame, read_frame, kol_poter_frame, dlitel_log);
+	printf (SIN"\tВещательных %-7u  Адресных %-7u сообщений "RES" "GRIN" Загрузка сети %lf проценты \n\n"RES, count_br, count_addr, zagr_seti);
+	printf ("Время передачи %10lf  Время тишины %-10lf  Средняя длина одного кадра %-10lf\n", time_tx, time_idle, avg_time_tx); 
 	return 0;
 } 	
 
