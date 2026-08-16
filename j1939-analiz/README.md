@@ -597,6 +597,8 @@ if (read_frame == 1)
 
 <details>
 <summary><b>Смотреть как рабботает</b></summary>
+	
+<img width="1780" height="1149" alt="Снимок экрана от 2026-08-16 14-20-33" src="https://github.com/user-attachments/assets/c7fb410e-3f4d-43b7-aae1-34ab2a46408c" />
 
 </details>
 
