@@ -743,7 +743,7 @@ if (pgn == 0xF000)
 По факту приоритет 6. 
 
 <details>
-<summary><b>Смотреть цикличность PGN 0xF004 10 млс</b</summary> 
+<summary><b>Смотреть цикличность PGN 0xF004 10 млс</b></summary> 
 	
 <img width="1337" height="1073" alt="Снимок экрана от 2026-08-27 18-07-49" src="https://github.com/user-attachments/assets/678bb5f1-4d6f-4223-bb25-6380cda2de57" />
 
