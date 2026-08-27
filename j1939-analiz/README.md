@@ -722,8 +722,9 @@ if (pgn == 0xF000)
 ```
 
 <details>
-<summary><b>Смотреть цикличность PGN 0xF000</b></summary>
-
+<summary><b>Смотреть цикличность PGN 0xF000</b></summary>  
+	
+<img width="1321" height="201" alt="Снимок экрана от 2026-08-27 18-06-28" src="https://github.com/user-attachments/assets/7b22069e-1f5c-4b9f-bd3a-ecdcc9941af7" />
 
 </details>
 
@@ -733,7 +734,7 @@ if (pgn == 0xF000)
 
 <details>
 <summary><b>Смотреть вычисление приоритета утилита mask_shift</b></summary>
-
+<img width="962" height="205" alt="Снимок экрана от 2026-08-27 19-54-10" src="https://github.com/user-attachments/assets/a25a4c32-c21e-4ce8-a19c-0b3ba547d71a" />
 
 </details>
 
@@ -742,8 +743,9 @@ if (pgn == 0xF000)
 По факту приоритет 6. 
 
 <details>
-<summary><b>Смотреть цикличность PGN 0xF004 10 млс</b</summary>
-
+<summary><b>Смотреть цикличность PGN 0xF004 10 млс</b</summary> 
+	
+<img width="1337" height="1073" alt="Снимок экрана от 2026-08-27 18-07-49" src="https://github.com/user-attachments/assets/678bb5f1-4d6f-4223-bb25-6380cda2de57" />
 
 </details>
 
