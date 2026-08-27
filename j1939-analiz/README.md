@@ -681,8 +681,9 @@ if (read_frame == 1)
 ### Время тишины сети свободное пространство между кадрами
 
 <details>
-<summary><b>Смотреть как работает</b></summary>
-
+<summary><b>Смотреть как работает</b></summary> 
+	
+<img width="1334" height="1069" alt="Снимок экрана от 2026-08-27 18-04-21" src="https://github.com/user-attachments/assets/1a859e9c-723a-4b4e-ba2f-64561df4cfd1" />
 
 </details>
 
