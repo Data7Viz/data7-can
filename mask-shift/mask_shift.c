@@ -10,7 +10,7 @@ int bit_f (unsigned long long var_f, unsigned short razr_f)
 	{
 		int bit = (var_f >> i) & 1;
 		if (bit == 1)
-		{
+		{ 
 			printf (S" 1"R);
 		}
 		else 
