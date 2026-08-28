@@ -767,7 +767,8 @@ if (pgn == 0xF000)
 
 <details>
 <summary><b>Смотреть работу time_j1939_manual</b></summary>
-
+	
+<img width="980" height="1097" alt="Снимок экрана от 2026-08-28 15-25-27" src="https://github.com/user-attachments/assets/b71eef23-b0cc-42f1-ab4b-1018122a4ec0" />
 
 </details> 
 
