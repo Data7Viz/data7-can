@@ -8,7 +8,7 @@
 
 void print (char *cvet, char *stroka)
 {
-	printf ("%s%s---------------------------------------------------------------------------------------------------------------------------------\n\n"RES,cvet,stroka);
+	printf ("%s%s------------------------------------------------------------------------------------------\n\n"RES,cvet,stroka);
 } 
 // функция для анализа 0,1,2,3 байта 
 void fyn_for_byt1_byt2_byt3 (uint32_t *arr, char *str)
@@ -17,18 +17,19 @@ void fyn_for_byt1_byt2_byt3 (uint32_t *arr, char *str)
 	for (int i = 0; i <= 255; i ++)
 	{
 		if (arr [i] > 0) { printf (""GR" |"RES" %s"SIN" %-2X"RES" "GRIN"%-3u"RES" сбщ %-7u", str, i, i, arr [i]);
-			a ++; if (a % 7 == 0) printf ("\n"); } 
+			a ++; if (a % 5 == 0) printf ("\n"); } 
 	}
 } 
 
 // функция вещательные сообщения 
-void fyn_pgn (uint32_t *arr_prior, 
-		uint32_t *arr_pgn, 
-		uint32_t *pgn_sour, 
-		double *start_pgn_min, 
-		double *end_pgn_max, 
+void fyn_pgn (uint32_t *arr_prior, // масив приоритетов
+		uint32_t *arr_pgn, // массив pgn
+		uint32_t *pgn_sour, // массв источников
+		double *start_pgn_min, // растояние от запуска системы до первого сообщения
+		double *end_pgn_max, // расстояние  
 		double start_time_frame, 
 		double end_time_frame, 
+		double dlitel_log,
 		uint32_t min, 
 		uint32_t max)
 {
@@ -39,10 +40,18 @@ void fyn_pgn (uint32_t *arr_prior,
 			{	
 				double zaz_lv = start_pgn_min [i] - start_time_frame;
 				double zaz_pr = end_time_frame - end_pgn_max [i]; 
-				printf (""GR" | "RES""GRIN" Пр "RES"%u"SIN" %4X"RES" %-5u "GRIN"Ист "RES"%-3u "GRIN"Сбщ "RES"%-7u "GRIN"Дс.Лв "RES"%-6.3lf "SIN"Дс.Пр "RES"%-6.3lf", 
-						arr_prior [i], i, i, pgn_sour [i], arr_pgn [i], zaz_lv, zaz_pr); 
+				double interv_mes = dlitel_log / arr_pgn [i]; 	
+				printf (""GR" | "RES""GRIN" Пр "RES"%u "SIN" %4X"RES" %-5u "GRIN"Ист "RES"%-3u "GRIN"Сбщ "RES"%-7u"GRIN"Инт"RES" %-6.2lf "GRIN"Дс.Лв "RES"%-6.3lf "SIN"Дс.Пр "RES"%-6.3lf", 
+						arr_prior [i], // приоритет
+						i, // pgn hex 
+						i, // pgn dec
+						pgn_sour [i], // адрес источника
+						arr_pgn [i], // количество сообщений
+					        interv_mes, // интервал вещания pgn
+						zaz_lv, // зазор с лева
+						zaz_pr); // зазор с права
 				
-				b ++; if (b % 3 == 0) printf ("\n"); 
+				b ++; if (b % 2 == 0) printf ("\n"); 
 			} 
 		
 	}
@@ -59,7 +68,7 @@ void fyn_su_dt (uint32_t su_dt [256] [256])
 			if (su_dt [i] [j] > 0)
 			{
 				printf (""GR" |"RES" ис"SIN" %-2X"RES" наз"SIN" %-2X "RES" сбщ %-7u", i, j, su_dt [i] [j]); 
-				c ++; if (c % 7 == 0) printf ("\n");
+				c ++; if (c % 5 == 0) printf ("\n");
 			}
 		}
 	}
@@ -164,6 +173,7 @@ int main (int argc, char *argv [])
 			end_pgn_max, 
 			start_time_frame, 
 			end_time_frame, 
+			dlitel_log,
 			61440, 65279);
 	printf ("\n\n");
 
@@ -175,6 +185,7 @@ int main (int argc, char *argv [])
 			end_pgn_max, 
 			start_time_frame, 
 			end_time_frame, 
+			dlitel_log,
 			65280, 65535);
 	printf ("\n\n");
 	
