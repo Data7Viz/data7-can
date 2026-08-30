@@ -786,8 +786,9 @@ if (pgn == 0xF000)
 В map_id_j1939 добавил функцию интервал вещания PGN (интервал обновления). 
 
 <details>
-<summary><b>Смотреть функцию</b></summary>
-
+<summary><b>Смотреть функцию</b></summary> 
+	
+<img width="1896" height="1036" alt="Снимок экрана от 2026-08-30 15-10-49" src="https://github.com/user-attachments/assets/ca3db3fa-b5e2-44dc-b766-6a24b066a1e9" />
 
 </details> 
 
