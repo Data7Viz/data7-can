@@ -816,6 +816,8 @@ if (первый прочитанный фрейм == 1)
 
 <details>
 <summary><b>Смотреть свободное пространство между кадрами</b></summary>
+	
+<img width="661" height="1089" alt="Снимок экрана от 2026-09-03 09-11-33" src="https://github.com/user-attachments/assets/ead9a9e2-3f0c-4999-b58f-85d81bfdeb9c" />
 
 </details>
 
