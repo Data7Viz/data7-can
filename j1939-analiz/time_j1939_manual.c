@@ -69,18 +69,19 @@ int main (int argc, char *argv [])
 			if (prochl_time > 0.0)
 			{
 				zazor = (time - prochl_time) - 0.000500;
-				printf (SIN"\t\t ID %08X DATA "RES, prochl_id);
+				printf (SIN"\t\t ID %08X "RES, prochl_id);
 			      	for (short i = 0; i <= 7; i ++)
 				{
-					printf (SIN"%02hX"RES, prochl_data [i]);
+					//printf (SIN"%02hX"RES, prochl_data [i]);
 				}
 				printf ("\n");	
-				printf ("ТИШИНА СЕТИ %lf\n"GRIN" \t\t ID %08X DATA "RES,zazor, id);
+				printf ("ТИШИНА СЕТИ %lf\n", zazor); 
+				//printf (GRIN"\t\t ID %08X DATA "RES, id);
 				for (short a = 0; a <= 7; a ++)
 				{
-					printf (GRIN"%02hX"RES, data [a]);
+					//printf (GRIN"%02hX"RES, data [a]);
 				}
-			       	printf ("\n\n");	
+			       	//printf ("\n\n");	
 			} 
 			prochl_time = time;
 			prochl_id = id;
