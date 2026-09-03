@@ -56,7 +56,7 @@ int main (int argc, char *argv [])
 			start_time = time; // переменная для вычисления длительности лога стартовое время 
 			// frame_0 = ceil (start_time); обнуляю разряды после точки стартового сообщения
 			frame_start = time;
-			frame_jmp = frame_start + 0.1; // прыгаю на 1 секунду вперёд
+			frame_jmp = frame_start + 1.0; // прыгаю на 1 секунду вперёд
 		}   	
 	
 		if ((time >= frame_start) && (time <= frame_jmp)) 
@@ -92,14 +92,15 @@ int main (int argc, char *argv [])
 		// if ((time >= frame_start)...) 
 		
 		if (pgn == 0xF002)
-		{ 
+		{
+		        printf (GOT" %u "RES, count_f002); 	
 			arr_f002 [count_f002] = count_f002;
 			arr_f002_f002 [count_f002] = count_f002_f002; 
 			count_f002 ++; 
 			count_f002_f002 = 0;
 			
 		}
-		else 
+		else  
 		{ 
 			count_f002_f002 ++; 
 		}
@@ -111,8 +112,8 @@ int main (int argc, char *argv [])
 	{
 		if (arr_f002_f002 [i] > 0) 
 		{	
-			printf (""GRIN" | МЛС %-5u"RES" СБЩ %-3u", arr_f002 [i], arr_f002_f002 [i]);
-			count_tabl ++; if (count_tabl % 8 == 0) printf ("\n"); 
+			printf (""GRIN" | МЛС "RES"%-5u "GRIN"С"RES" %-3u", arr_f002 [i], arr_f002_f002 [i]);
+			count_tabl ++; if (count_tabl % 10 == 0) printf ("\n"); 
 		} 
 	}
        	printf ("\n"); 	
