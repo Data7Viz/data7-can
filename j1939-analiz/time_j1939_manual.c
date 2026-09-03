@@ -35,8 +35,8 @@ int main (int argc, char *argv [])
 	// переменные для анализа времени
 	double frame_start = 0.0, frame_jmp = 0.0;
 	double prochl_time = 0.0, zazor = 0.0; 
-	uint32_t count_addr = 0, count_broad = 0;
-	uint16_t prochl_data [8] = {0}; 
+	uint32_t count_addr = 0, count_broad = 0, count_f002 = 0, count_f002_f002 = 0; 
+	uint16_t prochl_data [8] = {0}, arr_f002 [65536] = {0}, arr_f002_f002 [65536] = {0};  
 
 
 	while (fgets (byf_file, sizeof (byf_file), file))
@@ -50,12 +50,12 @@ int main (int argc, char *argv [])
 		end_time = time; // переменная для вычисления длительности лога конечное время 
 		byte0 = (id >> 24) & 0xff; byte1 = (id >> 16) & 0xff; byte2 = (id >> 8) & 0xff; 
 		byte3 = id & 0xff, pgn = (id >> 8) & 0xffff, prior = (id >> 26) & 7;  
-		
+
 		if (read_frame == 1) 
 		{ 
 			start_time = time; // переменная для вычисления длительности лога стартовое время 
 			// frame_0 = ceil (start_time); обнуляю разряды после точки стартового сообщения
-			frame_start = time + 2;
+			frame_start = time;
 			frame_jmp = frame_start + 0.1; // прыгаю на 1 секунду вперёд
 		}   	
 	
@@ -72,28 +72,49 @@ int main (int argc, char *argv [])
 				printf (SIN"\t\t ID %08X DATA "RES, prochl_id);
 			      	for (short i = 0; i <= 7; i ++)
 				{
-					printf (SIN" %02hX"RES, prochl_data [i]);
+					printf (SIN"%02hX"RES, prochl_data [i]);
 				}
 				printf ("\n");	
-				printf (" ТИШИНА СЕТИ %lf\n "GRIN"\t\t ID %08X DATA "RES,zazor, id);
+				printf ("ТИШИНА СЕТИ %lf\n"GRIN" \t\t ID %08X DATA "RES,zazor, id);
 				for (short a = 0; a <= 7; a ++)
 				{
-					printf (GRIN" %02hX"RES, data [a]);
+					printf (GRIN"%02hX"RES, data [a]);
 				}
 			       	printf ("\n\n");	
-			}
+			} 
 			prochl_time = time;
 			prochl_id = id;
 			for (short j = 0; j <= 7; j ++)
 			{
 			prochl_data [j] = data [j];
 			} 
+		// if ((time >= frame_start)...) 
 		
-		} // if ((time >= frame_start)...) 
-		 
+		if (pgn == 0xF002)
+		{ 
+			arr_f002 [count_f002] = count_f002;
+			arr_f002_f002 [count_f002] = count_f002_f002; 
+			count_f002 ++; 
+			count_f002_f002 = 0;
+			
+		}
+		else 
+		{ 
+			count_f002_f002 ++; 
+		}
+		} // if ((time >= frame_start)...) 	
 	} // while 
 	fclose (file);
-	
+	int16_t count_tabl = 0;
+	for (int i = 0; i <= 65535; i ++)
+	{
+		if (arr_f002_f002 [i] > 0) 
+		{	
+			printf (""GRIN" | МЛС %-5u"RES" СБЩ %-3u", arr_f002 [i], arr_f002_f002 [i]);
+			count_tabl ++; if (count_tabl % 8 == 0) printf ("\n"); 
+		} 
+	}
+       	printf ("\n"); 	
 	printf ("Анализируем %lf сек Адресных сообщений %u Вещательных сообщений %u Всего %u\n", 
 			frame_jmp - frame_start, count_addr, count_broad, count_addr + count_broad); 
 	 
