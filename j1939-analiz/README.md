@@ -874,7 +874,8 @@ count_mes ++;
 
 <details>
 <summary><b>Что в итоге борьба за сеть на сотых</b></summary> 
-
+	
+<img width="1821" height="1021" alt="Снимок экрана от 2026-09-03 14-22-06" src="https://github.com/user-attachments/assets/16c5ff9b-6eb4-4c36-aefc-7b36b0ac5a0c" />
 
 </details>
 
