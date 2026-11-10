@@ -17,6 +17,7 @@
 ### **🔹Termux Размер структуры**
 <details>
 <summary>Смотреть</summary>
+<img width="1200" height="1920" alt="1253" src="https://github.com/user-attachments/assets/f783f448-a6a1-4fbd-8843-57c0f1df0853" />
 
 </details>
 
