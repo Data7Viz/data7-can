@@ -13,3 +13,12 @@
 <img width="1200" height="1920" alt="1252" src="https://github.com/user-attachments/assets/5dfea414-5bbd-4569-beab-70bb49a82101" />
 
 </details>
+
+### **🔹Termux Размер структуры**
+<details>
+<summary>Смотреть</summary>
+
+</details>
+
+Положил 14 байт компилятор выделил 16. Два байта пустоты. Для адресной арифметики это критично. Процессор arm Android. 
+
