@@ -9,7 +9,11 @@ struct can {
 
 int main() {
   can log = {0x80000001, 0x8001, 0x81};
-  printf("%b\n%b\n%b\n", log.time, log.id, log.data);
+  //printf("%b\n%b\n%b\n", log.time, log.id, log.data);
+   
+  printf ("%p\n", (void*)&log.time);
+  printf ("%p\n",(void*)&log.id);
+  printf ("%p\n\n", (void*)&log.data); 
 
   for (int i = 0; i < 8; i++) {
     ;
