@@ -11,9 +11,9 @@ int main() {
   can log = {0x80000005, 0x8005, 0x85};
   //printf("%b\n%b\n%b\n", log.time, log.id, log.data);
   
-  uint32_t *addr = &log.time; 
+  uint8_t *addr = (uint8_t*)&log.time; 
 
-  for (int i = 0; i < 2; i++) {
+  for (int i = 0; i < 8; i++) {
     printf ("%b  %p\n", *addr, addr);
     addr++; 
   }
