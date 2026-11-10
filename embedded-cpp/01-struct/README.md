@@ -24,6 +24,6 @@
 
 <details>
 <summary><b>🔹Убираем padding логическим мышлением</b></summary>
-
+<img width="661" height="1044" alt="Снимок экрана от 2026-11-10 19-20-24" src="https://github.com/user-attachments/assets/aa40b698-57e3-477a-9fc9-0f24f5f7bf0d" />
 Сводим на минимум padding логическим мышлением на сколько это возможно. 1 байт в воздухе. 
 </details> 
