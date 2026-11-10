@@ -9,13 +9,18 @@ struct can {
 
 int main() {
   can log = {0x80000005, 0x8005, 0x85};
-  //printf("%b\n%b\n%b\n", log.time, log.id, log.data);
-  
-  uint8_t *addr = (uint8_t*)&log.time; 
+  // printf("%b\n%b\n%b\n", log.time, log.id, log.data);
+
+  uint32_t *ref_t = &log.time;
+  uint16_t &ref_i = log.id;
+  uint8_t &ref_d = log.data;
+
+  printf("%p %b\n", ref_t, *ref_t);
+  printf("%p %b\n", (void *)&ref_i, ref_i);
+  printf("%p %b\n", (void *)&ref_d, ref_d);
 
   for (int i = 0; i < 8; i++) {
-    printf ("%b  %p\n", *addr, addr);
-    addr++; 
+    ;
   }
 
   int razm = sizeof(can);
