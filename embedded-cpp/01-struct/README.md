@@ -1,6 +1,6 @@
 # Структура
 
-### 🔹 Начну с памяти указатели и ссылки. Проинициализировал переменные бинарными маркерами. 
+### 🔹Начну с памяти указатели и ссылки. Проинициализировал переменные бинарными маркерами. 
 <details>
 <summary>Смотреть</summary>
 <img width="1010" height="1012" alt="Снимок экрана от 2026-11-08 18-44-31" src="https://github.com/user-attachments/assets/8b7a9137-37eb-4e09-8c62-e67fcdd99b40" />
@@ -10,4 +10,6 @@
 ### 🔹Termux Вышел за пределы выделеной памяти. 
 <details>
 <summary>Смотреть</summary>
-                                                                      </details>
+<img width="1200" height="1920" alt="1252" src="https://github.com/user-attachments/assets/5dfea414-5bbd-4569-beab-70bb49a82101" />
+
+</details>
