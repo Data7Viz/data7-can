@@ -14,7 +14,7 @@
 
 </details>
 
-### **🔹Termux Размер структуры**
+**🔹Termux Размер структуры**
 <details>
 <summary>Смотреть</summary>
 <img width="1200" height="1920" alt="1253" src="https://github.com/user-attachments/assets/f783f448-a6a1-4fbd-8843-57c0f1df0853" />
@@ -23,3 +23,10 @@
 
 Положил 14 байт компилятор выделил 16. Два байта пустоты. Для адресной арифметики это критично. Процессор arm Android. 
 
+**🔹Termux ARM любит 32 разряда?** 
+<details>
+<summary>Смотреть</summary>
+
+</details>
+
+Теперь у меня 3 переменных положил 7 байт компилятор выделил 12 байт. 
