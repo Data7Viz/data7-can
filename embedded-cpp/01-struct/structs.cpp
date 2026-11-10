@@ -11,9 +11,10 @@ int main() {
   can log = {
       0x8001, 0x80000001, {0x81, 0x81, 0x81, 0x81, 0x81, 0x81, 0x81, 0x81}};
   printf("%b\n%b\n", log.time, log.id);
-  for (int i = 0; i < 10; i++) {
+  for (int i = 0; i < 8; i++) {
     printf("%b\n", log.data[i]);
   }
-
+  int razm = sizeof(can);
+  printf("Структура %d байт\n", razm);
   return 0;
 }
