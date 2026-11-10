@@ -25,6 +25,7 @@
 **🔹Termux ARM любит 32 разряда?** 
 <details>
 <summary>Смотреть</summary>
+<img width="1200" height="1920" alt="1254" src="https://github.com/user-attachments/assets/5dee1dd2-935b-4c85-9144-c8153e9645ed" />
 
 </details>
 Теперь у меня 3 переменных положил 7 байт компилятор выделил 12 байт. 
