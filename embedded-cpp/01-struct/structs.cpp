@@ -8,22 +8,13 @@ struct can {
 };
 
 int main() {
-  can log = {0x80000005, 0x8005, 0x85};
-  // printf("%b\n%b\n%b\n", log.time, log.id, log.data);
-
-  uint32_t *ref_t = &log.time;
-  uint16_t &ref_i = log.id;
-  uint8_t &ref_d = log.data;
-
-  printf("%p %b\n", ref_t, *ref_t);
-  printf("%p %b\n", (void *)&ref_i, ref_i);
-  printf("%p %b\n", (void *)&ref_d, ref_d);
-
-  for (int i = 0; i < 8; i++) {
-    ;
+  can log [3] = {0};
+  can (&ref)[3] = log; 
+  for (int i = 0; i < 3; i ++)
+  {
+	  log [i] = {1,2,3};
+	  printf ("%u %u  %u\n", log[i].time, log[i].id, log[i].data); 
   }
 
-  int razm = sizeof(can);
-  printf("Структура %d байт\n", razm);
   return 0;
 }
