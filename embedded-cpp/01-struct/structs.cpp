@@ -2,39 +2,22 @@
 #include <cstdio>
 
 struct can {
-  uint32_t time;
-  uint16_t id;
-  uint8_t data;
+  uint64_t time;
+  uint64_t id;
+  uint64_t data;
+  uint64_t data1;
 };
 
-void print_log (can log [])
-{
-	for (int i = 0; i < 10; i++)
-	{
-		log[i].time++; 
-		log[i].id++; 
-		log[i].data++;
-		
-		printf ("%X %X %X\n", log[i].time, log[i].id, log[i].data);
-	}
+void print_log (can *log)
+{		
+	log->time++; log->id++; log->data++; log->data1++;
+	printf ("%lX %lX %lX %lX\n", log->time, log->id, log->data, log->data1);
+	
 }
 int main(){
 	
-	can log [10] = {}; 
-	uint32_t t = 0x80000001; uint16_t i = 0x8001; uint8_t d = 0x81;
-	
-	for (int j = 0; j < 10; j++)
-	{
-		log[j].time = t; 
-		log[j].id = i; 
-		log[j].data = d;
-		
-		t++; i++; d++;
-		
-		printf ("%X %X %X\n", log[j].time, log[j].id, log[j].data);
-	}
-
-	print_log(log); 
+	can log = {0x1111,0x2222,0x3333,0x4444};
+	print_log(&log); 
 	return 0;
 
 }
