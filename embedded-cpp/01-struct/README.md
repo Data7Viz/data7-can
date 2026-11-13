@@ -52,3 +52,11 @@
 <img width="1200" height="1920" alt="1261" src="https://github.com/user-attachments/assets/8bac5a04-a219-4a44-986f-4736228dfe34" />
 
 </details>
+
+
+<details>
+<summary><b>🔹Ожидал увидеть передачу данных в функцию по значению</b></summary>
+
+0х1325 В место mov (скопировать) команда lea rax , var_60h (взять адрес) и положить в регистр. Хочу увидеть своими глазами как данные копируются в память. 
+</details> 
+
