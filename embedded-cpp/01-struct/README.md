@@ -72,5 +72,6 @@
 
 <details>
 <summary><b>🔹Чистим файл</b></summary>
+<img width="1200" height="1920" alt="1297" src="https://github.com/user-attachments/assets/0530bc22-b813-4f32-a992-14169702fd36" />
 
 </details>
