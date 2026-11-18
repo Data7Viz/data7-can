@@ -76,3 +76,34 @@
 <img width="1200" height="1920" alt="1297" src="https://github.com/user-attachments/assets/0530bc22-b813-4f32-a992-14169702fd36" />
 
 </details>
+
+<details>
+<summary><b>🔹Вытягиваем данные адресной арифметикой</b></summary>
+
+```c
+ p_w -= 25; // откатвваем указатель для time (p_w =  cout, i > 16)   
+  for (int i = 1; i <= 8; i++) {
+    printf ("%X",*p_w); 
+    p_w++;
+  }
+
+ p_w -= 25; // откатвваем указатель для id (p_w = 25, i > 8) 
+  for (int i = 1; i <= 8; i++) {
+    printf ("%X", *p_w);
+    p_w++;
+  }
+ 
+ p_w -= 16; // откатвваем указатель для data (p_w = 16, i > 16) 
+  for (int i = 1; i <= 16; i++) {
+    printf ("%X",*p_w); 
+    p_w++;
+  }
+ 
+```
+
+
+
+
+
+</details>
+
