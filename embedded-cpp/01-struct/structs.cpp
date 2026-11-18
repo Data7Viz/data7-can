@@ -8,35 +8,49 @@ int main(int argc, char *argv[]) {
   char byf[128] = {0};
   uint8_t write[128] = {0};
   uint8_t cout = 0;
-  uint64_t time = 0;
-  fgets(byf, sizeof(byf), file);// ложим строку на стэк 
-  char *p_b = byf; // берём 0 адрес byf 
-  uint8_t *p_w = write; // берём 0 адрес write
-  cout = 0; // обнуляем счётчик
-  
-  // идём до конца строки чистим и выводим числа  
-  while (*p_b != '\0') {
-    if (*p_b >= '0' && *p_b <= '9') {
-      *p_w = *p_b - 48; // преобразование символа в число + запись в write
-      p_w++; // двигаем указатель массива write 
-      cout++; // колличество прочитаных символов
-    } 
-    else if (*p_b >= 'A' && *p_b <= 'F') {
-      *p_w = *p_b - 'A' + 10; // преобразование символа в число
-      p_w++;                  // двигаем указатель массива write
-      cout++;                 // колличество прочитаных символов
-    }
-    p_b++; // двигаем указатель byf
-  }
+  uint64_t time = 0, data = 0;
+  uint32_t id = 0;
+  while (fgets(byf, sizeof(byf), file) != 0) { // ложим строку на стэ
+    char *p_b = byf;                           // берём 0 адрес byf
+    uint8_t *p_w = write;                      // берём 0 адрес write
+    cout = 0;                                  // обнуляем счётчик
 
-  p_w -= cout; // откатвваем указатель (data 16,i 16) (id 25, i 8) (time cout, i 16)   
-  for (int i = 1; i <= 16; i++) {
-    time = *p_w & 0xF; 
+    // идём до конца строки чистим и выводим числа
+    while (*p_b != '\0') {
+      if (*p_b >= '0' && *p_b <= '9') {
+        *p_w = *p_b - 48; // преобразование символа в число + запись в write
+        p_w++;            // двигаем указатель массива write
+        cout++;           // колличество прочитаных символов
+      } else if (*p_b >= 'A' && *p_b <= 'F') {
+        *p_w = *p_b - 'A' + 10; // преобразование символа в число
+        p_w++;                  // двигаем указатель массива write
+        cout++;                 // колличество прочитаных символов
+      }
+      p_b++; // двигаем указатель byf
+    }
+    time = 0;
+    id = 0;
+    data = 0;
+    p_w -= cout; // откатвваем указатель (data 16,i 16) (id 25, i 8) (time cout,
+                 // i 16)
+    for (int i = 1; i <= 16; i++) {
+      time = (time << 3) + (time << 1) + *p_w;
+      p_w++;
+    }
+    printf("time %lu ", time);
     p_w++;
-    time = ; 
+    for (int i = 1; i <= 8; i++) {
+      id = (id << 4) | (*p_w & 0xF);
+      p_w++;
+    }
+    printf("id %08X ", id);
+    p_w++;
+    for (int i = 1; i <= 16; i++) {
+      data = (data << 4) | (*p_w & 0xF);
+      p_w++;
+    }
+    printf("data %016lX\n", data);
   }
-  
-  printf ("%lu", time); 
   fclose(file);
   return 0;
 }
