@@ -100,10 +100,7 @@
   }
  
 ```
-
-
-
-
+<img width="1086" height="539" alt="Снимок экрана от 2026-11-18 16-33-43" src="https://github.com/user-attachments/assets/6705f9cb-0e24-4d14-9086-85f5e45c6f84" />
 
 </details>
 
