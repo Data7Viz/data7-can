@@ -104,3 +104,8 @@
 
 </details>
 
+<details>
+<summary><b>🔹Вытянул time id data с файла логов can j1939</b></summary>
+
+</details>
+
