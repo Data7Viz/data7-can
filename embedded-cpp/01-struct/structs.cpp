@@ -8,11 +8,12 @@ int main(int argc, char *argv[]) {
   char byf[128] = {0};
   uint8_t write[128] = {0};
   uint8_t cout = 0;
-
+  uint64_t time = 0;
   fgets(byf, sizeof(byf), file);// ложим строку на стэк 
   char *p_b = byf; // берём 0 адрес byf 
   uint8_t *p_w = write; // берём 0 адрес write
   cout = 0; // обнуляем счётчик
+  
   // идём до конца строки чистим и выводим числа  
   while (*p_b != '\0') {
     if (*p_b >= '0' && *p_b <= '9') {
@@ -27,15 +28,15 @@ int main(int argc, char *argv[]) {
     }
     p_b++; // двигаем указатель byf
   }
-  printf ("\n"); 
-  p_w -= 25; // откатвваем указатель (data 16,i 16) (id 25, i 8) (time cout, i 16)   
-  printf ("id ");
-  for (int i = 1; i <= 8; i++) {
-    printf ("%X",*p_w); 
-    p_w++;
-  }
-   printf ("\n"); 
 
+  p_w -= cout; // откатвваем указатель (data 16,i 16) (id 25, i 8) (time cout, i 16)   
+  for (int i = 1; i <= 16; i++) {
+    time = *p_w & 0xF; 
+    p_w++;
+    time = ; 
+  }
+  
+  printf ("%lu", time); 
   fclose(file);
   return 0;
 }
