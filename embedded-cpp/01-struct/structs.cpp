@@ -7,7 +7,7 @@ int main(int argc, char *argv[]) {
   // берём память на стэке
   char byf[128] = {0};
   uint8_t write[128] = {0};
-  uint8_t cout = 0;
+  uint8_t cout = 0, i = 0;
   uint64_t time = 0, data = 0;
   uint32_t id = 0;
   while (fgets(byf, sizeof(byf), file) != 0) { // ложим строку на стэ
@@ -31,25 +31,29 @@ int main(int argc, char *argv[]) {
     time = 0;
     id = 0;
     data = 0;
-    p_w -= cout; // откатвваем указатель (data 16,i 16) (id 25, i 8) (time cout,
-                 // i 16)
-    for (int i = 1; i <= 16; i++) {
+    i = 0;
+    p_w -= cout; // откатвваем указатель
+    // читаем время
+    while (i < 16) {
       time = (time << 3) + (time << 1) + *p_w;
       p_w++;
+      i++;
     }
-    printf("time %lu ", time);
-    p_w++;
-    for (int i = 1; i <= 8; i++) {
+    p_w++; // прыгаем через 0
+    // читаем индификатор
+    while (i < 24) {
       id = (id << 4) | (*p_w & 0xF);
       p_w++;
+      i++;
     }
-    printf("id %08X ", id);
-    p_w++;
-    for (int i = 1; i <= 16; i++) {
+    p_w++; // прыгаем через 8
+    // читаем поле данных
+    while (i < 42) {
       data = (data << 4) | (*p_w & 0xF);
       p_w++;
+      i++;
     }
-    printf("data %016lX\n", data);
+    printf("%lu %08X %016lX\n", time, id, data);
   }
   fclose(file);
   return 0;
