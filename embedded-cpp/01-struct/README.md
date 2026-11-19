@@ -120,6 +120,7 @@
 
 <details>
 <summary><b>🔹Linux производительность скорость (fgets)</b></summary>
+<img width="1044" height="416" alt="Снимок экрана от 2026-11-19 16-08-13" src="https://github.com/user-attachments/assets/654bcf85-4571-4f23-af7c-1ff7114a44e7" />
 
 </details>
 
