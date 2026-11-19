@@ -108,5 +108,12 @@
 <summary><b>🔹Вытянул time id data с файла логов can j1939</b></summary>
 <img width="1200" height="1920" alt="1310" src="https://github.com/user-attachments/assets/4b411377-c81d-40a7-bf35-9239bbbdc7f6" />
 
+</details>                                                                                         
+
+<details>                                                                      
+<summary><b>🔹Termux производительность скорость (fgets)</b></summary>
+* Планирую прикрутить структуру. Производительность и скорость на данном коде.
+* 22697 * 1000 / 20.539 = 1 105 068 строк/сек
+
 </details>
 
