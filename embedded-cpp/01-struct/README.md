@@ -118,3 +118,8 @@
 
 </details>
 
+<details>
+<summary><b>🔹Linux производительность скорость (fgets)</b></summary>
+
+</details>
+
