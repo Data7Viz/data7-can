@@ -1,5 +1,6 @@
 #include <cstdint>
 #include <cstdio>
+#include <time.h>
 
 int main(int argc, char *argv[]) {
   // открываем файл
@@ -9,6 +10,11 @@ int main(int argc, char *argv[]) {
   uint8_t write[64] = {0};
   uint64_t time = 0, data = 0;
   uint32_t id = 0;
+  double elapsed_ms = 0.0;
+
+  struct timespec start, end;             // скорость
+  clock_gettime(CLOCK_MONOTONIC, &start); // выполнения
+
   while (fgets(byf, sizeof(byf), file) != 0) { // ложим строку на стэ
     char *p_b = byf;                           // берём 0 адрес byf
     uint8_t *p_w = write; // берём 0 адрес write // обнуляем счётчик
@@ -50,8 +56,16 @@ int main(int argc, char *argv[]) {
       data = (data << 4) | (*p_w & 0xF);
       p_w++;
     }
-    printf("%lu %08X %016lX\n", time, id, data);
+
+    clock_gettime(CLOCK_MONOTONIC, &end); // скорость выполнения
+    elapsed_ms = (end.tv_sec - start.tv_sec) * 1000.0 +
+                 (end.tv_nsec - start.tv_nsec) / 1000000.0;
+    // скорость выполнения
   }
+
   fclose(file);
+
+  printf("Время выполнения: %.3f мс \n", elapsed_ms);
+
   return 0;
 }
