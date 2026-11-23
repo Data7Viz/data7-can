@@ -1,69 +1,57 @@
 #include <cstdint>
 #include <cstdio>
-#include <time.h>
+
+struct canframe {
+	uint64_t sec; // секунды
+	uint32_t mic_sec; // микросекунды
+	uint32_t id; // индификатор 
+	uint32_t pgn; // номер группы параметров 
+	uint8_t data [8]; // поле данных 
+	uint8_t byte_1; // голова 
+	uint8_t addr_su; // адрес источника
+	uint8_t addr_ds; // адрес назначения
+	uint8_t prior; // приоритет сообщения 
+
+// битовый метод сдвигаю вытягиваю данные
+	void can_bit () {
+		prior = (id >> 26) & 0x7;  // вытягиваем приоритет
+		byte_1 = (id >> 16) & 0xFF; // вытягиваем 1 байт чтоб определить адресное или вещательное сообщение 
+		addr_su = id & 0xFF; // адрес бллок источник 
+
+		if (byte_1 < 240) {
+			addr_ds = (id >> 8) & 0xFF; // вытягиваем блок назначения
+		} else {
+			pgn = (id >> 8) & 0x3FFFF;
+		}
+	}
+// метод печати 
+	void print () {
+		if (addr_su == 238){
+			printf (" PGN %04X Источ %03u ", pgn, addr_su);  
+			for (int i = 0; i < 8; i++) printf (" %02X", data[i]); 
+			printf ("\n"); 
+	}
+	
+	} 
+}; 
 
 int main(int argc, char *argv[]) {
   // открываем файл
   FILE *file = fopen(argv[1], "rb");
   // берём память на стэке
-  char byf[128] = {0};
-  uint8_t write[64] = {0};
-  uint64_t time = 0, data = 0;
-  uint32_t id = 0;
-  double elapsed_ms = 0.0;
-  struct timespec start, end;             // скорость
-  clock_gettime(CLOCK_MONOTONIC, &start); // выполнения
+  char byf[128] = {0}; 
 
   while (fgets(byf, sizeof(byf), file) != 0) { // ложим строку на стэ
-    char *p_b = byf;                           // берём 0 адрес byf
-    uint8_t *p_w = write; // берём 0 адрес write // обнуляем счётчик
+	
+	canframe log = {}; // создали обьект внутри цикла для обнуления переменных
 
-    // идём до конца строки чистим и выводим числа
-    while (*p_b != '\0') {
-      if (*p_b >= '0' && *p_b <= '9') {
-        *p_w = *p_b - 48; // преобразование символа в число + запись в write
-        p_w++;            // двигаем указатель массива write
-                          // колличество прочитаных символов
-      } else if (*p_b >= 'A' && *p_b <= 'F') {
-        *p_w = *p_b - 'A' + 10; // преобразование символа в число
-        p_w++;                  // двигаем указатель массива write
-                                // колличество прочитаных символов
-      }
-      p_b++; // двигаем указатель byf
-    }
-    time = 0;
-    id = 0;
-    data = 0;
-    p_w = write; // откатвваем указатель
-    uint8_t *p_w_end = p_w + 16;
-    // читаем время
-    while (p_w < p_w_end) {
-      time = (time << 3) + (time << 1) + *p_w;
-      p_w++;
-    }
-    p_w++; // прыгаем через 0
-    p_w_end += 9;
-    // читаем индификатор
-    while (p_w < p_w_end) {
-      id = (id << 4) | (*p_w & 0xF);
-      p_w++;
-    }
-    p_w++; // прыгаем через 8
-    p_w_end += 17;
-    // читаем поле данных
-    while (p_w < p_w_end) {
-      data = (data << 4) | (*p_w & 0xF);
-      p_w++;
-    }
-    clock_gettime(CLOCK_MONOTONIC, &end); // скорость выполнения
-    elapsed_ms = (end.tv_sec - start.tv_sec) * 1000.0 +
-                 (end.tv_nsec - start.tv_nsec) / 1000000.0;
-    // скорость выполнения
-  }
+	// чистим фрейм и присваиваем значение 	
+	sscanf(byf, " (%lu.%u) %*s %x [%*d] %hhx %hhx %hhx %hhx %hhx %hhx %hhx %hhx",&log.sec, &log.mic_sec, &log.id,
+			&log.data[0], &log.data[1], &log.data[2], &log.data[3], &log.data[4], &log.data[5], &log.data[6], &log.data[7]);
 
-  fclose(file);
-
-  printf("Время выполнения: %0.3f\n", elapsed_ms);
+	log.can_bit (); 
+	log.print (); 
+  } 
 
   return 0;
 }
