@@ -1,57 +1,57 @@
 #include <cstdint>
 #include <cstdio>
+#include <vector>
 
-struct canframe {
-	uint64_t sec; // секунды
-	uint32_t mic_sec; // микросекунды
-	uint32_t id; // индификатор 
-	uint32_t pgn; // номер группы параметров 
-	uint8_t data [8]; // поле данных 
-	uint8_t byte_1; // голова 
-	uint8_t addr_su; // адрес источника
-	uint8_t addr_ds; // адрес назначения
-	uint8_t prior; // приоритет сообщения 
+struct can_frame {
+  uint64_t sec;
+  uint32_t usec;
+  uint32_t id;
+  uint32_t pgn;
+  uint8_t byte_1;
+  uint8_t src; // источник
+  uint8_t dst; // назначение
+  uint8_t prior;
+  uint8_t d[8];
 
-// битовый метод сдвигаю вытягиваю данные
-	void can_bit () {
-		prior = (id >> 26) & 0x7;  // вытягиваем приоритет
-		byte_1 = (id >> 16) & 0xFF; // вытягиваем 1 байт чтоб определить адресное или вещательное сообщение 
-		addr_su = id & 0xFF; // адрес бллок источник 
+  // Один метод прямо внутри для разбора ID
+  void parse_id() {
+    byte_1 = (id >> 16) & 0xFF;
+    src = id & 0xFF;
+    prior = (id >> 26) & 0x7;
 
-		if (byte_1 < 240) {
-			addr_ds = (id >> 8) & 0xFF; // вытягиваем блок назначения
-		} else {
-			pgn = (id >> 8) & 0x3FFFF;
-		}
-	}
-// метод печати 
-	void print () {
-		if (addr_su == 238){
-			printf (" PGN %04X Источ %03u ", pgn, addr_su);  
-			for (int i = 0; i < 8; i++) printf (" %02X", data[i]); 
-			printf ("\n"); 
-	}
-	
-	} 
-}; 
+    if (byte_1 < 240) {
+      dst = (id >> 8) & 0xFF;
+      pgn = 0;
+    } else {
+      dst = 0xFF;
+      pgn = (id >> 8) & 0xFFFF;
+    }
+  }
+};
 
 int main(int argc, char *argv[]) {
-  // открываем файл
   FILE *file = fopen(argv[1], "rb");
-  // берём память на стэке
-  char byf[128] = {0}; 
+  std::vector<can_frame> frames;
+  char buf[128] = {};
 
-  while (fgets(byf, sizeof(byf), file) != 0) { // ложим строку на стэ
-	
-	canframe log = {}; // создали обьект внутри цикла для обнуления переменных
+  while (fgets(buf, sizeof(buf), file)) {
+    can_frame f = {};
+    sscanf(buf,
+           " (%lu.%u) %*s %x [%*d] %hhx %hhx %hhx %hhx %hhx %hhx %hhx %hhx",
+           &f.sec, &f.usec, &f.id, &f.d[0], &f.d[1], &f.d[2], &f.d[3], &f.d[4],
+           &f.d[5], &f.d[6], &f.d[7]);
 
-	// чистим фрейм и присваиваем значение 	
-	sscanf(byf, " (%lu.%u) %*s %x [%*d] %hhx %hhx %hhx %hhx %hhx %hhx %hhx %hhx",&log.sec, &log.mic_sec, &log.id,
-			&log.data[0], &log.data[1], &log.data[2], &log.data[3], &log.data[4], &log.data[5], &log.data[6], &log.data[7]);
+    f.parse_id();
+    frames.push_back(f);
+  }
+  fclose(file);
 
-	log.can_bit (); 
-	log.print (); 
-  } 
+  // Дальше работаешь напрямую: одна точка, никаких матрёшек
+  for (const auto &f : frames) {
+    if (f.src == 238) {
+      printf("%lu.%u %X\n", f.sec, f.usec, f.pgn);
+    }
+  }
 
   return 0;
 }
